@@ -1,0 +1,48 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.slider {
+  -fx-pref-width: 100px;
+}
+
+.slider .track {
+  -fx-background-color: #ddd;
+}
+
+.slider .thumb {
+  -fx-background-color: #0076ff;
+  -fx-background-radius: 50%;
+  -fx-border-color: #0076ff;
+  -fx-border-width: 2px;
+  -fx-border-radius: 50%;
+  -fx-scale-x: 1.2;
+  -fx-scale-y: 1.2;
+}
+
+.slider .thumb:hover {
+  -fx-background-color: #009cff;
+  -fx-border-color: #009cff;
+}
+
+.slider .thumb:pressed {
+  -fx-background-color: #0055ff;
+  -fx-border-color: #0055ff;
+}
+
+.slider .thumb:focus {
+  -fx-background-color: #0076ff;
+  -fx-border-color: #0076ff;
+  -fx-focus-color: transparent;
+}
+
+.slider .value-label {
+  -fx-font-size: 10px;
+  -fx-background-color: #0076ff;
+  -fx-text-fill: white;
+  -fx-padding: 2px;
+  -fx-background-radius: 3px;
+  -fx-translate-y: -18px;
+  -fx-translate-x: -20%;
+}
+
+.slider .value-label .text {
+  -fx-font-size: 10px;
+}
