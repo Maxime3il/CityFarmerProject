@@ -1,4 +1,12 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+@font-face {
+	font-family: "Stardew Valley";
+    src: url("../fonts/StardewValleyMaj.ttf");
+}
+ 
+body {
+    -fx-font-family: "Stardew Valley";
+}
+
 .slider {
   -fx-pref-width: 100px;
 }
@@ -23,8 +31,8 @@
 }
 
 .slider .thumb:pressed {
-  -fx-background-color: #e3793b;
-  -fx-border-color: #e3793b;
+  -fx-background-color: #fed887;
+  -fx-border-color: #fed887;
 }
 
 .slider .thumb:focus {
@@ -48,6 +56,12 @@
 }
 
 #BtnJouer, #BtnParam, #BoutonPersonnage, #closeButton {
-    -fx-background-color: #fed789;
-    -fx-text-fill: white;
+-fx-background-image: url('../Images/Jouer.png');
+-fx-background-size: 282px 59px;
+-fx-background-position: center;
+-fx-background-repeat: no-repeat;
+-fx-padding: 10px 20px;
 }
+
+
+
