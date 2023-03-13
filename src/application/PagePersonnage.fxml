@@ -6,22 +6,22 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane prefHeight="600.0" prefWidth="1080.0" stylesheets="@applicationPersonnage.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PagePersonnageController">
-   <top>
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationPersonnage.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PagePersonnageController">
+   <center>
       <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@applicationPersonnage.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="closeButton" layoutX="1000.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="80.0" text="X" />
-            <ImageView fitHeight="500.0" fitWidth="500.0" layoutX="291.0" layoutY="37.0">
+            <Button fx:id="closeButton" layoutX="1840.0" layoutY="10.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="80.0" text="X" />
+            <ImageView fitHeight="623.0" fitWidth="598.0" layoutX="697.0" layoutY="245.0">
                <image>
                   <Image url="@../Images/CadrePersonnage.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="373.0" fitWidth="294.0" layoutX="406.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="373.0" fitWidth="294.0" layoutX="857.0" layoutY="357.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/sprite1.png" />
                </image>
             </ImageView>
          </children>
       </Pane>
-   </top>
+   </center>
 </BorderPane>

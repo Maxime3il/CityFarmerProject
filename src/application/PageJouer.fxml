@@ -4,11 +4,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane prefHeight="600.0" prefWidth="1080.0" stylesheets="@applicationJouer.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageJouerController">
-   <center>
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationJouer.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageJouerController">
+   <top>
       <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@applicationJouer.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="closeButton" layoutX="1000.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="80.0" text="X" />
+            <Button fx:id="closeButton" layoutX="1840.0" layoutY="10.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="80.0" text="X" />
          </children></Pane>
-   </center>
+   </top>
 </BorderPane>

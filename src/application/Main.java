@@ -13,7 +13,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
         try {
             BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("PageAccueil.fxml"));
-            Scene scene = new Scene(root,1080,600);
+            Scene scene = new Scene(root,1920,1080);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             primaryStage.setTitle("CityFarmer");
             primaryStage.setOnCloseRequest(event -> {

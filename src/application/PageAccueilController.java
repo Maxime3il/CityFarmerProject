@@ -37,7 +37,7 @@ public class PageAccueilController implements Initializable {
 
             stage.initStyle(StageStyle.UNDECORATED);
 
-            Scene scene = new Scene(root1, 1080, 600);
+            Scene scene = new Scene(root1, 1920, 1080);
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
@@ -78,8 +78,8 @@ public class PageAccueilController implements Initializable {
         media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
-        mediaView.setFitWidth(1080);
-        mediaView.setFitHeight(800);
+        mediaView.setFitWidth(1920);
+        mediaView.setFitHeight(1080);
         mediaPlayer.setVolume(0.2);
 
         volumeSlider.setMin(0);
