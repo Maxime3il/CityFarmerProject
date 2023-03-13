@@ -1,4 +1,4 @@
-package modele;
+package model;
 
 public class Player {
 	private String name;
@@ -74,14 +74,6 @@ public class Player {
     
     // Interact method to use items from inventory
     public void interact(Item item) {
-        if (inventory.contains(item)) {
-            // Use the item
-            item.use();
-            
-            // Remove the item from the inventory
-            inventory.remove(item);
-        } else {
-            System.out.println("You don't have this item in your inventory.");
-        }
+    	//TODO prochainement
     }
 }
