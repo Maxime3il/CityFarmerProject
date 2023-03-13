@@ -4,23 +4,11 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane stylesheets="@applicationJouer.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageJouerController">
+<BorderPane prefHeight="600.0" prefWidth="1080.0" stylesheets="@applicationJouer.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageJouerController">
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </center>
-   <top>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="closeButton" layoutX="486.0" layoutY="14.0" mnemonicParsing="false" onAction="#close" prefHeight="53.0" prefWidth="100.0" text="Quitter" />
+            <Button fx:id="closeButton" layoutX="1000.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="80.0" text="X" />
          </children></Pane>
-   </top>
-   <left>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </left>
-   <right>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </right>
-   <bottom>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </bottom>
+   </center>
 </BorderPane>

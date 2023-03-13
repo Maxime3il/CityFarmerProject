@@ -1,6 +1,5 @@
 @font-face {
-	font-family: "Stardew Valley";
-    src: url("../fonts/StardewValleyMaj.ttf");
+    src: url("../fonts/Stardew_Valley.otf");
 }
  
 body {
@@ -55,13 +54,25 @@ body {
   -fx-font-size: 10px;
 }
 
-#BtnJouer, #BtnParam, #BoutonPersonnage, #closeButton {
+#BtnJouer, #BtnParam, #BoutonPersonnage{
 -fx-background-image: url('../Images/Jouer.png');
--fx-background-size: 282px 59px;
+-fx-background-size: 282px 65x;
 -fx-background-position: center;
 -fx-background-repeat: no-repeat;
 -fx-padding: 10px 20px;
+-fx-font-family: "Stardew Valley";
+-fx-text-fill: #d15956;
+-fx-font-size: 48px;
 }
 
-
+#closeButton{
+-fx-background-image: url('../Images/Quitter.png');
+-fx-background-size: 80px 65px;
+-fx-background-position: center;
+-fx-background-repeat: no-repeat;
+-fx-padding: 10px 20px;
+-fx-font-family: "Stardew Valley";
+-fx-text-fill: #d15956;
+-fx-font-size: 48px;
+}
 
