@@ -76,3 +76,19 @@ body {
 -fx-font-size: 48px;
 }
 
+#styleSound{
+	-fx-background-image: url('../Images/Quitter.png');
+	-fx-background-size: 80px 65px;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
+	-fx-padding: 10px 20px;
+	-fx-font-family: "Stardew Valley";
+	-fx-text-fill: #d15956;
+	-fx-font-size: 48px;
+}
+
+
+
+
+
+
