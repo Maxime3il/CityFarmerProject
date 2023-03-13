@@ -2,7 +2,9 @@ package application;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 
 import java.io.File;
 import java.net.URL;
@@ -65,8 +67,51 @@ public class PageAccueilController implements Initializable {
     @FXML
    	private Button BtnJouer;
        @FXML
-       private void redirectJouer(ActionEvent event) {
-           lancerXML("PageJouer.fxml");
+       private void redirectJouer(ActionEvent evt) {
+    	   try {
+               FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("PageJouer.fxml"));
+               Parent root1 = (Parent) fxmlLoader.load();
+               Stage stage = new Stage();
+
+               stage.setOnCloseRequest(event -> {
+                   event.consume();
+               });
+
+               stage.initStyle(StageStyle.UNDECORATED);
+               
+               Scene scene = new Scene(root1, 1920, 1080);
+               stage.setScene(scene);
+               stage.setResizable(false);
+               stage.show();
+               
+               scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+
+       			@Override
+       			public void handle(KeyEvent event) {
+       				
+       				switch(event.getCode()) {
+       				
+       				case Z:
+       					PageJouerController.moveUp();
+       					break;
+       				case S:
+       					PageJouerController.moveDown();
+       					break;
+       				case Q:
+       					PageJouerController.moveLeft();
+       					break;
+       				case D:
+       					PageJouerController.moveRight();
+       					break;
+       				default:
+       					break;
+       				}		
+       			}	
+       		});
+           } catch (Exception e) {
+               e.printStackTrace(System.err);
+               System.out.println("Impossible de charger la fenêtre");
+           }      
        }
 
     @FXML

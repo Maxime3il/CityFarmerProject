@@ -12,4 +12,21 @@ public class PageJouerController {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
+	
+	public static void moveUp() {
+		System.out.println("haut");
+	}
+	
+	public static void moveDown() {
+		System.out.println("bas");
+	}
+	
+	public static void moveLeft() {
+		
+		System.out.println("gauche");
+	}
+	
+	public static void moveRight() {
+		System.out.println("droite");
+	}
 }
