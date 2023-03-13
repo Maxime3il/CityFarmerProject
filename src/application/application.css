@@ -8,9 +8,9 @@
 }
 
 .slider .thumb {
-  -fx-background-color: #0076ff;
+  -fx-background-color: #e2793f;
   -fx-background-radius: 50%;
-  -fx-border-color: #0076ff;
+  -fx-border-color: #e2793f;
   -fx-border-width: 2px;
   -fx-border-radius: 50%;
   -fx-scale-x: 1.2;
@@ -18,24 +18,24 @@
 }
 
 .slider .thumb:hover {
-  -fx-background-color: #009cff;
-  -fx-border-color: #009cff;
+  -fx-background-color: #fed887;
+  -fx-border-color: #fed887;
 }
 
 .slider .thumb:pressed {
-  -fx-background-color: #0055ff;
-  -fx-border-color: #0055ff;
+  -fx-background-color: #e3793b;
+  -fx-border-color: #e3793b;
 }
 
 .slider .thumb:focus {
-  -fx-background-color: #0076ff;
-  -fx-border-color: #0076ff;
+  -fx-background-color: #e3793b;
+  -fx-border-color: #e2793f;
   -fx-focus-color: transparent;
 }
 
 .slider .value-label {
   -fx-font-size: 10px;
-  -fx-background-color: #0076ff;
+  -fx-background-color: #e2793f;
   -fx-text-fill: white;
   -fx-padding: 2px;
   -fx-background-radius: 3px;
