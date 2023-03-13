@@ -15,6 +15,8 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class PageAccueilController implements Initializable {
     @FXML
@@ -27,6 +29,13 @@ public class PageAccueilController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
+
+            stage.setOnCloseRequest(event -> {
+                event.consume();
+            });
+
+            stage.initStyle(StageStyle.UNDECORATED);
+
             Scene scene = new Scene(root1, 1080, 600);
             stage.setScene(scene);
             stage.setResizable(false);
@@ -36,7 +45,6 @@ public class PageAccueilController implements Initializable {
             System.out.println("Impossible de charger la fenêtre");
         }
     }
-
 	
 	@FXML
 	private Button BoutonPersonnage;
@@ -46,7 +54,19 @@ public class PageAccueilController implements Initializable {
         lancerXML("PagePersonnage.fxml");
     }
     
+    @FXML
+	private Button BtnParam;
+    @FXML
+    private void redirectParam(ActionEvent event) {
+        lancerXML("PageParametre.fxml");
+    }
     
+    @FXML
+   	private Button BtnJouer;
+       @FXML
+       private void redirectJouer(ActionEvent event) {
+           lancerXML("PageJouer.fxml");
+       }
 
     @FXML
     private Slider volumeSlider;
@@ -57,21 +77,25 @@ public class PageAccueilController implements Initializable {
         media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
-        mediaPlayer.setAutoPlay(true);
         mediaView.setFitWidth(1080);
         mediaView.setFitHeight(800);
-        mediaPlayer.setVolume(0.5);
+        mediaPlayer.setVolume(0.2);
 
         volumeSlider.setMin(0);
         volumeSlider.setMax(1);
-        volumeSlider.setValue(0.5);
+        volumeSlider.setValue(0.2);
 
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             mediaPlayer.setVolume(newValue.doubleValue());
         });
-    }
-    
-    
+        
+        mediaPlayer.setOnEndOfMedia(() -> {
+           
+            mediaPlayer.seek(Duration.ZERO);
+        });
+        mediaPlayer.setAutoPlay(true);
+}
+
     @FXML
 	private Button closeButton;
     

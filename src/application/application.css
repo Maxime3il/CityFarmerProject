@@ -46,3 +46,8 @@
 .slider .value-label .text {
   -fx-font-size: 10px;
 }
+
+#BtnJouer, #BtnParam, #BoutonPersonnage, #closeButton {
+    -fx-background-color: #fed789;
+    -fx-text-fill: white;
+}
