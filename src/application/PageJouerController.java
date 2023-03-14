@@ -1,5 +1,6 @@
 package application;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -8,6 +9,9 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -17,6 +21,10 @@ import javafx.stage.Stage;
 public class PageJouerController {
 	@FXML
 	private Button closeButton;
+	
+	@FXML
+	private Button buttonSprite;
+	
 	@FXML
     void close() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -118,5 +126,26 @@ public class PageJouerController {
         }
     };
 
+    @FXML
+    void OpenSpriteInformation() {
+        try {
+            // Charger le fichier FXML qui définit la fenêtre
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("chemin/vers/votre/fichier.fxml"));
+            Parent root = loader.load();
+            
+            // Créer une nouvelle scène avec la fenêtre chargée
+            Scene scene = new Scene(root, 780, 420);
+            
+            // Créer une nouvelle fenêtre avec la scène
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            
+            // Afficher la fenêtre
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
     
 }
