@@ -7,52 +7,22 @@ body {
 }
 
 .slider {
-  -fx-pref-width: 100px;
+  -fx-pref-width: 150px;
+  -fx-padding: 2px;
 }
 
 .slider .track {
-  -fx-background-color: #ddd;
+  -fx-background-color: #e2793f;
 }
 
 .slider .thumb {
-  -fx-background-color: #e2793f;
+  -fx-background-color: #e3793b;
   -fx-background-radius: 50%;
-  -fx-border-color: #e2793f;
+  -fx-border-color: #e3793b;
   -fx-border-width: 2px;
   -fx-border-radius: 50%;
-  -fx-scale-x: 1.2;
-  -fx-scale-y: 1.2;
 }
 
-.slider .thumb:hover {
-  -fx-background-color: #fed887;
-  -fx-border-color: #fed887;
-}
-
-.slider .thumb:pressed {
-  -fx-background-color: #fed887;
-  -fx-border-color: #fed887;
-}
-
-.slider .thumb:focus {
-  -fx-background-color: #e3793b;
-  -fx-border-color: #e2793f;
-  -fx-focus-color: transparent;
-}
-
-.slider .value-label {
-  -fx-font-size: 10px;
-  -fx-background-color: #e2793f;
-  -fx-text-fill: white;
-  -fx-padding: 2px;
-  -fx-background-radius: 3px;
-  -fx-translate-y: -18px;
-  -fx-translate-x: -20%;
-}
-
-.slider .value-label .text {
-  -fx-font-size: 10px;
-}
 
 #BtnJouer, #BtnParam, #BoutonPersonnage{
 -fx-background-image: url('../Images/Jouer.png');
@@ -65,7 +35,7 @@ body {
 -fx-font-size: 72px;
 }
 
-#closeButton, #styleSound{
+#closeButton{
 -fx-background-image: url('../Images/Quitter.png');
 -fx-background-size: 80px 65px;
 -fx-background-position: center;
@@ -76,7 +46,21 @@ body {
 -fx-font-size: 48px;
 }
 
+#couperSonMusique{
+-fx-background-image: url('../Images/BoutonNote.png');
+-fx-background-size: 80px 65px;
+-fx-background-position: center;
+-fx-background-repeat: no-repeat;
+-fx-padding: 10px 20px;
+}
 
+#couperSonMusique.muted{
+-fx-background-image: url('../Images/BoutonNoteBarre.png');
+-fx-background-size: 80px 65px;
+-fx-background-position: center;
+-fx-background-repeat: no-repeat;
+-fx-padding: 10px 20px;
+}
 
 
 

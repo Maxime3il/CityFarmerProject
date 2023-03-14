@@ -2,9 +2,7 @@ package application;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -24,13 +22,10 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class PageAccueilController implements Initializable {
-	
     @FXML
     private MediaView mediaView;
     private MediaPlayer mediaPlayer;
     private Media media;
-    
-    private PageJouerController jouerController = new PageJouerController();
     
     private void lancerXML(String url) {
         try {
@@ -71,13 +66,16 @@ public class PageAccueilController implements Initializable {
     
     @FXML
    	private Button BtnJouer;
-       @FXML
-       private void redirectJouer(ActionEvent evt) {
-           lancerXML("PageJouer.fxml");    
-       }
-
+    @FXML
+    private void redirectJouer(ActionEvent evt) {
+        lancerXML("PageJouer.fxml");    
+    }
     @FXML
     private Slider volumeSlider;
+    
+    @FXML
+    private Button couperSonMusique;
+    
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -88,18 +86,26 @@ public class PageAccueilController implements Initializable {
         mediaView.setFitWidth(1920);
         mediaView.setFitHeight(1080);
         mediaPlayer.setVolume(0.2);
-
         volumeSlider.setMin(0);
         volumeSlider.setMax(1);
         volumeSlider.setValue(0.2);
-
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
             mediaPlayer.setVolume(newValue.doubleValue());
-        });
-        
-        mediaPlayer.setOnEndOfMedia(() -> {
-           
+        });        
+        mediaPlayer.setOnEndOfMedia(() -> {           
             mediaPlayer.seek(Duration.ZERO);
+        });
+        couperSonMusique.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(mediaPlayer.isMute()){
+                    mediaPlayer.setMute(false);
+                    couperSonMusique.getStyleClass().remove("muted");
+                }else{
+                    mediaPlayer.setMute(true);
+                    couperSonMusique.getStyleClass().add("muted");
+                }
+            }
         });
         mediaPlayer.setAutoPlay(true);
         

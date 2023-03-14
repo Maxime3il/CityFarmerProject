@@ -101,7 +101,6 @@ public class PageJouerController {
         public void handle(long timestamp) {
 
             if(wPressed.get()) {
-            	System.out.println("gg");
                 sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
             }
 
