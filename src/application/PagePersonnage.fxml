@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationPersonnage.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PagePersonnageController">
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationPersonnage.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PagePersonnageController">
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@applicationPersonnage.css" BorderPane.alignment="CENTER">
          <children>
@@ -19,7 +19,7 @@
                   <Image url="@../Images/CadrePersonnage.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="300.0" fitWidth="250.0" layoutX="878.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="MyImageView" fitHeight="300.0" fitWidth="250.0" layoutX="878.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/sprite1.png" />
                </image>
@@ -32,6 +32,8 @@
             <Label fx:id="textePersonnalisation" layoutX="799.0" layoutY="743.0" prefHeight="26.0" prefWidth="135.0" text="Nom" />
             <Label fx:id="textePersonnalisation" layoutX="798.0" layoutY="654.0" prefHeight="26.0" prefWidth="135.0" text="Genre" />
             <ComboBox fx:id="myComboBoxAge" layoutX="971.0" layoutY="702.0" prefWidth="150.0" />
+            <Button fx:id="previousButton" layoutX="792.0" layoutY="525.0" mnemonicParsing="false" onAction="#handlePreviousButton" text="Precedent" />
+            <Button fx:id="nextButton" layoutX="1116.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleNextButton" text="Suivant" />
          </children>
       </Pane>
    </center>
