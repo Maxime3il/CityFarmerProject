@@ -2,7 +2,6 @@ package application;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.input.KeyEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 

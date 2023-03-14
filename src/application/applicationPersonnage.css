@@ -22,3 +22,10 @@ body {
 -fx-text-fill: #d15956;
 -fx-font-size: 48px;
 }
+
+#textePersonnalisation{
+    -fx-padding: 10px 20px;
+    -fx-font-family: "Stardew Valley";
+    -fx-text-fill: #d15956;
+    -fx-font-size: 24px;
+}
