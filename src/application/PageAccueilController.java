@@ -113,10 +113,10 @@ public class PageAccueilController implements Initializable {
 		mediaView.setMediaPlayer(mediaPlayer);
 		mediaView.setFitWidth(1920);
 		mediaView.setFitHeight(1080);
-		mediaPlayer.setVolume(0.2);
+		mediaPlayer.setVolume(0.1);
 		volumeSlider.setMin(0);
 		volumeSlider.setMax(1);
-		volumeSlider.setValue(0.2);
+		volumeSlider.setValue(0.1);
 		volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
 			mediaPlayer.setVolume(newValue.doubleValue());
 		});
@@ -174,6 +174,14 @@ public class PageAccueilController implements Initializable {
 			}
 		});
 		couperSonMusique.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				if (jouerSonActif) {
+					jouerSon("C:\\Users\\a.ruiz\\eclipse-workspace\\CityFarmer\\src\\Audio\\Personnage.mp3");
+				}
+			}
+		});
+		btnActiverDesactiverSon.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				if (jouerSonActif) {
