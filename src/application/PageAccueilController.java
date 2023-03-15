@@ -48,7 +48,7 @@ public class PageAccueilController implements Initializable {
             System.out.println("Impossible de charger la fenêtre");
         }
     }
-	
+	//
 	@FXML
 	private Button BoutonPersonnage;
 
