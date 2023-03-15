@@ -1,5 +1,8 @@
 package application;
 
+import javafx.scene.input.MouseEvent;
+
+
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
@@ -20,24 +23,15 @@ public class PagePersonnageController {
 
 	@FXML
 	private ComboBox<String> myComboBox;
-
-	@FXML
-	private ComboBox<String> myComboBoxAge;
-
 	@FXML
 	public void initialize() {
 	    myComboBox.getItems().addAll("Homme", "Femme", "Autre");
 	    myComboBox.setValue("Homme");
 
-	    // Afficher par défaut les images du tableau personnagesHommes
 	    personnages = personnagesHommes;
 	    afficherImage();
 
-	    for (int i = 0; i <= 100; i++) {
-	        myComboBoxAge.getItems().add(Integer.toString(i));
-	    }
-
-	    myComboBox.setOnAction((event) -> {
+	    myComboBox.setOnAction((ActionEvent event) -> {
 	        String selectedValue = myComboBox.getValue();
 	        switch (selectedValue) {
 	            case "Homme":
@@ -47,7 +41,7 @@ public class PagePersonnageController {
 	                personnages = personnagesFemmes;
 	                break;
 	            case "Autre":
-	            default:
+	            	default :
 	                personnages = personnagesAutre;
 	                break;
 	        }
@@ -57,22 +51,22 @@ public class PagePersonnageController {
 
 	private String[] personnages;
 	private String[] personnagesHommes = { "../Images/sprite5.png", "../Images/sprite6.png" };
-	private String[] personnagesFemmes = { "../Images/sprite1.png", "../Images/sprite3.png", "../Images/sprite4.png" };
-	private String[] personnagesAutre = { "../Images/sprite2.png" };
+	private String[] personnagesFemmes = { "../Images/sprite1.png", "../Images/sprite4.png" };
+	private String[] personnagesAutre = { "../Images/sprite2.png", "../Images/sprite1.png", "../Images/sprite4.png", "../Images/sprite5.png", "../Images/sprite6.png" };
 
 	@FXML
 	private ImageView MyImageView;
+	
+	@FXML
+    private ImageView nextButton;
 
 	@FXML
-	private Button nextButton;
-
-	@FXML
-	private Button previousButton;
+    private ImageView previousButton;
 
 	private int indice = 0;
 
 	@FXML
-	public void handleNextButton(ActionEvent event) {
+	public void handleNextButton(MouseEvent event) {
 	    indice++;
 	    if (indice >= personnages.length) {
 	        indice = 0;
@@ -81,7 +75,7 @@ public class PagePersonnageController {
 	}
 
 	@FXML
-	public void handlePreviousButton(ActionEvent event) {
+	public void handlePreviousButton(MouseEvent event) {
 	    indice--;
 	    if (indice < 0) {
 	        indice = personnages.length - 1;
@@ -89,10 +83,20 @@ public class PagePersonnageController {
 	    afficherImage();
 	}
 
+
 	private void afficherImage() {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
 	    MyImageView.setImage(image);
 	}
+	
+	@FXML
+    private Button validatePerso;
+	@FXML
+    public void valider(ActionEvent event) {
+		System.out.println();
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.close();
+    }
 
 
 

@@ -8,32 +8,47 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationPersonnage.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PagePersonnageController">
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationPersonnage.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PagePersonnageController">
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@applicationPersonnage.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="closeButton" layoutX="1840.0" layoutY="10.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="80.0" text="X" />
-            <ImageView fitHeight="751.0" fitWidth="598.0" layoutX="697.0" layoutY="241.0">
+            <ImageView fitHeight="816.0" fitWidth="735.0" layoutX="638.0" layoutY="244.0">
                <image>
                   <Image url="@../Images/CadrePersonnage.png" />
                </image>
             </ImageView>
-            <ImageView fx:id="MyImageView" fitHeight="300.0" fitWidth="250.0" layoutX="878.0" layoutY="337.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="MyImageView" fitHeight="300.0" fitWidth="250.0" layoutX="872.0" layoutY="362.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/sprite1.png" />
                </image>
             </ImageView>
-            <TextField layoutX="966.0" layoutY="808.0" prefHeight="41.0" prefWidth="181.0" />
-            <TextField layoutX="967.0" layoutY="747.0" prefHeight="41.0" prefWidth="181.0" />
-            <ComboBox fx:id="myComboBox" layoutX="970.0" layoutY="655.0" prefWidth="150.0" />
-            <Label fx:id="textePersonnalisation" layoutX="802.0" layoutY="690.0" prefHeight="26.0" prefWidth="135.0" text="Age" />
-            <Label fx:id="textePersonnalisation" layoutX="798.0" layoutY="804.0" prefHeight="26.0" prefWidth="135.0" text="Prenom" />
-            <Label fx:id="textePersonnalisation" layoutX="799.0" layoutY="743.0" prefHeight="26.0" prefWidth="135.0" text="Nom" />
-            <Label fx:id="textePersonnalisation" layoutX="798.0" layoutY="654.0" prefHeight="26.0" prefWidth="135.0" text="Genre" />
-            <ComboBox fx:id="myComboBoxAge" layoutX="971.0" layoutY="702.0" prefWidth="150.0" />
-            <Button fx:id="previousButton" layoutX="792.0" layoutY="525.0" mnemonicParsing="false" onAction="#handlePreviousButton" text="Precedent" />
-            <Button fx:id="nextButton" layoutX="1116.0" layoutY="526.0" mnemonicParsing="false" onAction="#handleNextButton" text="Suivant" />
+            <TextField fx:id="inputPrenom" layoutX="906.0" layoutY="748.0" prefHeight="51.0" prefWidth="265.0" />
+            <TextField fx:id="inputNom" layoutX="906.0" layoutY="687.0" prefHeight="51.0" prefWidth="265.0" />
+            <ComboBox fx:id="myComboBox" layoutX="906.0" layoutY="626.0" prefHeight="51.0" prefWidth="265.0" />
+            <Label fx:id="textePersonnalisation" layoutX="768.0" layoutY="745.0" prefHeight="26.0" prefWidth="135.0" text="Prenom" />
+            <Label fx:id="textePersonnalisation" layoutX="769.0" layoutY="684.0" prefHeight="26.0" prefWidth="135.0" text="Nom" />
+            <Label fx:id="textePersonnalisation" layoutX="768.0" layoutY="627.0" prefHeight="26.0" prefWidth="135.0" text="Genre" />
+            <Button fx:id="validatePerso" layoutX="910.0" layoutY="883.0" mnemonicParsing="false" onAction="#valider" prefHeight="71.0" prefWidth="175.0" text="Valider" />
+            <ImageView fx:id="nextButton" fitHeight="53.0" fitWidth="38.0" layoutX="1109.0" layoutY="488.0" onMouseClicked="#handleNextButton">
+               <image>
+                  <Image url="@../Images/Fleche.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="previousButton" fitHeight="53.0" fitWidth="38.0" layoutX="848.0" layoutY="487.0" nodeOrientation="RIGHT_TO_LEFT" onMouseClicked="#handlePreviousButton">
+               <image>
+                  <Image url="@../Images/Fleche.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="labelChoix" alignment="CENTER" contentDisplay="CENTER" layoutX="230.0" layoutY="78.0" prefHeight="112.0" prefWidth="1489.0" text="Choix du personnage">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="textePersonnalisation" layoutX="747.0" layoutY="793.0" prefHeight="79.0" prefWidth="215.0" text="Nom ferme" />
+            <TextField fx:id="inputFerme" layoutX="906.0" layoutY="807.0" prefHeight="51.0" prefWidth="265.0" />
          </children>
       </Pane>
    </center>

@@ -2,16 +2,14 @@ package model;
 
 public class Player {
 	private String name;
-    private int age;
     private Gender gender;
     private int energy;
     private int health;
     private Inventory inventory;
     
     // Constructor
-    public Player(String name, int age, Gender gender, int energy, int health, Inventory inventory) {
+    public Player(String name, Gender gender, int energy, int health, Inventory inventory) {
         this.name = name;
-        this.age = age;
         this.gender = gender;
         this.energy = energy;
         this.health = health;
@@ -25,14 +23,6 @@ public class Player {
     
     public void setName(String name) {
         this.name = name;
-    }
-    
-    public int getAge() {
-        return age;
-    }
-    
-    public void setAge(int age) {
-        this.age = age;
     }
     
     public Gender getGender() {
