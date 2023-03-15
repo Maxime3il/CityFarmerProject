@@ -2,20 +2,29 @@ package model;
 
 public class Player {
 	private String name;
+	private String lastName;
     private int age;
     private Gender gender;
-    private int energy;
-    private int health;
+    private double energy;
+    private double health;
     private Inventory inventory;
     
     // Constructor
-    public Player(String name, int age, Gender gender, int energy, int health, Inventory inventory) {
+    public Player(String lastName, String name, Gender gender, double energy, double health, Inventory inventory) {
         this.name = name;
-        this.age = age;
         this.gender = gender;
         this.energy = energy;
         this.health = health;
         this.inventory = inventory;
+    }
+    
+    // Getter and Setter methods for all attributes
+    public String getLastName() {
+        return lastName;
+    }
+    
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
     
     // Getter and Setter methods for all attributes
@@ -27,14 +36,6 @@ public class Player {
         this.name = name;
     }
     
-    public int getAge() {
-        return age;
-    }
-    
-    public void setAge(int age) {
-        this.age = age;
-    }
-    
     public Gender getGender() {
         return gender;
     }
@@ -43,19 +44,19 @@ public class Player {
         this.gender = gender;
     }
     
-    public int getEnergy() {
+    public double getEnergy() {
         return energy;
     }
     
-    public void setEnergy(int energy) {
+    public void setEnergy(double energy) {
         this.energy = energy;
     }
     
-    public int getHealth() {
+    public double getHealth() {
         return health;
     }
     
-    public void setHealth(int health) {
+    public void setHealth(double health) {
         this.health = health;
     }
     
