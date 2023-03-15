@@ -99,7 +99,7 @@ public class PageJouerController {
 
 			if(wPressed.get()) {
 				//if ( -2 < sprite.getLayoutY()) {
-				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX()) {
+				if ((((sprite.getLayoutX() < 464 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1138 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 				}
