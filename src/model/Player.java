@@ -10,7 +10,7 @@ public class Player {
     private Inventory inventory;
     
     // Constructor
-    public Player(String lastName, String name, Gender gender, double energy, double health, Inventory inventory) {
+    public Player(String name, Gender gender, int energy, int health, Inventory inventory) {
         this.name = name;
         this.gender = gender;
         this.energy = energy;
