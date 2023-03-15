@@ -16,7 +16,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class PageJouerController {
+public class PageMaisonController {
+
 	@FXML
 	private Button closeButton;
 	@FXML
@@ -31,34 +32,33 @@ public class PageJouerController {
 	@FXML
 	private BorderPane scene;
 
-
 	@FXML
 	public void initialize() {
 		makeMovable(sprite, scene);
 	}
-	
+
 	private void lancerXML(String url) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
+			Parent root1 = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
 
-            stage.setOnCloseRequest(event -> {
-                event.consume();
-            });
+			stage.setOnCloseRequest(event -> {
+				event.consume();
+			});
 
-            stage.initStyle(StageStyle.UNDECORATED);
+			stage.initStyle(StageStyle.UNDECORATED);
 
-            Scene scene = new Scene(root1, 1920, 1080);
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace(System.err);
-            System.out.println("Impossible de charger la fenêtre");
-        }
-    }
-	
+			Scene scene = new Scene(root1, 1920, 1080);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+			System.out.println("Impossible de charger la fenêtre");
+		}
+	}
+
 	private void movementSetup(){
 		scene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.Z) {
@@ -126,14 +126,9 @@ public class PageJouerController {
 		public void handle(long timestamp) {
 
 			if(wPressed.get()) {
-				if ((((sprite.getLayoutX() < 464 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1138 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
+				if (-2 < sprite.getLayoutY()) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
-					if (sprite.getLayoutX() <= 904 && sprite.getLayoutX() >= 868 && sprite.getLayoutY() == 146) {
-						System.out.println("On change de fen�tre");
-						close(); 
-						lancerXML("PageMaison.fxml");
-					}
 				}
 			}
 
@@ -141,24 +136,27 @@ public class PageJouerController {
 				if ( 926 > sprite.getLayoutY()) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
+					if (sprite.getLayoutX() <= 576 && sprite.getLayoutX() >= 526 && sprite.getLayoutY() == 772) {
+						close(); 
+						lancerXML("PageJouer.fxml");
+					}
 				}
 			}
 
 			if(aPressed.get()){
-				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && -12 < sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && -12 < sprite.getLayoutX()) {
+				if (-12 < sprite.getLayoutX()) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
 
 			if(dPressed.get()){
-				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX()) {
+				if (1832 > sprite.getLayoutX()) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
 				}
 			}
 		}
 	};
-
-
 }
+

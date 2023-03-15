@@ -32,7 +32,7 @@ public class PageAccueilController implements Initializable {
     
     private PageJouerController jouerController = new PageJouerController();
     
-    private void lancerXML(String url) {
+    public void lancerXML(String url) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
             Parent root1 = (Parent) fxmlLoader.load();
