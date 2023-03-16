@@ -11,6 +11,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.Gender;
+import model.Inventory;
+import model.Player;
+import javafx.scene.control.TextField;
+
 
 public class PagePersonnageController {
 	@FXML
@@ -46,6 +51,7 @@ public class PagePersonnageController {
 				break;
 			}
 			afficherImage();
+			System.out.println(selectedValue);
 		});
 	}
 
@@ -90,15 +96,34 @@ public class PagePersonnageController {
 
 	@FXML
 	private Button validatePerso;
+	
+	@FXML
+    private TextField inputNom;
+	
+	@FXML
+    private TextField inputPrenom;
+	
+	@FXML
+    private TextField inputFerme;
+	
+	public static Player player;
 
 	@FXML
 	public void valider(ActionEvent event) {
-		System.out.println();
-		Stage stage = (Stage) closeButton.getScene().getWindow();
-		stage.close();
+	    String nom = inputNom.getText();
+	    String prenom = inputPrenom.getText();
+	    String nomFerme = inputFerme.getText();
+	    if(nom.isEmpty() || prenom.isEmpty() || nomFerme.isEmpty()){
+	        System.out.println("Veuillez remplir tous les champs.");
+	        return;
+	    }
+	    
+	    player = new Player(nom + " " + prenom, Gender.MALE, 100, 100, new Inventory());
+	    System.out.println(PagePersonnageController.player.getName());
+	    Stage stage = (Stage) closeButton.getScene().getWindow();
+	    stage.close();
 	}
 
-
-
+	
 
 }
