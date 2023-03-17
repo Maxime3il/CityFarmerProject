@@ -26,7 +26,9 @@ public class PageAccueilController implements Initializable {
     private MediaPlayer mediaPlayer;
     private Media media;
     
-    private void lancerXML(String url) {
+    private PageJouerController jouerController = new PageJouerController();
+    
+    public void lancerXML(String url) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
             Parent root1 = (Parent) fxmlLoader.load();
