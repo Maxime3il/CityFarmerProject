@@ -77,4 +77,5 @@ public class Player {
     public void interact(Item item) {
     	//TODO prochainement
     }
+
 }
