@@ -48,20 +48,17 @@ public class PageInformationPersonnageController {
 
     private Timeline timeline;    
     
-    private double progressValueEnergy = 1.0;
-    
-    private double progressValueHealth = 1.0;
-    
+    private double progressValueEnergy = PagePersonnageController.player.getEnergy();
+        
     @FXML
     public void initialize() {
     	//TODO A MODIFIER APRES LE CHOIX DU PERSONNAGE 
-    	labelNom.setText("Barbaste");
-    	labelPrenom.setText("Maxime");
-    	labelGenre.setText("Homme");
-    	Player playerBouchon = new Player(labelNom.getText(), labelPrenom.getText(), Gender.MALE, progressValueEnergy, progressValueHealth, null);
-    	System.out.println(playerBouchon.getEnergy());
-    	energyProgressBar.setProgress(playerBouchon.getEnergy());
-        healthProgressBar.setProgress(playerBouchon.getHealth());
+    	labelNom.setText(PagePersonnageController.player.getLastName());
+    	labelPrenom.setText(PagePersonnageController.player.getName());
+    	labelGenre.setText(PagePersonnageController.player.getGender() + "");
+    	energyProgressBar.setProgress(PagePersonnageController.player.getEnergy());
+        healthProgressBar.setProgress(PagePersonnageController.player.getHealth());
+        System.out.println(PagePersonnageController.player.getEnergy());
         startTimeEnergyBar();
     }
     
@@ -73,6 +70,7 @@ public class PageInformationPersonnageController {
     
     private void updateEnergyProgessBar() {
     	progressValueEnergy -= 0.1;
+    	PagePersonnageController.player.setEnergy(progressValueEnergy);
         energyProgressBar.setProgress(progressValueEnergy);
         if (progressValueEnergy <= 0.0) {
             timeline.stop();
