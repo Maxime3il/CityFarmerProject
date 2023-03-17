@@ -8,9 +8,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import model.Gender;
+import model.Inventory;
 import model.Player;
 
 public class PagePersonnageController {
@@ -22,6 +25,8 @@ public class PagePersonnageController {
 		stage.close();
 	}
 
+	public Gender currentGender;
+	
 	@FXML
 	private ComboBox<String> myComboBox;
 	@FXML
@@ -37,13 +42,16 @@ public class PagePersonnageController {
 	        switch (selectedValue) {
 	            case "Homme":
 	                personnages = personnagesHommes;
+	                currentGender = Gender.MALE;
 	                break;
 	            case "Femme":
 	                personnages = personnagesFemmes;
+	                currentGender = Gender.FEMALE;
 	                break;
 	            case "Autre":
 	            	default :
 	                personnages = personnagesAutre;
+	                currentGender = Gender.OTHER;
 	                break;
 	        }
 	        afficherImage();
@@ -92,10 +100,31 @@ public class PagePersonnageController {
 	
 	@FXML
     private Button validatePerso;
+	
 	@FXML
-    public void valider(ActionEvent event) {
-		System.out.println();
-		Stage stage = (Stage) closeButton.getScene().getWindow();
-		stage.close();
-    }
+    private TextField inputNom;
+	
+	@FXML
+    private TextField inputPrenom;
+	
+	@FXML
+    private TextField inputFerme;
+	
+	public static Player player;
+	
+	@FXML
+	public void valider(ActionEvent event) {
+	    String nom = inputNom.getText();
+	    String prenom = inputPrenom.getText();
+	    String nomFerme = inputFerme.getText();
+	    if(nom.isEmpty() || prenom.isEmpty() || nomFerme.isEmpty()){
+	        System.out.println("Veuillez remplir tous les champs.");
+	        return;
+	    }
+	    
+	    player = new Player(prenom, nom, currentGender, 1, 1, new Inventory());
+	    System.out.println(PagePersonnageController.player.getName());
+	    Stage stage = (Stage) closeButton.getScene().getWindow();
+	    stage.close();
+	}
 }
