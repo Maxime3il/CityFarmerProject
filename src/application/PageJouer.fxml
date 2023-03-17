@@ -16,6 +16,7 @@
                   <Image url="@../Images/sprite1.png" />
                </image>
             </ImageView>
+            <Button fx:id="buttonSprite" layoutX="40.0" layoutY="43.0" mnemonicParsing="false" onAction="#OpenSpriteInformation" prefHeight="64.0" prefWidth="72.0" text="!" />
          </children></Pane>
    </center>
    

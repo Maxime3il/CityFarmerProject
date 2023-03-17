@@ -47,14 +47,6 @@ public class PageAccueilController implements Initializable {
             System.out.println("Impossible de charger la fenêtre");
         }
     }
-	
-	@FXML
-	private Button BoutonPersonnage;
-
-    @FXML
-    private void redirectPersonnage(ActionEvent event) {
-        lancerXML("PagePersonnage.fxml");
-    }
     
     @FXML
 	private Button BtnParam;
@@ -67,7 +59,7 @@ public class PageAccueilController implements Initializable {
    	private Button BtnJouer;
     @FXML
     private void redirectJouer(ActionEvent evt) {
-        lancerXML("PageJouer.fxml");    
+        lancerXML("PagePersonnage.fxml");    
     }
     @FXML
     private Slider volumeSlider;

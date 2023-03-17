@@ -25,11 +25,11 @@
                   <Image url="@../Images/sprite1.png" />
                </image>
             </ImageView>
-            <TextField fx:id="inputPrenom" layoutX="906.0" layoutY="709.0" prefHeight="51.0" prefWidth="265.0" />
-            <TextField fx:id="inputNom" layoutX="906.0" layoutY="648.0" prefHeight="51.0" prefWidth="265.0" />
+            <TextField fx:id="inputPrenom" layoutX="906.0" layoutY="649.0" prefHeight="51.0" prefWidth="265.0" />
+            <TextField fx:id="inputNom" layoutX="906.0" layoutY="709.0" prefHeight="51.0" prefWidth="265.0" />
             <ComboBox fx:id="myComboBox" layoutX="906.0" layoutY="587.0" prefHeight="51.0" prefWidth="265.0" />
-            <Label fx:id="textePersonnalisation" layoutX="768.0" layoutY="706.0" prefHeight="26.0" prefWidth="135.0" text="Prenom" />
-            <Label fx:id="textePersonnalisation" layoutX="769.0" layoutY="645.0" prefHeight="26.0" prefWidth="135.0" text="Nom" />
+            <Label fx:id="textePersonnalisation" layoutX="768.0" layoutY="646.0" prefHeight="26.0" prefWidth="135.0" text="Prenom" />
+            <Label fx:id="textePersonnalisation" layoutX="769.0" layoutY="706.0" prefHeight="26.0" prefWidth="135.0" text="Nom" />
             <Label fx:id="textePersonnalisation" layoutX="768.0" layoutY="588.0" prefHeight="26.0" prefWidth="135.0" text="Genre" />
             <Button fx:id="validatePerso" layoutX="910.0" layoutY="844.0" mnemonicParsing="false" onAction="#valider" prefHeight="71.0" prefWidth="175.0" text="Valider" />
             <ImageView fx:id="nextButton" fitHeight="53.0" fitWidth="38.0" layoutX="1109.0" layoutY="449.0" onMouseClicked="#handleNextButton">

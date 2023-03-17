@@ -6,18 +6,44 @@ import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Gender;
 import model.Inventory;
 import model.Player;
-import javafx.scene.control.TextField;
-
 
 public class PagePersonnageController {
+	
+	 private void lancerXML(String url) {
+	        try {
+	            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
+	            Parent root1 = (Parent) fxmlLoader.load();
+	            Stage stage = new Stage();
+
+	            stage.setOnCloseRequest(event -> {
+	                event.consume();
+	            });
+
+	            stage.initStyle(StageStyle.UNDECORATED);
+
+	            Scene scene = new Scene(root1, 1920, 1080);
+	            stage.setScene(scene);
+	            stage.setResizable(false);
+	            stage.show();
+	        } catch (Exception e) {
+	            e.printStackTrace(System.err);
+	            System.out.println("Impossible de charger la fenêtre");
+	        }
+	    }
+	   	
 	@FXML
 	private Button closeButton;
 	@FXML
@@ -26,33 +52,37 @@ public class PagePersonnageController {
 		stage.close();
 	}
 
+	public Gender currentGender = Gender.MALE;
+	
 	@FXML
 	private ComboBox<String> myComboBox;
 	@FXML
 	public void initialize() {
-		myComboBox.getItems().addAll("Homme", "Femme", "Autre");
-		myComboBox.setValue("Homme");
+	    myComboBox.getItems().addAll("Homme", "Femme", "Autre");
+	    myComboBox.setValue("Homme");
 
-		personnages = personnagesHommes;
-		afficherImage();
+	    personnages = personnagesHommes;
+	    afficherImage();
 
-		myComboBox.setOnAction((ActionEvent event) -> {
-			indice = 0;
-			String selectedValue = myComboBox.getValue();
-			switch (selectedValue) {
-			case "Homme":
-				personnages = personnagesHommes;
-				break;
-			case "Femme":
-				personnages = personnagesFemmes;
-				break;
-			case "Autre":
-				personnages = personnagesAutre;
-				break;
-			}
-			afficherImage();
-			System.out.println(selectedValue);
-		});
+	    myComboBox.setOnAction((ActionEvent event) -> {
+	        String selectedValue = myComboBox.getValue();
+	        switch (selectedValue) {
+	            case "Homme":
+	                personnages = personnagesHommes;
+	                currentGender = Gender.MALE;
+	                break;
+	            case "Femme":
+	                personnages = personnagesFemmes;
+	                currentGender = Gender.FEMALE;
+	                break;
+	            case "Autre":
+	            	default :
+	                personnages = personnagesAutre;
+	                currentGender = Gender.OTHER;
+	                break;
+	        }
+	        afficherImage();
+	    });
 	}
 
 	private String[] personnages;
@@ -62,40 +92,48 @@ public class PagePersonnageController {
 
 	@FXML
 	private ImageView MyImageView;
+	
+	@FXML
+    private ImageView nextButton;
 
 	@FXML
-	private ImageView nextButton;
-
-	@FXML
-	private ImageView previousButton;
+    private ImageView previousButton;
 
 	private int indice = 0;
 
 	@FXML
 	public void handleNextButton(MouseEvent event) {
-		indice++;
-		if (indice >= personnages.length) {
-			indice = 0;
-		}
-		afficherImage();
+	    indice++;
+	    if (indice >= personnages.length) {
+	        indice = 0;
+	    }
+	    afficherImage();
 	}
 
 	@FXML
 	public void handlePreviousButton(MouseEvent event) {
-		indice--;
-		if (indice < 0) {
-			indice = personnages.length - 1;
-		}
-		afficherImage();
+	    indice--;
+	    if (indice < 0) {
+	        indice = personnages.length - 1;
+	    }
+	    afficherImage();
 	}
+
 
 	private void afficherImage() {
-		Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
-		MyImageView.setImage(image);
+	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
+	    MyImageView.setImage(image);
+	}
+	
+	private String Skin() {
+	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
+	    MyImageView.setImage(image);
+	    return personnages[indice];
 	}
 
+	
 	@FXML
-	private Button validatePerso;
+    private Button validatePerso;
 	
 	@FXML
     private TextField inputNom;
@@ -107,23 +145,20 @@ public class PagePersonnageController {
     private TextField inputFerme;
 	
 	public static Player player;
-
+	
 	@FXML
 	public void valider(ActionEvent event) {
 	    String nom = inputNom.getText();
 	    String prenom = inputPrenom.getText();
 	    String nomFerme = inputFerme.getText();
+	    String  skin = Skin();
 	    if(nom.isEmpty() || prenom.isEmpty() || nomFerme.isEmpty()){
 	        System.out.println("Veuillez remplir tous les champs.");
 	        return;
 	    }
 	    
-	    player = new Player(nom + " " + prenom, Gender.MALE, 100, 100, new Inventory());
+	    player = new Player(prenom, nom, currentGender,  1, 1, new Inventory());
 	    System.out.println(PagePersonnageController.player.getName());
-	    Stage stage = (Stage) closeButton.getScene().getWindow();
-	    stage.close();
+	    lancerXML("PageJouer.fxml");
 	}
-
-	
-
 }
