@@ -25,7 +25,7 @@ public class PagePersonnageController {
 		stage.close();
 	}
 
-	public Gender currentGender;
+	public Gender currentGender = Gender.MALE;
 	
 	@FXML
 	private ComboBox<String> myComboBox;
@@ -46,11 +46,13 @@ public class PagePersonnageController {
 	                break;
 	            case "Femme":
 	                personnages = personnagesFemmes;
+	                System.out.println(currentGender);
 	                currentGender = Gender.FEMALE;
 	                break;
 	            case "Autre":
 	            	default :
 	                personnages = personnagesAutre;
+	                System.out.println(currentGender);
 	                currentGender = Gender.OTHER;
 	                break;
 	        }
@@ -122,8 +124,9 @@ public class PagePersonnageController {
 	        return;
 	    }
 	    
-	    player = new Player(prenom, nom, currentGender, 1, 1, new Inventory());
+	    player = new Player(prenom, nom, Gender.MALE, 1, 1, new Inventory());
 	    System.out.println(PagePersonnageController.player.getName());
+	    player.setGender(currentGender);
 	    Stage stage = (Stage) closeButton.getScene().getWindow();
 	    stage.close();
 	}

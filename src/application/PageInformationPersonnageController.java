@@ -48,7 +48,7 @@ public class PageInformationPersonnageController {
 
     private Timeline timeline;    
     
-    private double progressValueEnergy = 1.0;
+    private double progressValueEnergy = PagePersonnageController.player.getEnergy();
         
     @FXML
     public void initialize() {
@@ -58,6 +58,7 @@ public class PageInformationPersonnageController {
     	labelGenre.setText(PagePersonnageController.player.getGender() + "");
     	energyProgressBar.setProgress(PagePersonnageController.player.getEnergy());
         healthProgressBar.setProgress(PagePersonnageController.player.getHealth());
+        System.out.println(PagePersonnageController.player.getEnergy());
         startTimeEnergyBar();
     }
     
