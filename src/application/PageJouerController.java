@@ -38,19 +38,41 @@ public class PageJouerController {
 
 	@FXML
 	private BorderPane scene;
+	
+	@FXML
+    private ImageView cochon;
+
+    @FXML
+    private ImageView cochon2;
+    
+    @FXML
+    private ImageView vache;
+
+    @FXML
+    private ImageView vache2;
+    
+    @FXML
+    private Button BoutonInteractionCochon;
 
 	@FXML
     private Button BoutonInteraction;
 	
 	 @FXML
 	 private Button BoutonInteractionPotager;
+	 
+	 @FXML
+	 private Button BoutonInteractionCoffre;
+	 
+	 @FXML
+	 private Button BoutonInteractionVache;
 	
-	
-
 	@FXML
 	public void initialize() {
 		BoutonInteraction.setVisible(false);
 		BoutonInteractionPotager.setVisible(false);
+		BoutonInteractionCochon.setVisible(false);
+		BoutonInteractionCoffre.setVisible(false);
+		BoutonInteractionVache.setVisible(false);
 		makeMovable(sprite, scene);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
 		sprite.setImage(image);
@@ -94,6 +116,13 @@ public class PageJouerController {
 
 			if(e.getCode() == KeyCode.D) {
 				dPressed.set(true);
+			}
+			
+			if(e.getCode() == KeyCode.A) {
+				OpenSpriteInformation();		
+			}
+			if(e.getCode() == KeyCode.I) {
+				OpenSpriteInventory();
 			}
 		});
 
@@ -143,29 +172,52 @@ public class PageJouerController {
 	AnimationTimer timer = new AnimationTimer() {
 		@Override
 		public void handle(long timestamp) {
-			if (sprite.getLayoutX() <= 1308 && sprite.getLayoutX() >= 1222 && sprite.getLayoutY() <= 580 && sprite.getLayoutY() >= 370) {
+			
+			//Interaction avec le marchand
+			if (sprite.getLayoutX() <= 1328 && sprite.getLayoutX() >= 1222 && sprite.getLayoutY() <= 580 && sprite.getLayoutY() >= 370) {
 				BoutonInteraction.setVisible(true);
-				System.out.println("Interaction");
 			}else {
 				BoutonInteraction.setVisible(false);
 			}
 			
-			if (sprite.getLayoutX() <= 960 && sprite.getLayoutX() >= 784 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 400) {
+			//Interaction avec le potager
+			if ((sprite.getLayoutX() <= 960 && sprite.getLayoutX() >= 784 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 400) 
+					|| (sprite.getLayoutX() <= 978 && sprite.getLayoutX() >= 772 && sprite.getLayoutY() <= 862 && sprite.getLayoutY() >= 632)
+					|| (sprite.getLayoutX() <= 1234 && sprite.getLayoutX() >= 1040 && sprite.getLayoutY() <= 862 && sprite.getLayoutY() >= 674)
+					|| (sprite.getLayoutX() <= 1198 && sprite.getLayoutX() >= 1040 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 400)
+					) {
 				BoutonInteractionPotager.setVisible(true);
-				System.out.println("Potager Haut Gauche");
 			}else {
 				BoutonInteractionPotager.setVisible(false);
 			}
 			
+			//Interaction avec les cochons
+			if (sprite.getLayoutX() <= 364 && sprite.getLayoutX() >= 196 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 380) {
+				BoutonInteractionCochon.setVisible(true);
+			}else {
+				BoutonInteractionCochon.setVisible(false);
+			}
+			
+			//Interaction avec le coffre
+			if (sprite.getLayoutX() <= 1446 && sprite.getLayoutX() >= 1208 && sprite.getLayoutY() <= 242 && sprite.getLayoutY() >= 48) {
+				BoutonInteractionCoffre.setVisible(true);
+			}else {
+				BoutonInteractionCoffre.setVisible(false);
+			}
+			
+			//Interaction avec les vaches
+			if (sprite.getLayoutX() <= 1668 && sprite.getLayoutX() >= 1512 && sprite.getLayoutY() <= 288 && sprite.getLayoutY() >= 0) {
+				BoutonInteractionVache.setVisible(true);
+			}else {
+				BoutonInteractionVache.setVisible(false);
+			}
 			
 			
 			
 			if(wPressed.get()) {
 				if ((((sprite.getLayoutX() < 464 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1138 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 					if (sprite.getLayoutX() <= 904 && sprite.getLayoutX() >= 868 && sprite.getLayoutY() == 146) {
-						System.out.println("On change de fen�tre");
 						close(); 
 						lancerXML("PageMaison.fxml");
 					}
@@ -174,21 +226,21 @@ public class PageJouerController {
 
 			if(sPressed.get()){
 				if ( 926 > sprite.getLayoutY()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 				}
 			}
 
 			if(aPressed.get()){
 				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && -12 < sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && -12 < sprite.getLayoutX()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
 
 			if(dPressed.get()){
 				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
 				}
 			}
@@ -218,5 +270,27 @@ public class PageJouerController {
         }
     }
     
-    
+    @FXML
+    void OpenSpriteInventory() {
+        try {
+            // Charger le fichier FXML qui définit la fenêtre
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
+            Parent root = loader.load();
+            
+            // Créer une nouvelle scène avec la fenêtre chargée
+            Scene scene = new Scene(root, 668, 270);
+            
+            // Créer une nouvelle fenêtre avec la scène
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.setResizable(false);
+            // Afficher la fenêtre
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
+
 }

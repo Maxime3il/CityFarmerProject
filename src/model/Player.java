@@ -63,6 +63,7 @@ public class Player {
 	public void setNameFarm(String nameFarm) {
 		this.nameFarm = nameFarm;
 	}
+    
     public double getEnergy() {
         return energy;
     }

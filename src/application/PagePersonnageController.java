@@ -21,6 +21,8 @@ import model.Inventory;
 import model.Player;
 
 public class PagePersonnageController {
+
+	private String currentUrl; 
 	
 	 private void lancerXML(String url) {
 	        try {
@@ -43,7 +45,7 @@ public class PagePersonnageController {
 	            System.out.println("Impossible de charger la fenêtre");
 	        }
 	    }
-	   	
+
 	@FXML
 	private Button closeButton;
 	@FXML
@@ -53,6 +55,8 @@ public class PagePersonnageController {
 	}
 
 	public Gender currentGender = Gender.Homme;
+
+
 	
 	@FXML
 	private ComboBox<String> myComboBox;
@@ -122,6 +126,7 @@ public class PagePersonnageController {
 
 	private void afficherImage() {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
+	    currentUrl = personnages[indice];
 	    MyImageView.setImage(image);
 	}
 
@@ -139,14 +144,12 @@ public class PagePersonnageController {
     private TextField inputFerme;
 	
 	public static Player player;
-
 	
 	private String Skin() {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
 	    MyImageView.setImage(image);
 	    return personnages[indice];
 	}
-
 	
 	@FXML
 	public void valider(ActionEvent event) {
@@ -158,8 +161,10 @@ public class PagePersonnageController {
 	        System.out.println("Veuillez remplir tous les champs.");
 	        return;
 	    }
-	    player = new Player(prenom, nom, currentGender, skin,nomFerme ,  1, 1, new Inventory());
-//	    System.out.println(PagePersonnageController.player.getSkin());
+	    player = new Player(prenom, nom, currentGender, skin,nomFerme ,  1, 1, null);
+	    System.out.println(PagePersonnageController.player.getName());
 	    lancerXML("PageJouer.fxml");
+	    Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.close();
 	}
 }
