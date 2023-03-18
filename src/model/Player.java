@@ -3,16 +3,18 @@ package model;
 public class Player {
 	private String name;
 	private String lastName;
+	private String urlSkin;
     private Gender gender;
     private double energy;
     private double health;
     private Inventory inventory;
     
     // Constructor
-    public Player(String name, String lastName, Gender gender, double energy, double health, Inventory inventory) {
+    public Player(String name, String lastName, Gender gender, String urlSkin, double energy, double health, Inventory inventory) {
         this.name = name;
         this.lastName = lastName;
         this.gender = gender;
+        this.urlSkin = urlSkin;
         this.energy = energy;
         this.health = health;
         this.inventory = inventory;
@@ -42,6 +44,14 @@ public class Player {
     
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+    
+    public String getSkin() {
+        return urlSkin;
+    }
+    
+    public void setSkin(String urlSkin) {
+        this.urlSkin = urlSkin;
     }
     
     public double getEnergy() {
@@ -77,4 +87,5 @@ public class Player {
     public void interact(Item item) {
     	//TODO prochainement
     }
+
 }

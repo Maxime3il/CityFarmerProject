@@ -2,6 +2,12 @@ package application;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -21,12 +27,18 @@ import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 public class PageAccueilController implements Initializable {
+	
+	@FXML
+	private BorderPane scene;
+	
     @FXML
     private MediaView mediaView;
     private MediaPlayer mediaPlayer;
     private Media media;
     
-    private void lancerXML(String url) {
+    private PageJouerController jouerController = new PageJouerController();
+    
+    public void lancerXML(String url) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
             Parent root1 = (Parent) fxmlLoader.load();
@@ -47,14 +59,6 @@ public class PageAccueilController implements Initializable {
             System.out.println("Impossible de charger la fenêtre");
         }
     }
-	
-	@FXML
-	private Button BoutonPersonnage;
-
-    @FXML
-    private void redirectPersonnage(ActionEvent event) {
-        lancerXML("PagePersonnage.fxml");
-    }
     
     @FXML
 	private Button BtnParam;
@@ -67,7 +71,7 @@ public class PageAccueilController implements Initializable {
    	private Button BtnJouer;
     @FXML
     private void redirectJouer(ActionEvent evt) {
-        lancerXML("PageJouer.fxml");    
+        lancerXML("PagePersonnage.fxml");    
     }
     @FXML
     private Slider volumeSlider;
@@ -78,6 +82,7 @@ public class PageAccueilController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+    	makeMovable(scene);
         String path = new File("src/Video/TitleScreen.mp4").getAbsolutePath();
         media = new Media(new File(path).toURI().toString());
         mediaPlayer = new MediaPlayer(media);
@@ -107,8 +112,6 @@ public class PageAccueilController implements Initializable {
             }
         });
         mediaPlayer.setAutoPlay(true);
-        
-        
 }
 
     @FXML
@@ -120,4 +123,20 @@ public class PageAccueilController implements Initializable {
         stage.close();
     }
 
+    private void movementSetup(){
+		scene.setOnKeyPressed(e -> {
+			if(e.getCode() == KeyCode.J) {
+		        lancerXML("PagePersonnage.fxml");    
+			}
+			if(e.getCode() == KeyCode.P) {
+		        lancerXML("PageParametre.fxml");    
+			}
+		});
+	}
+    
+    public void makeMovable(BorderPane scene){
+		this.scene = scene;
+		System.out.println("gg");
+		movementSetup();
+	}
 }

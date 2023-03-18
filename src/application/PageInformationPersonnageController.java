@@ -10,6 +10,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -24,6 +28,9 @@ public class PageInformationPersonnageController {
         Stage stage = (Stage) closeButton.getScene().getWindow();
         stage.close();
     }
+	
+	@FXML
+	private BorderPane scene;
 	
     @FXML
     private Label LabelEnergy;
@@ -52,13 +59,11 @@ public class PageInformationPersonnageController {
         
     @FXML
     public void initialize() {
-    	//TODO A MODIFIER APRES LE CHOIX DU PERSONNAGE 
     	labelNom.setText(PagePersonnageController.player.getLastName());
     	labelPrenom.setText(PagePersonnageController.player.getName());
     	labelGenre.setText(PagePersonnageController.player.getGender() + "");
     	energyProgressBar.setProgress(PagePersonnageController.player.getEnergy());
         healthProgressBar.setProgress(PagePersonnageController.player.getHealth());
-        System.out.println(PagePersonnageController.player.getEnergy());
         startTimeEnergyBar();
     }
     

@@ -6,17 +6,47 @@ import javafx.scene.input.MouseEvent;
 import javafx.event.ActionEvent;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import model.Gender;
 import model.Inventory;
 import model.Player;
 
 public class PagePersonnageController {
+	
+	private String currentUrl; 
+	
+	 private void lancerXML(String url) {
+	        try {
+	            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
+	            Parent root1 = (Parent) fxmlLoader.load();
+	            Stage stage = new Stage();
+
+	            stage.setOnCloseRequest(event -> {
+	                event.consume();
+	            });
+
+	            stage.initStyle(StageStyle.UNDECORATED);
+
+	            Scene scene = new Scene(root1, 1920, 1080);
+	            stage.setScene(scene);
+	            stage.setResizable(false);
+	            stage.show();
+	        } catch (Exception e) {
+	            e.printStackTrace(System.err);
+	            System.out.println("Impossible de charger la fenêtre");
+	        }
+	    }
+	 
+	 
 	@FXML
 	private Button closeButton;
 	@FXML
@@ -46,13 +76,11 @@ public class PagePersonnageController {
 	                break;
 	            case "Femme":
 	                personnages = personnagesFemmes;
-	                System.out.println(currentGender);
 	                currentGender = Gender.FEMALE;
 	                break;
 	            case "Autre":
 	            	default :
 	                personnages = personnagesAutre;
-	                System.out.println(currentGender);
 	                currentGender = Gender.OTHER;
 	                break;
 	        }
@@ -97,8 +125,10 @@ public class PagePersonnageController {
 
 	private void afficherImage() {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
+	    currentUrl = personnages[indice];
 	    MyImageView.setImage(image);
 	}
+
 	
 	@FXML
     private Button validatePerso;
@@ -123,11 +153,8 @@ public class PagePersonnageController {
 	        System.out.println("Veuillez remplir tous les champs.");
 	        return;
 	    }
-	    
-	    player = new Player(prenom, nom, Gender.MALE, 1, 1, new Inventory());
+	    player = new Player(prenom, nom, currentGender, currentUrl, 1, 1, new Inventory());
 	    System.out.println(PagePersonnageController.player.getName());
-	    player.setGender(currentGender);
-	    Stage stage = (Stage) closeButton.getScene().getWindow();
-	    stage.close();
+	    lancerXML("PageJouer.fxml");
 	}
 }

@@ -6,13 +6,16 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane fx:id="scene" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationJouer.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageJouerController">
+<BorderPane fx:id="scene" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationMaison.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageMaisonController">
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@applicationJouer.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="closeButton" layoutX="1840.0" layoutY="10.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="80.0" text="X" />
-            <ImageView fx:id="sprite" fitHeight="150.0" fitWidth="104.0" layoutX="886.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true"></ImageView>
-            <Button fx:id="buttonSprite" layoutX="40.0" layoutY="43.0" mnemonicParsing="false" onAction="#OpenSpriteInformation" prefHeight="64.0" prefWidth="72.0" text="!" />
+            <ImageView fx:id="sprite" fitHeight="150.0" fitWidth="104.0" layoutX="524.0" layoutY="712.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/sprite1.png" />
+               </image>
+            </ImageView>
          </children></Pane>
    </center>
    
