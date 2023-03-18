@@ -1,5 +1,4 @@
 package application;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,6 +37,9 @@ public class PageInformationPersonnageController {
 
     @FXML
     private Label labelPrenom;
+    
+    @FXML
+    private Label labelNomFerme;
 
     @FXML
     private Label labelVie;
@@ -51,9 +53,16 @@ public class PageInformationPersonnageController {
     private Timeline timeline;    
     
     private double progressValueEnergy = PagePersonnageController.player.getEnergy();
+    
+    @FXML
+    private ImageView persoChoisi;
         
     @FXML
     public void initialize() {
+    	Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
+    	persoChoisi.setImage(image);
+
+    	labelNomFerme.setText(PagePersonnageController.player.getNameFarm());
     	labelNom.setText(PagePersonnageController.player.getLastName());
     	labelPrenom.setText(PagePersonnageController.player.getName());
     	labelGenre.setText(PagePersonnageController.player.getGender() + "");

@@ -52,7 +52,7 @@ public class PagePersonnageController {
 		stage.close();
 	}
 
-	public Gender currentGender = Gender.MALE;
+	public Gender currentGender = Gender.Homme;
 	
 	@FXML
 	private ComboBox<String> myComboBox;
@@ -69,16 +69,16 @@ public class PagePersonnageController {
 	        switch (selectedValue) {
 	            case "Homme":
 	                personnages = personnagesHommes;
-	                currentGender = Gender.MALE;
+	                currentGender = Gender.Homme;
 	                break;
 	            case "Femme":
 	                personnages = personnagesFemmes;
-	                currentGender = Gender.FEMALE;
+	                currentGender = Gender.Femme;
 	                break;
 	            case "Autre":
 	            	default :
 	                personnages = personnagesAutre;
-	                currentGender = Gender.OTHER;
+	                currentGender = Gender.Autre;
 	                break;
 	        }
 	        afficherImage();
@@ -139,18 +139,27 @@ public class PagePersonnageController {
     private TextField inputFerme;
 	
 	public static Player player;
+
+	
+	private String Skin() {
+	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
+	    MyImageView.setImage(image);
+	    return personnages[indice];
+	}
+
 	
 	@FXML
 	public void valider(ActionEvent event) {
 	    String nom = inputNom.getText();
 	    String prenom = inputPrenom.getText();
 	    String nomFerme = inputFerme.getText();
+	    String skin = Skin();
 	    if(nom.isEmpty() || prenom.isEmpty() || nomFerme.isEmpty()){
 	        System.out.println("Veuillez remplir tous les champs.");
 	        return;
 	    }
-	    player = new Player(prenom, nom, currentGender,  1, 1, new Inventory());
-	    System.out.println(PagePersonnageController.player.getName());
+	    player = new Player(prenom, nom, currentGender, skin,nomFerme ,  1, 1, new Inventory());
+//	    System.out.println(PagePersonnageController.player.getSkin());
 	    lancerXML("PageJouer.fxml");
 	}
 }

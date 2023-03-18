@@ -21,6 +21,7 @@ body {
 -fx-font-family: "Stardew Valley";
 -fx-text-fill: #d15956;
 -fx-font-size: 48px;
+-fx-cursor: hand;
 }
 
 #textePersonnalisation{
@@ -39,6 +40,7 @@ body {
     -fx-font-family: "Stardew Valley";
     -fx-text-fill: #5a1104;
     -fx-font-size: 32px;
+    -fx-cursor: hand;
 }
 
 #myComboBox{
@@ -49,6 +51,7 @@ body {
     -fx-font-family: "Stardew Valley";
     -fx-text-fill: #5a1104;
     -fx-font-size: 32px;
+    -fx-cursor: hand;
 }
 
 #inputNom, #inputPrenom, #inputFerme{
@@ -56,12 +59,17 @@ body {
     -fx-text-fill: #5a1104;
     -fx-font-family: "Stardew Valley";
     -fx-font-size: 32px;
+    -fx-cursor: hand;
 }
 
 #labelChoix{
     -fx-text-fill: #5a1104;
     -fx-font-family: "Stardew Valley";
     -fx-font-size: 72px;
+}
+
+#nextButton, #previousButton{
+	-fx-cursor: hand;
 }
 
 
