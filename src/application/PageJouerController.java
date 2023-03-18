@@ -39,9 +39,18 @@ public class PageJouerController {
 	@FXML
 	private BorderPane scene;
 
+	@FXML
+    private Button BoutonInteraction;
+	
+	 @FXML
+	 private Button BoutonInteractionPotager;
+	
+	
 
 	@FXML
 	public void initialize() {
+		BoutonInteraction.setVisible(false);
+		BoutonInteractionPotager.setVisible(false);
 		makeMovable(sprite, scene);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
 		sprite.setImage(image);
@@ -73,7 +82,6 @@ public class PageJouerController {
 		scene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.Z) {
 				wPressed.set(true);
-			    System.out.println(PagePersonnageController.player.getSkin());
 			}
 
 			if(e.getCode() == KeyCode.Q) {
@@ -135,9 +143,26 @@ public class PageJouerController {
 	AnimationTimer timer = new AnimationTimer() {
 		@Override
 		public void handle(long timestamp) {
+			if (sprite.getLayoutX() <= 1308 && sprite.getLayoutX() >= 1222 && sprite.getLayoutY() <= 580 && sprite.getLayoutY() >= 370) {
+				BoutonInteraction.setVisible(true);
+				System.out.println("Interaction");
+			}else {
+				BoutonInteraction.setVisible(false);
+			}
+			
+			if (sprite.getLayoutX() <= 960 && sprite.getLayoutX() >= 784 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 400) {
+				BoutonInteractionPotager.setVisible(true);
+				System.out.println("Potager Haut Gauche");
+			}else {
+				BoutonInteractionPotager.setVisible(false);
+			}
+			
+			
+			
+			
 			if(wPressed.get()) {
 				if ((((sprite.getLayoutX() < 464 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1138 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 					if (sprite.getLayoutX() <= 904 && sprite.getLayoutX() >= 868 && sprite.getLayoutY() == 146) {
 						System.out.println("On change de fen�tre");
@@ -149,21 +174,21 @@ public class PageJouerController {
 
 			if(sPressed.get()){
 				if ( 926 > sprite.getLayoutY()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 				}
 			}
 
 			if(aPressed.get()){
 				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && -12 < sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && -12 < sprite.getLayoutX()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
 
 			if(dPressed.get()){
 				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
 				}
 			}

@@ -52,7 +52,7 @@ public class PagePersonnageController {
 		stage.close();
 	}
 
-	public Gender currentGender = Gender.MALE;
+	public Gender currentGender = Gender.Homme;
 	
 	@FXML
 	private ComboBox<String> myComboBox;
@@ -69,16 +69,16 @@ public class PagePersonnageController {
 	        switch (selectedValue) {
 	            case "Homme":
 	                personnages = personnagesHommes;
-	                currentGender = Gender.MALE;
+	                currentGender = Gender.Homme;
 	                break;
 	            case "Femme":
 	                personnages = personnagesFemmes;
-	                currentGender = Gender.FEMALE;
+	                currentGender = Gender.Femme;
 	                break;
 	            case "Autre":
 	            	default :
 	                personnages = personnagesAutre;
-	                currentGender = Gender.OTHER;
+	                currentGender = Gender.Autre;
 	                break;
 	        }
 	        afficherImage();
@@ -158,7 +158,7 @@ public class PagePersonnageController {
 	        System.out.println("Veuillez remplir tous les champs.");
 	        return;
 	    }
-	    player = new Player(prenom, nom, currentGender, skin,  1, 1, new Inventory());
+	    player = new Player(prenom, nom, currentGender, skin,nomFerme ,  1, 1, new Inventory());
 //	    System.out.println(PagePersonnageController.player.getSkin());
 	    lancerXML("PageJouer.fxml");
 	}

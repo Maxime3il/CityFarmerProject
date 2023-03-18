@@ -5,16 +5,18 @@ public class Player {
 	private String lastName;
     private Gender gender;
     private String skin;
+    private String nameFarm;
     private double energy;
     private double health;
     private Inventory inventory;
     
     // Constructor
-    public Player(String name, String lastName, Gender gender,String skin, double energy, double health, Inventory inventory) {
+    public Player(String name, String lastName, Gender gender,String skin,String nameFarm, double energy, double health, Inventory inventory) {
         this.name = name; 
         this.lastName = lastName;
         this.gender = gender;
         this.skin = skin;
+        this.setNameFarm(nameFarm);
         this.energy = energy;
         this.health = health;
         this.inventory = inventory;
@@ -54,6 +56,13 @@ public class Player {
 		this.skin = skin;
 	}
     
+	public String getNameFarm() {
+		return nameFarm;
+	}
+
+	public void setNameFarm(String nameFarm) {
+		this.nameFarm = nameFarm;
+	}
     public double getEnergy() {
         return energy;
     }

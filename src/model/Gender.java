@@ -1,7 +1,7 @@
 package model;
 
 public enum Gender {
-    MALE,
-    FEMALE,
-    OTHER
+    Homme,
+    Femme,
+    Autre
 }

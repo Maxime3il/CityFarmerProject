@@ -17,6 +17,8 @@
                </image>
             </ImageView>
             <Button fx:id="buttonSprite" layoutX="40.0" layoutY="43.0" mnemonicParsing="false" onAction="#OpenSpriteInformation" prefHeight="64.0" prefWidth="72.0" text="!" />
+            <Button fx:id="BoutonInteraction" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="652.0" text="Echanger avec le marchand" />
+            <Button fx:id="BoutonInteractionPotager" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="652.0" text="Recolter" />
          </children></Pane>
    </center>
    

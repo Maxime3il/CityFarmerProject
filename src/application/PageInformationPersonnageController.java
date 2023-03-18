@@ -37,6 +37,9 @@ public class PageInformationPersonnageController {
 
     @FXML
     private Label labelPrenom;
+    
+    @FXML
+    private Label labelNomFerme;
 
     @FXML
     private Label labelVie;
@@ -59,7 +62,7 @@ public class PageInformationPersonnageController {
     	Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
     	persoChoisi.setImage(image);
 
-    	
+    	labelNomFerme.setText(PagePersonnageController.player.getNameFarm());
     	labelNom.setText(PagePersonnageController.player.getLastName());
     	labelPrenom.setText(PagePersonnageController.player.getName());
     	labelGenre.setText(PagePersonnageController.player.getGender() + "");
