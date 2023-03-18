@@ -124,12 +124,6 @@ public class PagePersonnageController {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
 	    MyImageView.setImage(image);
 	}
-	
-	private String Skin() {
-	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
-	    MyImageView.setImage(image);
-	    return personnages[indice];
-	}
 
 	
 	@FXML
@@ -145,20 +139,27 @@ public class PagePersonnageController {
     private TextField inputFerme;
 	
 	public static Player player;
+
+	
+	private String Skin() {
+	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
+	    MyImageView.setImage(image);
+	    return personnages[indice];
+	}
+
 	
 	@FXML
 	public void valider(ActionEvent event) {
 	    String nom = inputNom.getText();
 	    String prenom = inputPrenom.getText();
 	    String nomFerme = inputFerme.getText();
-	    String  skin = Skin();
+	    String skin = Skin();
 	    if(nom.isEmpty() || prenom.isEmpty() || nomFerme.isEmpty()){
 	        System.out.println("Veuillez remplir tous les champs.");
 	        return;
 	    }
-	    
-	    player = new Player(prenom, nom, currentGender,  1, 1, new Inventory());
-	    System.out.println(PagePersonnageController.player.getName());
+	    player = new Player(prenom, nom, currentGender, skin,  1, 1, new Inventory());
+//	    System.out.println(PagePersonnageController.player.getSkin());
 	    lancerXML("PageJouer.fxml");
 	}
 }

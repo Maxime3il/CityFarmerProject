@@ -1,5 +1,4 @@
 package application;
-
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -47,14 +46,20 @@ public class PageInformationPersonnageController {
     
     @FXML
     private ProgressBar energyProgressBar;
-    
 
     private Timeline timeline;    
     
     private double progressValueEnergy = PagePersonnageController.player.getEnergy();
+    
+    @FXML
+    private ImageView persoChoisi;
         
     @FXML
     public void initialize() {
+    	Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
+    	persoChoisi.setImage(image);
+
+    	
     	labelNom.setText(PagePersonnageController.player.getLastName());
     	labelPrenom.setText(PagePersonnageController.player.getName());
     	labelGenre.setText(PagePersonnageController.player.getGender() + "");

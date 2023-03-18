@@ -1,0 +1,28 @@
+@font-face {
+    src: url("../fonts/Stardew_Valley.otf");
+}
+ 
+body {
+    -fx-font-family: "Stardew Valley";
+}
+
+
+.root{
+    -fx-background-image:url('../Images/grange.png');
+    /* -fx-background-size:cover; */
+    -fx-background-size: 1920px 1080px;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
+    
+}
+
+#closeButton{
+-fx-background-image: url('../Images/Quitter.png');
+-fx-background-size: 80px 65px;
+-fx-background-position: center;
+-fx-background-repeat: no-repeat;
+-fx-padding: 10px 20px;
+-fx-font-family: "Stardew Valley";
+-fx-text-fill: #d15956;
+-fx-font-size: 48px;
+}
