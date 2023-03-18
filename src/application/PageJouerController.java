@@ -45,8 +45,6 @@ public class PageJouerController {
 	 @FXML
 	 private Button BoutonInteractionPotager;
 	
-	
-
 	@FXML
 	public void initialize() {
 		BoutonInteraction.setVisible(false);
@@ -94,6 +92,13 @@ public class PageJouerController {
 
 			if(e.getCode() == KeyCode.D) {
 				dPressed.set(true);
+			}
+			
+			if(e.getCode() == KeyCode.A) {
+				OpenSpriteInformation();		
+			}
+			if(e.getCode() == KeyCode.I) {
+				OpenSpriteInventory();
 			}
 		});
 
@@ -157,15 +162,10 @@ public class PageJouerController {
 				BoutonInteractionPotager.setVisible(false);
 			}
 			
-			
-			
-			
 			if(wPressed.get()) {
 				if ((((sprite.getLayoutX() < 464 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1138 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 					if (sprite.getLayoutX() <= 904 && sprite.getLayoutX() >= 868 && sprite.getLayoutY() == 146) {
-						System.out.println("On change de fen�tre");
 						close(); 
 						lancerXML("PageMaison.fxml");
 					}
@@ -174,21 +174,21 @@ public class PageJouerController {
 
 			if(sPressed.get()){
 				if ( 926 > sprite.getLayoutY()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 				}
 			}
 
 			if(aPressed.get()){
 				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && -12 < sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && -12 < sprite.getLayoutX()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
 
 			if(dPressed.get()){
 				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
 				}
 			}
@@ -204,6 +204,29 @@ public class PageJouerController {
             
             // Créer une nouvelle scène avec la fenêtre chargée
             Scene scene = new Scene(root, 930, 580);
+            
+            // Créer une nouvelle fenêtre avec la scène
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.setResizable(false);
+            // Afficher la fenêtre
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    @FXML
+    void OpenSpriteInventory() {
+        try {
+            // Charger le fichier FXML qui définit la fenêtre
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
+            Parent root = loader.load();
+            
+            // Créer une nouvelle scène avec la fenêtre chargée
+            Scene scene = new Scene(root, 668, 270);
             
             // Créer une nouvelle fenêtre avec la scène
             Stage stage = new Stage();

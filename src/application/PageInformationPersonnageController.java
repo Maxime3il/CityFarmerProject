@@ -1,7 +1,8 @@
 package application;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import java.util.Timer;
+import java.util.TimerTask;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.concurrent.Task;
@@ -11,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -26,6 +29,9 @@ public class PageInformationPersonnageController {
         stage.close();
     }
 	
+	@FXML
+	private BorderPane scene;
+
     @FXML
     private Label LabelEnergy;
 
@@ -53,7 +59,7 @@ public class PageInformationPersonnageController {
     private Timeline timeline;    
     
     private double progressValueEnergy = PagePersonnageController.player.getEnergy();
-    
+        
     @FXML
     private ImageView persoChoisi;
         
@@ -61,7 +67,6 @@ public class PageInformationPersonnageController {
     public void initialize() {
     	Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
     	persoChoisi.setImage(image);
-
     	labelNomFerme.setText(PagePersonnageController.player.getNameFarm());
     	labelNom.setText(PagePersonnageController.player.getLastName());
     	labelPrenom.setText(PagePersonnageController.player.getName());

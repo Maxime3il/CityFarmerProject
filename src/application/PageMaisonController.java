@@ -38,6 +38,7 @@ public class PageMaisonController {
 		makeMovable(sprite, scene);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
 		sprite.setImage(image);
+
 	}
 
 	private void lancerXML(String url) {

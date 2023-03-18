@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.media.MediaView?>
 
-<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageAccueilController">
+<BorderPane fx:id="scene" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageAccueilController">
    <center>
       <Pane BorderPane.alignment="CENTER">
          <children>
