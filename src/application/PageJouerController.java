@@ -226,7 +226,7 @@ public class PageJouerController {
 
 			if(sPressed.get()){
 				if ( 926 > sprite.getLayoutY()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayosutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 				}
 			}
