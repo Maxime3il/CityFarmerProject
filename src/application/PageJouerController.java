@@ -7,6 +7,7 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,6 +20,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.Player;
 
 public class PageJouerController {
 	@FXML
@@ -288,5 +290,26 @@ public class PageJouerController {
             e.printStackTrace();
         }
 	}
+    
+    @FXML
+    public void interactionCochonButton(ActionEvent evt) {
+    	PagePersonnageController.player.getInventory().addItem("porc");
+    	System.out.println(PagePersonnageController.player.getInventory());
+    }
 
+    @FXML
+    public void interactionPotagerButton(ActionEvent evt) {
+    	PagePersonnageController.player.getInventory().addItem("porc");
+    	System.out.println(PagePersonnageController.player.getInventory());
+    }
+    
+    @FXML
+    public void interactionCoffreButton(ActionEvent evt) {
+    	//TODO ouvrir une page avec le coffre et l'inventaire
+    }
+    
+    @FXML
+    public void interactionMarchandButton(ActionEvent evt) {
+    	//TODO PAGE AVEC LE MARCHAND ET L'INVENTAIRE
+    }
 }
