@@ -23,7 +23,7 @@ public class Main extends Application {
             MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
             // Jouer le fichier MP3
-            mediaPlayer.play();
+            //mediaPlayer.play();
 
             // Charger votre interface utilisateur � partir du fichier FXML
             BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("PageAccueil.fxml"));
