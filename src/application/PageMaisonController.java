@@ -1,5 +1,7 @@
 package application;
 
+import javafx.event.ActionEvent;
+import java.io.IOException;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -32,14 +34,48 @@ public class PageMaisonController {
 
 	@FXML
 	private BorderPane scene;
+	
+	@FXML
+    private Button BoutonInteractionLit;
 
 	@FXML
 	public void initialize() {
 		makeMovable(sprite, scene);
+		BoutonInteractionLit.setVisible(false);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
 		sprite.setImage(image);
 
 	}
+	
+	@FXML
+	void dormir(ActionEvent event) {
+	    // RECUPERER TOUTE L'ENERGIE
+	    PagePersonnageController.player.setEnergy(1.0);
+	}
+
+	
+	@FXML
+    void OpenSpriteInformation() {
+        try {
+            // Charger le fichier FXML qui définit la fenêtre
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
+            Parent root = loader.load();
+            
+            // Créer une nouvelle scène avec la fenêtre chargée
+            Scene scene = new Scene(root, 930, 580);
+            
+            // Créer une nouvelle fenêtre avec la scène
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.setResizable(false);
+            // Afficher la fenêtre
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 	private void lancerXML(String url) {
 		try {
@@ -128,17 +164,24 @@ public class PageMaisonController {
 	AnimationTimer timer = new AnimationTimer() {
 		@Override
 		public void handle(long timestamp) {
+			
+			//Interaction avec le lit
+			if (sprite.getLayoutX() <= 1312 && sprite.getLayoutX() >= 1124 && sprite.getLayoutY() <= 674 && sprite.getLayoutY() >= 484) {
+				BoutonInteractionLit.setVisible(true);
+			}else {
+				BoutonInteractionLit.setVisible(false);
+			}
 
 			if(wPressed.get()) {
 				if (-2 < sprite.getLayoutY()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 				}
 			}
 
 			if(sPressed.get()){
 				if ( 926 > sprite.getLayoutY()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 					if (sprite.getLayoutX() <= 576 && sprite.getLayoutX() >= 526 && sprite.getLayoutY() == 772) {
 						close(); 
@@ -149,14 +192,14 @@ public class PageMaisonController {
 
 			if(aPressed.get()){
 				if (-12 < sprite.getLayoutX()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
 
 			if(dPressed.get()){
 				if (1832 > sprite.getLayoutX()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
 				}
 			}
