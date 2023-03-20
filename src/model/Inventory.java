@@ -10,6 +10,7 @@ public class Inventory {
         items = new ArrayList<>();
         items.add(new Item("carotte", 3, 5));
         items.add(new Item("porc", 2, 5));
+        items.add(new Item("lait", 7, 10));
     }
     
     public void addItem(Item item) {
@@ -22,6 +23,15 @@ public class Inventory {
     
     public List<Item> getItems() {
         return items;
+    }
+    
+    public Item contains(String name) {
+        for (Item item : items) {
+            if (item.getName().equals(name)) {
+                return item;
+            }
+        }
+        return null;
     }
     
     public String toString() {
