@@ -136,7 +136,6 @@ public class PageAccueilController implements Initializable {
     
     public void makeMovable(BorderPane scene){
 		this.scene = scene;
-		System.out.println("gg");
 		movementSetup();
 	}
 }

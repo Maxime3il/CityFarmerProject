@@ -21,11 +21,24 @@ body {
 -fx-font-family: "Stardew Valley";
 -fx-text-fill: #d15956;
 -fx-font-size: 48px;
+-fx-cursor: hand;
 }
 
-#LabelEnergy, #labelGenre, #labelNom, #labelPrenom, #labelVie {
+#LabelEnergy, #labelGenre, #labelNom, #labelPrenom, #labelVie, #labelNomFerme {
 	-fx-font-family: "Stardew Valley";
 	-fx-font-size: 48px;
+	-fx-text-fill: #5a1104;
+}
+
+#LabelEnergy, #labelVie {
+	-fx-font-family: "Stardew Valley";
+	-fx-font-size: 48px;
+	-fx-text-fill: #d15956;
+}
+
+#LabelInfos{
+	-fx-font-family: "Stardew Valley";
+	-fx-font-size: 32px;
 	-fx-text-fill: #d15956;
 }
 

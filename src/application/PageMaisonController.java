@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
@@ -35,6 +36,9 @@ public class PageMaisonController {
 	@FXML
 	public void initialize() {
 		makeMovable(sprite, scene);
+		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
+		sprite.setImage(image);
+
 	}
 
 	private void lancerXML(String url) {

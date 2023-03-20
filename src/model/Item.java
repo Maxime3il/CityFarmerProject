@@ -41,5 +41,13 @@ public class Item {
     public void setCount(int count) {
         this.count = count;
     } 
+    
+    public void addItem() {
+    	this.count += 1;
+    }
+    
+    public void removeItem() {
+    	this.count -= 1;
+    }
 }
 
