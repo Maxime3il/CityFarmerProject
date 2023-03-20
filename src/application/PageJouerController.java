@@ -48,6 +48,12 @@ public class PageJouerController {
     private ImageView cochon2;
     
     @FXML
+    private ImageView vache;
+
+    @FXML
+    private ImageView vache2;
+    
+    @FXML
     private Button BoutonInteractionCochon;
 
 	@FXML
@@ -58,6 +64,9 @@ public class PageJouerController {
 	 
 	 @FXML
 	 private Button BoutonInteractionCoffre;
+	 
+	 @FXML
+	 private Button BoutonInteractionVache;
 	
 	@FXML
 	public void initialize() {
@@ -65,6 +74,7 @@ public class PageJouerController {
 		BoutonInteractionPotager.setVisible(false);
 		BoutonInteractionCochon.setVisible(false);
 		BoutonInteractionCoffre.setVisible(false);
+		BoutonInteractionVache.setVisible(false);
 		makeMovable(sprite, scene);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
 		sprite.setImage(image);
@@ -186,7 +196,6 @@ public class PageJouerController {
 			//Interaction avec les cochons
 			if (sprite.getLayoutX() <= 364 && sprite.getLayoutX() >= 196 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 380) {
 				BoutonInteractionCochon.setVisible(true);
-				System.out.println("Cochon");
 			}else {
 				BoutonInteractionCochon.setVisible(false);
 			}
@@ -197,7 +206,12 @@ public class PageJouerController {
 			}else {
 				BoutonInteractionCoffre.setVisible(false);
 			}
-			
+			//Interaction avec les vaches
+			if (sprite.getLayoutX() <= 1668 && sprite.getLayoutX() >= 1512 && sprite.getLayoutY() <= 288 && sprite.getLayoutY() >= 0) {
+				BoutonInteractionVache.setVisible(true);
+			}else {
+				BoutonInteractionVache.setVisible(false);
+			}
 			if(wPressed.get()) {
 				if ((((sprite.getLayoutX() < 464 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1138 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
@@ -210,21 +224,21 @@ public class PageJouerController {
 
 			if(sPressed.get()){
 				if ( 926 > sprite.getLayoutY()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayosutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 				}
 			}
 
 			if(aPressed.get()){
 				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && -12 < sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && -12 < sprite.getLayoutX()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
 
 			if(dPressed.get()){
 				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
 				}
 			}

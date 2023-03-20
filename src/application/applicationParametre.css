@@ -22,4 +22,18 @@ body {
 -fx-text-fill: #d15956;
 -fx-font-size: 48px;
 -fx-cursor: hand;
+
+}
+
+#Parametres{
+	-fx-text-fill: #5a1104;
+    -fx-font-family: "Stardew Valley";
+    -fx-font-size: 72px;
+}
+
+#checkbox{
+	-fx-text-fill: #5a1104;
+    -fx-font-family: "Stardew Valley";
+    -fx-font-size: 48px; 	
+    -fx-cursor: hand;
 }

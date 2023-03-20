@@ -164,5 +164,7 @@ public class PagePersonnageController {
 	    player = new Player(prenom, nom, currentGender, skin,nomFerme ,  1, 1, new Inventory());
 	    System.out.println(PagePersonnageController.player.getName());
 	    lancerXML("PageJouer.fxml");
+	    Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.close();
 	}
 }

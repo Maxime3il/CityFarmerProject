@@ -89,5 +89,6 @@ public class PageInformationPersonnageController {
         if (progressValueEnergy <= 0.0) {
             timeline.stop();
         }
+        System.out.println(progressValueEnergy);
     }
 }
