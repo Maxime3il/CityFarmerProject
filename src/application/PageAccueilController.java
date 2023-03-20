@@ -69,10 +69,10 @@ public class PageAccueilController implements Initializable {
 	private void activerDesactiverSon(ActionEvent event) {
 	    jouerSonActif = !jouerSonActif;	    
 	    if (!jouerSonActif) {
-	        // Si le son est désactivé, on ajouter la classe CSS "muted" au bouton btnActiverDesactiverSon
+	        // Si le son est dï¿½sactivï¿½, on ajouter la classe CSS "muted" au bouton btnActiverDesactiverSon
 	    	btnActiverDesactiverSon.getStyleClass().add("muted");
 	    } else {
-	        // Si le son est activé, on retire la classe CSS "muted" du bouton btnActiverDesactiverSon
+	        // Si le son est activï¿½, on retire la classe CSS "muted" du bouton btnActiverDesactiverSon
 	    	btnActiverDesactiverSon.getStyleClass().remove("muted");
 	    }
 	}
@@ -139,7 +139,7 @@ public class PageAccueilController implements Initializable {
 		
 		 PauseTransition pause = new PauseTransition(Duration.seconds(5));
 
-		    // Ajouter un EventHandler qui sera déclenché après la pause
+		    // Ajouter un EventHandler qui sera dï¿½clenchï¿½ aprï¿½s la pause
 		    pause.setOnFinished(event -> {
 		        // Rendre les boutons visibles
 		        BoutonPersonnage.setVisible(true);
@@ -153,7 +153,7 @@ public class PageAccueilController implements Initializable {
 			@Override
 			public void handle(MouseEvent event) {
 				if (jouerSonActif) {
-					jouerSon("C:\\Users\\a.ruiz\\eclipse-workspace\\CityFarmer\\src\\Audio\\Personnage.mp3");
+					jouerSon("src/Audio/Personnage.mp3");
 				}
 			}
 		});
@@ -161,7 +161,7 @@ public class PageAccueilController implements Initializable {
 			@Override
 			public void handle(MouseEvent event) {
 				if (jouerSonActif) {
-					jouerSon("C:\\Users\\a.ruiz\\eclipse-workspace\\CityFarmer\\src\\Audio\\Personnage.mp3");
+					jouerSon("src/Audio/Personnage.mp3");
 				}
 			}
 		});
@@ -169,7 +169,7 @@ public class PageAccueilController implements Initializable {
 			@Override
 			public void handle(MouseEvent event) {
 				if (jouerSonActif) {
-					jouerSon("C:\\Users\\a.ruiz\\eclipse-workspace\\CityFarmer\\src\\Audio\\Personnage.mp3");
+					jouerSon("src/Audio/Personnage.mp3");
 				}
 			}
 		});
@@ -177,7 +177,7 @@ public class PageAccueilController implements Initializable {
 			@Override
 			public void handle(MouseEvent event) {
 				if (jouerSonActif) {
-					jouerSon("C:\\Users\\a.ruiz\\eclipse-workspace\\CityFarmer\\src\\Audio\\Personnage.mp3");
+					jouerSon("src/Audio/Personnage.mp3");
 				}
 			}
 		});
@@ -185,7 +185,7 @@ public class PageAccueilController implements Initializable {
 			@Override
 			public void handle(MouseEvent event) {
 				if (jouerSonActif) {
-					jouerSon("C:\\Users\\a.ruiz\\eclipse-workspace\\CityFarmer\\src\\Audio\\Personnage.mp3");
+					jouerSon("src/Audio/Personnage.mp3");
 				}
 			}
 		});
@@ -193,7 +193,7 @@ public class PageAccueilController implements Initializable {
 			@Override
 			public void handle(MouseEvent event) {
 				if (jouerSonActif) {
-					jouerSon("C:\\Users\\a.ruiz\\eclipse-workspace\\CityFarmer\\src\\Audio\\Personnage.mp3");
+					jouerSon("src/Audio/Personnage.mp3");
 				}
 			}
 		});

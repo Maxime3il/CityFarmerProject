@@ -15,22 +15,22 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 	    try {
-	        // Créer l'objet Media à partir du fichier MP3
-	        String musicFile = "C:\\\\Users\\\\a.ruiz\\\\eclipse-workspace\\\\CityFarmer\\\\src\\\\Audio\\\\Personnage.mp3";
+	        // Crï¿½er l'objet Media ï¿½ partir du fichier MP3
+	        String musicFile = "src/Audio/Personnage.mp3";
 	        Media sound = new Media(new File(musicFile).toURI().toString());
 
-	        // Créer l'objet MediaPlayer pour lire le fichier MP3
+	        // Crï¿½er l'objet MediaPlayer pour lire le fichier MP3
 	        MediaPlayer mediaPlayer = new MediaPlayer(sound);
 
 	        // Jouer le fichier MP3
 	        mediaPlayer.play();
 
-	        // Charger votre interface utilisateur à partir du fichier FXML
+	        // Charger votre interface utilisateur ï¿½ partir du fichier FXML
 	        BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("PageAccueil.fxml"));
 	        Scene scene = new Scene(root,1920,1080);
 	        scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
-	        // Configurer la scène
+	        // Configurer la scï¿½ne
 	        primaryStage.setTitle("CityFarmer");
 	        primaryStage.setOnCloseRequest(event -> {
 	            event.consume();
