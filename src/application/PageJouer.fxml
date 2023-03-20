@@ -33,11 +33,11 @@
             <Button fx:id="closeButton" layoutX="1840.0" layoutY="10.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="80.0" text="X" />
             <ImageView fx:id="sprite" fitHeight="150.0" fitWidth="104.0" layoutX="886.0" layoutY="200.0" pickOnBounds="true" preserveRatio="true" />
             <Button fx:id="buttonSprite" layoutX="40.0" layoutY="43.0" mnemonicParsing="false" onAction="#OpenSpriteInformation" prefHeight="64.0" prefWidth="72.0" text="!" />
-            <Button fx:id="BoutonInteraction" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="652.0" text="Echanger avec le marchand" />
-            <Button fx:id="BoutonInteractionPotager" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="652.0" text="Recolter" />
-            <Button fx:id="BoutonInteractionCochon" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="652.0" text="Faire un steak" />
-            <Button fx:id="BoutonInteractionCoffre" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="652.0" text="Ouvrir le coffre" />
-            <Button fx:id="BoutonInteractionVache" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="652.0" text="Recuperer du lait" />
+            <Button fx:id="BoutonInteraction" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" onAction="#interactionMarchandButton" prefHeight="120.0" prefWidth="652.0" text="Echanger avec le marchand" />
+            <Button fx:id="BoutonInteractionPotager" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" onAction="#interactionPotagerButton" prefHeight="120.0" prefWidth="652.0" text="Recolter" />
+            <Button fx:id="BoutonInteractionCochon" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" onAction="#interactionCochonButton" prefHeight="120.0" prefWidth="652.0" text="Faire un steak" />
+            <Button fx:id="BoutonInteractionCoffre" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" onAction="#interactionCoffreButton" prefHeight="120.0" prefWidth="652.0" text="Ouvrir le coffre" />
+            <Button fx:id="BoutonInteractionVache" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" onAction="#interactionLaitButton" prefHeight="120.0" prefWidth="652.0" text="Recuperer du lait" />
          </children></Pane>
    </left>
    

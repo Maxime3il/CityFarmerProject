@@ -1,9 +1,7 @@
 package application;
 
 import javafx.event.ActionEvent;
-
 import java.io.IOException;
-
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -48,7 +46,6 @@ public class PageMaisonController {
 		sprite.setImage(image);
 
 	}
-
 	
 	@FXML
 	void dormir(ActionEvent event) {
