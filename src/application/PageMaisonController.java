@@ -185,7 +185,7 @@ public class PageMaisonController {
 				sprite.setLayoutX(1724);
 			}
 			
-			// Collision carré en haut a droite
+			// Collision carrï¿½ en haut a droite
 			if (sprite.getLayoutX() <= 1724 && sprite.getLayoutX() >= 1176 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 170) {
 				if(dPressed.get()){
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
@@ -194,22 +194,22 @@ public class PageMaisonController {
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 				}
 			}
-			
-			// Collision ligne haut - bas
-			if (sprite.getLayoutX() <= 1176 && sprite.getLayoutX() >= 548 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 312) {
-				if(dPressed.get()){
-					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
-				}
-				if(wPressed.get()){
-					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
-				}
-				if(aPressed.get()){
-					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
-				}
-				if(sPressed.get()){
-					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
-				}
-			}
+//			
+//			// Collision ligne haut - bas
+//			if (sprite.getLayoutX() <= 1176 && sprite.getLayoutX() >= 548 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 312) {
+//				if(dPressed.get()){
+//					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
+//				}
+//				if(wPressed.get()){
+//					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
+//				}
+//				if(aPressed.get()){
+//					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
+//				}
+//				if(sPressed.get()){
+//					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
+//				}
+//			}
 			
 			
 			
@@ -221,14 +221,14 @@ public class PageMaisonController {
 			}
 
 			if(wPressed.get()) {
-				if (-2 < sprite.getLayoutY()) {
+				if (!(sprite.getLayoutX() <= 1176 && sprite.getLayoutX() >= 548 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 312)) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 				}
 			}
 
 			if(sPressed.get()){
-				if ( 926 > sprite.getLayoutY()) {
+				if (1==1) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 					if (sprite.getLayoutX() <= 576 && sprite.getLayoutX() >= 526 && sprite.getLayoutY() == 772) {
@@ -239,14 +239,14 @@ public class PageMaisonController {
 			}
 
 			if(aPressed.get()){
-				if (-12 < sprite.getLayoutX()) {
+				if (1==1) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
 
 			if(dPressed.get()){
-				if (1832 > sprite.getLayoutX()) {
+				if (1==1) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
 				}

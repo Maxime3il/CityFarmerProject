@@ -213,7 +213,7 @@ public class PageJouerController {
 				BoutonInteractionVache.setVisible(false);
 			}
 			if(wPressed.get()) {
-                if ((((sprite.getLayoutX() < 470 && sprite.getLayoutY() < 144 ) || (sprite.getLayoutX() > 1130 && sprite.getLayoutY() < 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
+                if ((((sprite.getLayoutX() < 470 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1130 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
                     System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
                     sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
                     if (sprite.getLayoutX() <= 904 && sprite.getLayoutX() >= 868 && sprite.getLayoutY() == 146) {
