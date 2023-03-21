@@ -276,7 +276,7 @@ public class PageJouerController {
             Parent root = loader.load();
             
             // Créer une nouvelle scène avec la fenêtre chargée
-            Scene scene = new Scene(root, 668, 270);
+            Scene scene = new Scene(root, 930, 580);
             
             // Créer une nouvelle fenêtre avec la scène
             Stage stage = new Stage();
@@ -294,13 +294,19 @@ public class PageJouerController {
     @FXML
     public void interactionCochonButton(ActionEvent evt) {
     	PagePersonnageController.player.getInventory().addItem("porc");
-    	System.out.println(PagePersonnageController.player.getInventory());
+    	//System.out.println(PagePersonnageController.player.getInventory());
     }
 
     @FXML
     public void interactionPotagerButton(ActionEvent evt) {
-    	PagePersonnageController.player.getInventory().addItem("porc");
-    	System.out.println(PagePersonnageController.player.getInventory());
+    	PagePersonnageController.player.getInventory().addItem("carotte");
+    	//System.out.println(PagePersonnageController.player.getInventory());
+    }
+    
+    @FXML
+    public void interactionLaitButton(ActionEvent evt) {
+    	PagePersonnageController.player.getInventory().addItem("lait");
+    	//System.out.println(PagePersonnageController.player.getInventory());
     }
     
     @FXML
@@ -310,6 +316,6 @@ public class PageJouerController {
     
     @FXML
     public void interactionMarchandButton(ActionEvent evt) {
-    	//TODO PAGE AVEC LE MARCHAND ET L'INVENTAIRE
+		lancerXML("PageEchangeMarchand.fxml");
     }
 }
