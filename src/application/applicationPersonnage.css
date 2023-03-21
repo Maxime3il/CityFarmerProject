@@ -21,4 +21,69 @@ body {
 -fx-font-family: "Stardew Valley";
 -fx-text-fill: #d15956;
 -fx-font-size: 48px;
+-fx-cursor: hand;
 }
+
+#textePersonnalisation{
+    -fx-padding: 10px 20px;
+    -fx-font-family: "Stardew Valley";
+    -fx-text-fill: #d15956;
+    -fx-font-size: 32px;
+}
+
+#validatePerso{
+    -fx-background-image: url('../Images/BtnValider.png');
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 175px 71px;
+    -fx-padding: 20px 20px;
+    -fx-font-family: "Stardew Valley";
+    -fx-text-fill: #5a1104;
+    -fx-font-size: 32px;
+    -fx-cursor: hand;
+}
+
+#myComboBox{
+    -fx-background-image: url('../Images/BtnValider.png');
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 285px 51px;
+    -fx-font-family: "Stardew Valley";
+    -fx-text-fill: #5a1104;
+    -fx-font-size: 32px;
+    -fx-cursor: hand;
+}
+
+#inputNom, #inputPrenom, #inputFerme{
+    -fx-background-color: #f6b86c;
+    -fx-text-fill: #5a1104;
+    -fx-font-family: "Stardew Valley";
+    -fx-font-size: 32px;
+    -fx-cursor: hand;
+}
+
+#labelChoix{
+    -fx-text-fill: #5a1104;
+    -fx-font-family: "Stardew Valley";
+    -fx-font-size: 72px;
+}
+
+#nextButton, #previousButton{
+	-fx-cursor: hand;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

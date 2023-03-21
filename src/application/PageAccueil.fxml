@@ -8,22 +8,22 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.media.MediaView?>
 
-<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageAccueilController">
+<BorderPane fx:id="scene" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageAccueilController">
    <center>
       <Pane BorderPane.alignment="CENTER">
          <children>
             <MediaView fx:id="mediaView" fitHeight="1080.0" fitWidth="1920.0" />
-            <Button fx:id="BtnJouer" contentDisplay="CENTER" layoutX="710.0" layoutY="761.0" mnemonicParsing="false" onAction="#redirectJouer" prefHeight="150.0" prefWidth="500.0" text="Jouer" />
-            <Button fx:id="BtnParam" layoutX="45.0" layoutY="761.0" mnemonicParsing="false" onAction="#redirectParam" prefHeight="150.0" prefWidth="500.0" text="Parametres" />
-            <Button fx:id="BoutonPersonnage" layoutX="1380.0" layoutY="761.0" mnemonicParsing="false" onAction="#redirectPersonnage" prefHeight="150.0" prefWidth="500.0" text="Personnage" />
+            <Button fx:id="BtnJouer" contentDisplay="CENTER" layoutX="714.0" layoutY="732.0" mnemonicParsing="false" onAction="#redirectJouer" prefHeight="150.0" prefWidth="500.0" text="Jouer" />
+            <Button fx:id="BtnParam" layoutX="714.0" layoutY="904.0" mnemonicParsing="false" onAction="#redirectParam" prefHeight="150.0" prefWidth="500.0" text="Parametres" />
             <Button fx:id="closeButton" layoutX="1840.0" layoutY="10.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="80.0" text="X" />
-            <Slider fx:id="volumeSlider" layoutX="113.0" layoutY="47.0" />
-            <Button fx:id="styleSound" layoutX="21.0" layoutY="21.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="80.0" />
-            <ImageView fitHeight="68.0" fitWidth="53.0" layoutX="35.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+            <Button fx:id="couperSonMusique" layoutX="21.0" layoutY="27.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="80.0" />
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="21.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../Images/note.png" />
+                  <Image url="@../Images/Jouer.PNG" />
                </image>
             </ImageView>
+            <Slider fx:id="volumeSlider" layoutX="46.0" layoutY="107.0" />
+            <Button fx:id="btnActiverDesactiverSon" layoutX="35.0" layoutY="192.0" mnemonicParsing="false" onAction="#activerDesactiverSon" prefHeight="59.0" prefWidth="80.0" />
          </children>
       </Pane>
    </center>

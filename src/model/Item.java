@@ -1,6 +1,4 @@
 package model;
-// import String ???
-
 
 /**
  * Classe gerant les items du jeu
@@ -10,14 +8,13 @@ package model;
 public class Item {
 	// Parametres
     private String name;
-    private String description;
     private int price;
-    
+    private int count;
     // Constructeurs
-    public Item(String name, String description, int price) {
+    public Item(String name, int price, int count) {
         this.name = name;
-        this.description = description;
         this.price = price;
+        this.count = count;
     }
     
     // Accesseurs
@@ -29,22 +26,28 @@ public class Item {
         this.name = name;
     }
     
-    public String getDescription() {
-        return description;
-    }
-    
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    
     public int getPrice() {
         return price;
     }
     
     public void setPrice(int price) {
         this.price = price;
+    } 
+    
+    public int getCount() {
+        return count;
     }
     
-    // Methodes
+    public void setCount(int count) {
+        this.count = count;
+    } 
+    
+    public void addItem() {
+    	this.count += 1;
+    }
+    
+    public void removeItem() {
+    	this.count -= 1;
+    }
 }
 
