@@ -170,6 +170,8 @@ public class PageJouerController {
 			}
 		}));
 	}
+	
+	static boolean gg = false;
 
 	AnimationTimer timer = new AnimationTimer() {
 		@Override

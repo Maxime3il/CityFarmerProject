@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Inventory;
 import model.Item;
+import model.Player;
 
 public class PageEchangeController {
 
@@ -86,27 +87,41 @@ public class PageEchangeController {
 
     public Inventory inventory = new Inventory();
     
+    private int nbPorc;
+    
+    private int nbPorcI;
+
+    private int nbCarottes;
+    
+    private int nbCarottesI;
+
+    private int nbLaits;
+    
+    private int nbLaitsI;
+
+    
     @FXML
     public void initialize() {
     	
-        int nbPorcI = PagePersonnageController.player.getInventory().contains("porc").getCount();
+        nbPorcI = PagePersonnageController.player.getInventory().contains("porc").getCount();
         nbSteak.setText(String.valueOf(nbPorcI));
         
-        int nbCarottesI = PagePersonnageController.player.getInventory().contains("carotte").getCount();
+        nbCarottesI = PagePersonnageController.player.getInventory().contains("carotte").getCount();
         nbCarotte.setText(String.valueOf(nbCarottesI));
         
-        int nbLaitsI = PagePersonnageController.player.getInventory().contains("lait").getCount();
+        nbLaitsI = PagePersonnageController.player.getInventory().contains("lait").getCount();
         nbLait.setText(String.valueOf(nbLaitsI));
     	
     	//Initialisation de l'affichage de l'inventaire du marchand
         System.out.println(PagePersonnageController.inventaireMarchand.contains("porc").getCount());
-        int nbPorc = PagePersonnageController.inventaireMarchand.contains("porc").getCount();
+        // Gérer le porc
+        nbPorc = PagePersonnageController.inventaireMarchand.contains("porc").getCount();
         nbSteakMarchand.setText(String.valueOf(nbPorc));
-        
-        int nbCarottes = PagePersonnageController.inventaireMarchand.contains("carotte").getCount();
+        // Gérer les carottes
+        nbCarottes = PagePersonnageController.inventaireMarchand.contains("carotte").getCount();
         nbCarotteMarchand.setText(String.valueOf(nbCarottes));
-        
-        int nbLaits = PagePersonnageController.inventaireMarchand.contains("lait").getCount();
+        // Gerer le lait
+        nbLaits = PagePersonnageController.inventaireMarchand.contains("lait").getCount();
         nbLaitMarchand.setText(String.valueOf(nbLaits));
     	
     	nombreItem.setText("1");
@@ -122,8 +137,8 @@ public class PageEchangeController {
     	    }
     	});
         
-        //int nbArgent = PagePersonnageController.player.getInventory().contains("lait").getCount();
-        argentInventaire.setText("100");
+        double nbArgent = PagePersonnageController.player.getInventory().getArgentJoueur();
+        argentInventaire.setText(String.valueOf(nbArgent));
         
      // Ajout d'un listener sur la sélection de la ComboBox
         comboBoxItem.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
@@ -148,11 +163,12 @@ public class PageEchangeController {
  // Méthode pour mettre à jour le prix total en fonction du nombre entré dans le TextField
     private void updatePrixTotal() {
         double prix = Double.parseDouble(prixLabel.getText());
-        int quantite = Integer.parseInt(nombreItem.getText());
-        double prixTotalValue = prix * quantite;
-        prixTotal.setText(String.valueOf(prixTotalValue));
+        if(!nombreItem.getText().equals("")) {
+            int quantite = Integer.parseInt(nombreItem.getText());
+            double prixTotalValue = prix * quantite;
+            prixTotal.setText(String.valueOf(prixTotalValue));
+        }
     }
-
 
     @FXML
     void close() {
@@ -162,14 +178,62 @@ public class PageEchangeController {
     
     @FXML
     void echangerAvecMarchand(ActionEvent event) {
-    	if(PagePersonnageController.player.getInventory().getArgentJoueur() < Integer.parseInt(prixTotal.getText())) {
+    	if(PagePersonnageController.player.getInventory().getArgentJoueur() > Double.parseDouble(prixTotal.getText())) {
     		PagePersonnageController.player.getInventory().setArgentJoueur(
-    				PagePersonnageController.player.getInventory().getArgentJoueur() - Integer.parseInt(prixTotal.getText()));
-            int prixFinalJoueur = PagePersonnageController.player.getInventory().getArgentJoueur();
-            argentInventaire.setText(String.valueOf(prixFinalJoueur));
+    				PagePersonnageController.player.getInventory().getArgentJoueur() - Double.parseDouble(prixTotal.getText()));
+    		double prixFinalJoueur = PagePersonnageController.player.getInventory().getArgentJoueur();
+    		argentInventaire.setText(String.valueOf(prixFinalJoueur));
+    		//Changement inventaire du personnage de l'item selectionné
+    		int nbItem = PagePersonnageController.player.getInventory().contains(comboBoxItem.getValue()).getCount();
+    		PagePersonnageController.player.getInventory().contains(comboBoxItem.getValue()).setCount(nbItem + Integer.parseInt(nombreItem.getText()));
+    		//Changement inentaire marchand
+    		int nbItemMarchand = PagePersonnageController.inventaireMarchand.contains(comboBoxItem.getValue()).getCount();
+    		PagePersonnageController.inventaireMarchand.contains(comboBoxItem.getValue()).setCount(nbItemMarchand - Integer.parseInt(nombreItem.getText()));
+    		if(comboBoxItem.getValue().equals("porc")) {
+    			nbSteak.setText(nbItem + Integer.parseInt(nombreItem.getText()) + "");
+    			System.out.println(Integer.parseInt(nombreItem.getText()));
+    			nbSteakMarchand.setText(nbItemMarchand - Integer.parseInt(nombreItem.getText())  + "");
+    		} else if(comboBoxItem.getValue().equals("lait")) {
+    			nbLait.setText(nbItem + Integer.parseInt(nombreItem.getText())+"");
+    			nbLaitMarchand.setText(nbItemMarchand - Integer.parseInt(nombreItem.getText()) + "");
+    		} else {
+    			System.out.println();
+    			nbCarotte.setText(nbItem + Integer.parseInt(nombreItem.getText())+"");
+    			nbCarotteMarchand.setText( nbItemMarchand - Integer.parseInt(nombreItem.getText()) + "");
+    		}
     	} else {
     		//TODO FAIRE UNE POPUP OU MESSAGE DE PREVENTION
-    	}
+    	}	
+    }
+    
+    @FXML
+    void vendreAvecMarchand(ActionEvent evt) {
+    	if(PagePersonnageController.player.getInventory().getArgentJoueur() > Double.parseDouble(prixTotal.getText())) {
+    		PagePersonnageController.player.getInventory().setArgentJoueur(
+    				PagePersonnageController.player.getInventory().getArgentJoueur() - Double.parseDouble(prixTotal.getText()));
+    		double prixFinalJoueur = PagePersonnageController.player.getInventory().getArgentJoueur();
+    		argentInventaire.setText(String.valueOf(prixFinalJoueur));
+    		//Changement inventaire du personnage de l'item selectionné
+    		int nbItem = PagePersonnageController.player.getInventory().contains(comboBoxItem.getValue()).getCount();
+    		PagePersonnageController.player.getInventory().contains(comboBoxItem.getValue()).setCount(nbItem - Integer.parseInt(nombreItem.getText()));
+    		//Changement inentaire marchand
+    		int nbItemMarchand = PagePersonnageController.inventaireMarchand.contains(comboBoxItem.getValue()).getCount();
+    		PagePersonnageController.inventaireMarchand.contains(comboBoxItem.getValue()).setCount(nbItemMarchand + Integer.parseInt(nombreItem.getText()));
+    		if(comboBoxItem.getValue().equals("porc")) {
+    			nbSteak.setText(nbItem - Integer.parseInt(nombreItem.getText()) + "");
+    			System.out.println(Integer.parseInt(nombreItem.getText()));
+    			nbSteakMarchand.setText(nbItemMarchand + Integer.parseInt(nombreItem.getText())  + "");
+    		} else if(comboBoxItem.getValue().equals("lait")) {
+    			nbLait.setText(nbItem - Integer.parseInt(nombreItem.getText())+"");
+    			nbLaitMarchand.setText(nbItemMarchand + Integer.parseInt(nombreItem.getText()) + "");
+    		} else {
+    			System.out.println();
+    			nbCarotte.setText(nbItem - Integer.parseInt(nombreItem.getText())+"");
+    			nbCarotteMarchand.setText( nbItemMarchand + Integer.parseInt(nombreItem.getText()) + "");
+    		}
+    	} else {
+    		//TODO FAIRE UNE POPUP OU MESSAGE DE PREVENTION
+    	}	
     }
 
 }

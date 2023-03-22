@@ -6,7 +6,7 @@ import java.util.List;
 public class Inventory {
     private List<Item> items;
     
-    private int argentJoueur;
+    private double argentJoueur;
     
     public Inventory() {
     	setArgentJoueur(100);
@@ -68,11 +68,11 @@ public class Inventory {
         }
     }
 
-	public int getArgentJoueur() {
+	public double getArgentJoueur() {
 		return argentJoueur;
 	}
 
-	public void setArgentJoueur(int argentJoueur) {
+	public void setArgentJoueur(double argentJoueur) {
 		this.argentJoueur = argentJoueur;
 	}
     
