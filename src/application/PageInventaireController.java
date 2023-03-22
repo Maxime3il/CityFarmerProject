@@ -45,8 +45,8 @@ public class PageInventaireController {
         int nbLaits = PagePersonnageController.player.getInventory().contains("lait").getCount();
         nbLait.setText(String.valueOf(nbLaits));
         
-        //int nbArgent = PagePersonnageController.player.getInventory().contains("lait").getCount();
-        argentInventaire.setText("100");
+        double nbArgent = PagePersonnageController.player.getInventory().getArgentJoueur();
+        argentInventaire.setText(String.valueOf(nbArgent));
     }
 
 
