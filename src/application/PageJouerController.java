@@ -170,6 +170,8 @@ public class PageJouerController {
 			}
 		}));
 	}
+	
+	static boolean gg = false;
 
 	AnimationTimer timer = new AnimationTimer() {
 		@Override
@@ -295,19 +297,16 @@ public class PageJouerController {
     @FXML
     public void interactionCochonButton(ActionEvent evt) {
     	PagePersonnageController.player.getInventory().addItem("porc");
-    	System.out.println(PagePersonnageController.player.getInventory());
     }
 
     @FXML
     public void interactionPotagerButton(ActionEvent evt) {
     	PagePersonnageController.player.getInventory().addItem("carotte");
-    	System.out.println(PagePersonnageController.player.getInventory());
     }
     
     @FXML
     public void interactionLaitButton(ActionEvent evt) {
     	PagePersonnageController.player.getInventory().addItem("lait");
-    	System.out.println(PagePersonnageController.player.getInventory());
     }
     
     @FXML
@@ -331,6 +330,6 @@ public class PageJouerController {
     
     @FXML
     public void interactionMarchandButton(ActionEvent evt) {
-    	//TODO PAGE AVEC LE MARCHAND ET L'INVENTAIRE
+		lancerXML("PageEchangeMarchand.fxml");
     }
 }

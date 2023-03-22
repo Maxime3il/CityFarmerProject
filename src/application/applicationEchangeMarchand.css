@@ -1,0 +1,82 @@
+@font-face {
+    src: url("../fonts/Stardew_Valley.otf");
+}
+ 
+body {
+    -fx-font-family: "Stardew Valley";
+}
+
+
+.root{
+	-fx-background-image:url('../Images/CadreMarchand.png');
+    -fx-background-size:cover;
+}
+
+#closeButton{
+-fx-background-image: url('../Images/Quitter.png');
+-fx-background-size: 80px 65px;
+-fx-background-position: center;
+-fx-background-repeat: no-repeat;
+-fx-padding: 10px 20px;
+-fx-font-family: "Stardew Valley";
+-fx-text-fill: #d15956;
+-fx-font-size: 48px;
+-fx-cursor: hand;
+}
+
+#titreInventaire, #separator, #argentInventaire, #titreInventaireMarchand, #separatorMarchand, #argentInventaireMarchand , #itemLabel, #nombreLabel, #labelPrix, #prixLabel, #coutUnite {
+	-fx-font-family: "Stardew Valley";
+	-fx-font-size: 48px;
+	-fx-text-fill: #5a1104;
+}
+
+#nbSteak, #nbCarotte, #nbLait, #nbSteakMarchand, #nbCarotteMarchand, #nbLaitMarchand {
+	-fx-font-family: "Stardew Valley";
+	-fx-font-size: 24px;
+	-fx-text-fill: #d15956;
+}
+
+#comboBoxItem{
+    -fx-background-image: url('../Images/BtnValider.png');
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 241px 51px;
+    -fx-font-family: "Stardew Valley";
+    -fx-text-fill: #5a1104;
+    -fx-font-size: 32px;
+    -fx-cursor: hand;
+}
+
+#nombreItem, #prixTotal{
+	-fx-background-color: #f6b86c;
+    -fx-text-fill: #5a1104;
+    -fx-font-family: "Stardew Valley";
+    -fx-font-size: 32px;
+    -fx-cursor: hand;
+}
+
+#vendreBouton, #echangerButton{
+    -fx-background-image: url('../Images/BtnValider.png');
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 175px 71px;
+    -fx-padding: 20px 20px;
+    -fx-font-family: "Stardew Valley";
+    -fx-text-fill: #5a1104;
+    -fx-font-size: 32px;
+    -fx-cursor: hand;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationEchangeMarchand.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageEchangeController">
+   <center>
+      <Pane prefHeight="1030.0" prefWidth="1685.0" stylesheets="@applicationEchangeMarchand.css" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="closeButton" layoutX="1820.0" layoutY="17.0" mnemonicParsing="false" onAction="#close" prefHeight="48.0" prefWidth="77.0" text="X" />
+            <ImageView fx:id="steak" fitHeight="111.0" fitWidth="145.0" layoutX="229.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/porc.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="titreInventaire" alignment="CENTER" contentDisplay="CENTER" layoutX="335.0" layoutY="205.0" prefHeight="45.0" prefWidth="404.0" stylesheets="@applicationInventaire.css" text="Inventaire personnage" />
+            <ImageView fx:id="carotte" fitHeight="132.0" fitWidth="135.0" layoutX="453.0" layoutY="341.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/Carotte.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="109.0" fitWidth="136.0" layoutX="674.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/lait.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="nbSteak" alignment="CENTER" contentDisplay="CENTER" layoutX="299.0" layoutY="457.0" prefHeight="27.0" prefWidth="45.0" stylesheets="@applicationInventaire.css" text="20" />
+            <Label fx:id="nbCarotte" alignment="CENTER" contentDisplay="CENTER" layoutX="519.0" layoutY="457.0" prefHeight="27.0" prefWidth="37.0" stylesheets="@applicationInventaire.css" text="20" />
+            <Label fx:id="nbLait" alignment="CENTER" contentDisplay="CENTER" layoutX="738.0" layoutY="460.0" prefHeight="27.0" prefWidth="45.0" stylesheets="@applicationInventaire.css" text="20" />
+            <Label fx:id="argentInventaire" alignment="CENTER" contentDisplay="CENTER" layoutX="474.0" layoutY="580.0" prefHeight="45.0" prefWidth="194.0" stylesheets="@applicationInventaire.css" text="Label" />
+            <ImageView fx:id="argent" fitHeight="111.0" fitWidth="145.0" layoutX="349.0" layoutY="541.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/Monnaie.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="separator" alignment="CENTER" contentDisplay="CENTER" layoutX="446.0" layoutY="580.0" prefHeight="45.0" prefWidth="56.0" stylesheets="@applicationInventaire.css" text=":" />
+            <ImageView fx:id="steakMarchand" fitHeight="111.0" fitWidth="145.0" layoutX="948.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/porc.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="titreInventaireMarchand" alignment="CENTER" contentDisplay="CENTER" layoutX="1054.0" layoutY="201.0" prefHeight="45.0" prefWidth="404.0" stylesheets="@applicationInventaire.css" text="Inventaire marchand" />
+            <ImageView fx:id="carotteMarchand" fitHeight="132.0" fitWidth="135.0" layoutX="1172.0" layoutY="341.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/Carotte.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="109.0" fitWidth="136.0" layoutX="1393.0" layoutY="353.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../Images/lait.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="nbSteakMarchand" alignment="CENTER" contentDisplay="CENTER" layoutX="1018.0" layoutY="457.0" prefHeight="27.0" prefWidth="45.0" stylesheets="@applicationInventaire.css" text="20" />
+            <Label fx:id="nbCarotteMarchand" alignment="CENTER" contentDisplay="CENTER" layoutX="1238.0" layoutY="457.0" prefHeight="27.0" prefWidth="37.0" stylesheets="@applicationInventaire.css" text="20" />
+            <Label fx:id="nbLaitMarchand" alignment="CENTER" contentDisplay="CENTER" layoutX="1457.0" layoutY="460.0" prefHeight="27.0" prefWidth="45.0" stylesheets="@applicationInventaire.css" text="20" />
+            <ComboBox fx:id="comboBoxItem" layoutX="1187.0" layoutY="599.0" prefHeight="53.0" prefWidth="241.0" />
+            <Label fx:id="itemLabel" contentDisplay="CENTER" layoutX="978.0" layoutY="607.0" prefHeight="45.0" prefWidth="130.0" stylesheets="@applicationInventaire.css" text="Item :" />
+            <Label fx:id="nombreLabel" contentDisplay="CENTER" layoutX="978.0" layoutY="702.0" prefHeight="45.0" prefWidth="194.0" stylesheets="@applicationInventaire.css" text="Nombre :" />
+            <TextField fx:id="nombreItem" layoutX="1187.0" layoutY="696.0" prefHeight="53.0" prefWidth="241.0" />
+            <TextField fx:id="prixTotal" layoutX="1187.0" layoutY="784.0" prefHeight="53.0" prefWidth="241.0" />
+            <Button fx:id="echangerButton" layoutX="1284.0" layoutY="874.0" mnemonicParsing="false" onAction="#acheterAvecMarchand" prefHeight="71.0" prefWidth="173.0" text="Acheter" />
+            <Label fx:id="prixLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="1265.0" layoutY="530.0" prefHeight="45.0" prefWidth="90.0" stylesheets="@applicationInventaire.css" text="0" />
+            <Button fx:id="vendreBouton" layoutX="1047.0" layoutY="874.0" mnemonicParsing="false" onAction="#vendreAvecMarchand" prefHeight="71.0" prefWidth="173.0" text="Vendre" />
+            <Label fx:id="labelPrix" contentDisplay="CENTER" layoutX="978.0" layoutY="791.0" prefHeight="45.0" prefWidth="216.0" stylesheets="@applicationInventaire.css" text="Prix total :" />
+            <Label fx:id="coutUnite" contentDisplay="CENTER" layoutX="978.0" layoutY="530.0" prefHeight="45.0" prefWidth="271.0" stylesheets="@applicationInventaire.css" text="Cout a l'unite :" />
+            <Line fx:id="line" endX="-100.0" endY="399.0" fill="#5a1104" layoutX="978.0" layoutY="477.0" startX="-100.0" startY="-211.66665649414062" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

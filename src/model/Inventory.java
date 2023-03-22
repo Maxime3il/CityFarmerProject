@@ -6,11 +6,27 @@ import java.util.List;
 public class Inventory {
     private List<Item> items;
     
+    private double argentJoueur;
+    
     public Inventory() {
+    	setArgentJoueur(100);
         items = new ArrayList<>();
         items.add(new Item("carotte", 3, 5));
         items.add(new Item("porc", 2, 5));
         items.add(new Item("lait", 7, 10));
+    }
+    
+    /**
+     * Initialisation d'un inventaire utile pour le marchand de la partie
+     * @param nbrSteak
+     * @param nbrCarotte
+     * @param nbrLait
+     */
+    public Inventory(int nbrSteak, int nbrCarotte, int nbrLait) {
+        items = new ArrayList<>();
+        items.add(new Item("carotte", 5, nbrCarotte));
+        items.add(new Item("porc", 4, nbrSteak));
+        items.add(new Item("lait", 10, nbrLait));
     }
     
     public void addItem(Item item) {
@@ -51,4 +67,12 @@ public class Inventory {
             }
         }
     }
+    
+	public double getArgentJoueur() {
+		return argentJoueur;
+	}
+
+	public void setArgentJoueur(double argentJoueur) {
+		this.argentJoueur = argentJoueur;
+	}
 }
