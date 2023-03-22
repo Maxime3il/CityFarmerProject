@@ -1,0 +1,53 @@
+@font-face {
+    src: url("../fonts/Stardew_Valley.otf");
+}
+ 
+body {
+    -fx-font-family: "Stardew Valley";
+}
+
+
+.root{
+    -fx-background-image:url('../Images/CadrePersonnage.png');
+    -fx-background-size:cover;
+}
+
+#closeButton{
+-fx-background-image: url('../Images/Quitter.png');
+-fx-background-size: 80px 65px;
+-fx-background-position: center;
+-fx-background-repeat: no-repeat;
+-fx-padding: 10px 20px;
+-fx-font-family: "Stardew Valley";
+-fx-text-fill: #d15956;
+-fx-font-size: 48px;
+-fx-cursor: hand;
+}
+
+#LabelEnergy, #labelGenre, #labelNom, #labelPrenom, #labelVie, #labelNomFerme {
+	-fx-font-family: "Stardew Valley";
+	-fx-font-size: 48px;
+	-fx-text-fill: #5a1104;
+}
+
+#LabelEnergy, #labelVie {
+	-fx-font-family: "Stardew Valley";
+	-fx-font-size: 48px;
+	-fx-text-fill: #d15956;
+}
+
+#LabelInfos{
+	-fx-font-family: "Stardew Valley";
+	-fx-font-size: 32px;
+	-fx-text-fill: #d15956;
+}
+
+#energyProgressBar .bar, #healthProgressBar .bar {
+    -fx-background-color:
+        -fx-box-border,
+        linear-gradient(to bottom, derive(-fx-accent,95%), derive(-fx-accent,10%)),
+        #d15956; /* c'est le background de la progressBar */
+    -fx-background-insets: 0, 1, 2;
+    -fx-padding: 0.416667em; /* 5 */
+    -fx-box-border: #d15956;
+}

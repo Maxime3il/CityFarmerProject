@@ -9,6 +9,7 @@ body {
 .slider {
   -fx-pref-width: 150px;
   -fx-padding: 2px;
+  -fx-cursor: hand;
 }
 
 .slider .track {
@@ -33,6 +34,7 @@ body {
 -fx-font-family: "Stardew Valley";
 -fx-text-fill: #d15956;
 -fx-font-size: 72px;
+-fx-cursor: hand;
 }
 
 #closeButton{
@@ -44,6 +46,7 @@ body {
 -fx-font-family: "Stardew Valley";
 -fx-text-fill: #d15956;
 -fx-font-size: 48px;
+-fx-cursor: hand;
 }
 
 #couperSonMusique{
@@ -52,6 +55,7 @@ body {
 -fx-background-position: center;
 -fx-background-repeat: no-repeat;
 -fx-padding: 10px 20px;
+-fx-cursor: hand;
 }
 
 #couperSonMusique.muted{
@@ -60,6 +64,7 @@ body {
 -fx-background-position: center;
 -fx-background-repeat: no-repeat;
 -fx-padding: 10px 20px;
+-fx-cursor: hand;
 }
 
 #btnActiverDesactiverSon{
@@ -77,6 +82,7 @@ body {
 -fx-background-repeat: no-repeat;
 -fx-padding: 10px 20px;
 }
+
 
 
 

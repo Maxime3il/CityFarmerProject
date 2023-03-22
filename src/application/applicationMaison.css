@@ -8,8 +8,12 @@ body {
 
 
 .root{
-    -fx-background-image:url('../Images/mapJouer.png');
-    -fx-background-size:cover;
+    -fx-background-image:url('../Images/grange.png');
+    /* -fx-background-size:cover; */
+    -fx-background-size: 1920px 1080px;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
+    
 }
 
 #closeButton{
@@ -24,6 +28,18 @@ body {
 -fx-cursor: hand;
 }
 
+#BoutonInteractionLit{
+	-fx-background-image: url('../Images/CadrePersonnage.png');
+	-fx-background-size: 652px 120px;
+	-fx-background-position: center;
+	-fx-background-repeat: no-repeat;
+	-fx-padding: 10px 20px;
+	-fx-font-family: "Stardew Valley";
+	-fx-text-fill: #d15956;
+	-fx-font-size: 48px;
+	-fx-cursor: hand;
+}
+
 #buttonSprite {
 -fx-background-image: url('../Images/Quitter.png');
 -fx-background-size: 80px 65px;
@@ -34,16 +50,4 @@ body {
 -fx-text-fill: #d15956;
 -fx-font-size: 48px;
 -fx-cursor: hand;
-}
-
-#BoutonInteraction, #BoutonInteractionPotager, #BoutonInteractionCochon, #BoutonInteractionCoffre, #BoutonInteractionVache{
-	-fx-background-image: url('../Images/CadrePersonnage.png');
-	-fx-background-size: 652px 120px;
-	-fx-background-position: center;
-	-fx-background-repeat: no-repeat;
-	-fx-padding: 10px 20px;
-	-fx-font-family: "Stardew Valley";
-	-fx-text-fill: #d15956;
-	-fx-font-size: 48px;
-	-fx-cursor: hand;
 }
