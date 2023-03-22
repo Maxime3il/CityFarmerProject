@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -30,18 +31,23 @@ import javafx.util.Duration;
 import javafx.scene.input.MouseEvent;
 
 public class PageAccueilController implements Initializable {
-	
+
 	@FXML
 	private BorderPane scene;
+
+	@FXML
+	private MediaView mediaView;
+	private MediaPlayer mediaPlayer;
+	private Media media;
+
+	private PageJouerController jouerController = new PageJouerController();
+
+	/*
+     * Cette fonction permet de lancer une nouvelle fenêtre à partir d'un fichier FXML.
+     * @param url L'URL du fichier FXML à charger.
+     */
 	
-    @FXML
-    private MediaView mediaView;
-    private MediaPlayer mediaPlayer;
-    private Media media;
-    
-    private PageJouerController jouerController = new PageJouerController();
-    
-    public void lancerXML(String url) {
+	public void lancerXML(String url) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
             Parent root1 = (Parent) fxmlLoader.load();
@@ -54,6 +60,7 @@ public class PageAccueilController implements Initializable {
             stage.initStyle(StageStyle.UNDECORATED);
 
             Scene scene = new Scene(root1, 1920, 1080);
+            stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
         } catch (Exception e) {
@@ -61,56 +68,76 @@ public class PageAccueilController implements Initializable {
             System.out.println("Impossible de charger la fenÃªtre");
         }
     }
-    
-    @FXML
+/*
+	@FXML
 	private Button BtnParam;
-    @FXML
-    private void redirectParam(ActionEvent event) {
-        lancerXML("PageParametre.fxml");
-    }
-    
-    @FXML
-   	private Button BtnJouer;
-    @FXML
-    private void redirectJouer(ActionEvent evt) {
-        lancerXML("PagePersonnage.fxml");    
-    }
-    @FXML
-    private Slider volumeSlider;
-    
-    @FXML
-    private Button couperSonMusique;
+
+	/*
+     * Cette fonction permet de rediriger l'utilisateur vers la page de paramètres.
+     * @param event L'événement déclencheur.
+     *
+	
+	@FXML
+	private void redirectParam(ActionEvent event) {
+		lancerXML("PageParametre.fxml");
+	}
+*/
+	@FXML
+	private Button BtnJouer;
+
+	/*
+     * Cette fonction permet de rediriger l'utilisateur vers la page jouer.
+     * @param event L'événement déclencheur.
+     */
+	
+	@FXML
+	private void redirectJouer(ActionEvent evt) {
+		lancerXML("PagePersonnage.fxml");
+	}
+
+	@FXML
+	private Slider volumeSlider;
+
+	@FXML
+	private Button couperSonMusique;
 
 	@FXML
 	private Button btnActiverDesactiverSon;
 
 	private boolean jouerSonActif = true;
 
+	/*
+	 * Fonction activerDesactiverSon param: 
+	 * return: Active ou Desactive la musique en changeant l'image selon le statut du bouton
+	 */
 	@FXML
 	private void activerDesactiverSon(ActionEvent event) {
-	    jouerSonActif = !jouerSonActif;	    
-	    if (!jouerSonActif) {
-	        // Si le son est dï¿½sactivï¿½, on ajouter la classe CSS "muted" au bouton btnActiverDesactiverSon
-	    	btnActiverDesactiverSon.getStyleClass().add("muted");
-	    } else {
-	        // Si le son est activï¿½, on retire la classe CSS "muted" du bouton btnActiverDesactiverSon
-	    	btnActiverDesactiverSon.getStyleClass().remove("muted");
-	    }
+		jouerSonActif = !jouerSonActif;
+		if (!jouerSonActif) {
+			// Si le son est desactiver, on ajouter la classe CSS "muted" au bouton
+			// btnActiverDesactiverSon
+			btnActiverDesactiverSon.getStyleClass().add("muted");
+		} else {
+			// Si le son est activer, on retire la classe CSS "muted" du bouton
+			// btnActiverDesactiverSon
+			btnActiverDesactiverSon.getStyleClass().remove("muted");
+		}
+		MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
 	}
-	
+
+	/*
+	* Cette fonction joue un son à partir du chemin de fichier spécifié.
+	* @param path Le chemin de fichier du son à jouer.
+	*/
 	private void jouerSon(String path) {
-	    media = new Media(new File(path).toURI().toString());
-	    mediaPlayer = new MediaPlayer(media);
-	    mediaPlayer.play();
+		MediaPlayerSingleton.getInstance().jouerSon(path);
 	}
 
-	
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    	makeMovable(scene);
-    	String path = new File("src/Video/TitleScreen.mp4").getAbsolutePath();
-		media = new Media(new File(path).toURI().toString());
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		makeMovable(scene);
+		String path = new File("src/Video/TitleScreen.mp4").getAbsolutePath();
+		Media media = new Media(new File(path).toURI().toString());
 		mediaPlayer = new MediaPlayer(media);
 		mediaView.setMediaPlayer(mediaPlayer);
 		mediaView.setFitWidth(1920);
@@ -130,83 +157,83 @@ public class PageAccueilController implements Initializable {
 			public void handle(ActionEvent event) {
 				if (mediaPlayer.isMute()) {
 					mediaPlayer.setMute(false);
+					mediaPlayer.play();
 					couperSonMusique.getStyleClass().remove("muted");
 				} else {
 					mediaPlayer.setMute(true);
+					mediaPlayer.stop();
 					couperSonMusique.getStyleClass().add("muted");
 				}
 			}
 		});
 		mediaPlayer.setAutoPlay(true);
-
-		BtnJouer.setOnMouseEntered(new EventHandler<MouseEvent>() {
+		BtnJouer.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(MouseEvent event) {
-				if (jouerSonActif) {
+			public void handle(KeyEvent event) {
+				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
 					jouerSon("src/Audio/boutonJouer.mp3");
 				}
 			}
 		});
-		BtnParam.setOnMouseEntered(new EventHandler<MouseEvent>() {
+		/*
+		BtnParam.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(MouseEvent event) {
-				if (jouerSonActif) {
+			public void handle(KeyEvent event) {
+				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
 					jouerSon("src/Audio/boutonParametre.mp3");
 				}
 			}
-		});
-		couperSonMusique.setOnMouseEntered(new EventHandler<MouseEvent>() {
+		});*/
+		couperSonMusique.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(MouseEvent event) {
-				if (jouerSonActif) {
+			public void handle(KeyEvent event) {
+				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
 					jouerSon("src/Audio/boutonMusique.mp3");
 				}
 			}
 		});
-		btnActiverDesactiverSon.setOnMouseEntered(new EventHandler<MouseEvent>() {
+		btnActiverDesactiverSon.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(MouseEvent event) {
-				if (jouerSonActif) {
-					jouerSon("src/Audio/Personnage.mp3");
+			public void handle(KeyEvent event) {
+				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
+					jouerSon("src/Audio/boutonParametre.mp3");
 				}
 			}
 		});
-		closeButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+		closeButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
-			public void handle(MouseEvent event) {
-				if (jouerSonActif) {
+			public void handle(KeyEvent event) {
+				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
 					jouerSon("src/Audio/boutonFermerJeu.mp3");
 				}
 			}
-		}); 
-		
-		mediaPlayer.setAutoPlay(true);
-}
+		});
+	}
 
-    @FXML
+	@FXML
 	private Button closeButton;
-    
-    @FXML
-    void close() {
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
-    }
 
-    private void movementSetup(){
+	@FXML
+	void close() {
+		Stage stage = (Stage) closeButton.getScene().getWindow();
+		stage.close();
+	}
+
+	private void movementSetup() {
 		scene.setOnKeyPressed(e -> {
-			if(e.getCode() == KeyCode.J) {
-		        lancerXML("PagePersonnage.fxml");    
+			if (e.getCode() == KeyCode.J) {
+				lancerXML("PagePersonnage.fxml");
 			}
-			if(e.getCode() == KeyCode.P) {
-		        lancerXML("PageParametre.fxml");    
+			if (e.getCode() == KeyCode.P) {
+				lancerXML("PageParametre.fxml");
 			}
-			if(e.getCode() == KeyCode.ESCAPE) {
-				Platform.exit(); 
+			if (e.getCode() == KeyCode.ESCAPE) {
+				Platform.exit();
 			}
 		});
 	}
-    
-    public void makeMovable(BorderPane scene){
+
+	public void makeMovable(BorderPane scene) {
 		this.scene = scene;
 		movementSetup();
 	}

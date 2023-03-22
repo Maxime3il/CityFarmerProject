@@ -1,6 +1,8 @@
 package application;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+
 import java.io.IOException;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
@@ -15,11 +17,17 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 public class PageMaisonController {
+
+	private void jouerSon(String path) {
+		MediaPlayerSingleton.getInstance().jouerSon(path);
+	}
+	
 
 	@FXML
 	private Button closeButton;
@@ -44,6 +52,8 @@ public class PageMaisonController {
 		BoutonInteractionLit.setVisible(false);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
 		sprite.setImage(image);
+		jouerSon("src/Audio/boutonJouer.mp3");
+		
 
 	}
 	
