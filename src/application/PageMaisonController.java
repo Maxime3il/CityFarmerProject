@@ -27,10 +27,34 @@ public class PageMaisonController {
 	private void jouerSon(String path) {
 		MediaPlayerSingleton.getInstance().jouerSon(path);
 	}
-	
+
+	@FXML
+	private Button btnActiverDesactiverSon;
+
+	private boolean jouerSonActif = true;
+
+	/*
+	 * Fonction activerDesactiverSon param: return: Active ou Desactive la musique
+	 * en changeant l'image selon le statut du bouton
+	 */
+	@FXML
+	private void activerDesactiverSon(ActionEvent event) {
+		jouerSonActif = !jouerSonActif;
+		if (!jouerSonActif) {
+			// Si le son est desactiver, on ajouter la classe CSS "muted" au bouton
+			// btnActiverDesactiverSon
+			btnActiverDesactiverSon.getStyleClass().add("muted");
+		} else {
+			// Si le son est activer, on retire la classe CSS "muted" du bouton
+			// btnActiverDesactiverSon
+			btnActiverDesactiverSon.getStyleClass().remove("muted");
+		}
+		MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
+	}
 
 	@FXML
 	private Button closeButton;
+
 	@FXML
 	void close() {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -42,50 +66,50 @@ public class PageMaisonController {
 
 	@FXML
 	private BorderPane scene;
-	
+
 	@FXML
-    private Button BoutonInteractionLit;
+	private Button BoutonInteractionLit;
 
 	@FXML
 	public void initialize() {
+		if (jouerSonActif) {
+			jouerSon("src/Audio/boutonParametre.mp3");
+		}
 		makeMovable(sprite, scene);
 		BoutonInteractionLit.setVisible(false);
-		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
+		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
 		sprite.setImage(image);
-		jouerSon("src/Audio/boutonJouer.mp3");
-		
 
 	}
-	
+
 	@FXML
 	void dormir(ActionEvent event) {
-	    // RECUPERER TOUTE L'ENERGIE
-	    PagePersonnageController.player.setEnergy(1.0);
+		// RECUPERER TOUTE L'ENERGIE
+		PagePersonnageController.player.setEnergy(1.0);
 	}
 
-	
 	@FXML
-    void OpenSpriteInformation() {
-        try {
-            // Charger le fichier FXML qui définit la fenêtre
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
-            Parent root = loader.load();
-            
-            // Créer une nouvelle scène avec la fenêtre chargée
-            Scene scene = new Scene(root, 930, 580);
-            
-            // Créer une nouvelle fenêtre avec la scène
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.setResizable(false);
-            // Afficher la fenêtre
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+	void OpenSpriteInformation() {
+		try {
+			// Charger le fichier FXML qui définit la fenêtre
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
+			Parent root = loader.load();
+
+			// Créer une nouvelle scène avec la fenêtre chargée
+			Scene scene = new Scene(root, 930, 580);
+
+			// Créer une nouvelle fenêtre avec la scène
+			Stage stage = new Stage();
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			stage.setResizable(false);
+			// Afficher la fenêtre
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private void lancerXML(String url) {
 		try {
@@ -109,39 +133,39 @@ public class PageMaisonController {
 		}
 	}
 
-	private void movementSetup(){
+	private void movementSetup() {
 		scene.setOnKeyPressed(e -> {
-			if(e.getCode() == KeyCode.Z) {
+			if (e.getCode() == KeyCode.Z) {
 				wPressed.set(true);
 			}
 
-			if(e.getCode() == KeyCode.Q) {
+			if (e.getCode() == KeyCode.Q) {
 				aPressed.set(true);
 			}
 
-			if(e.getCode() == KeyCode.S) {
+			if (e.getCode() == KeyCode.S) {
 				sPressed.set(true);
 			}
 
-			if(e.getCode() == KeyCode.D) {
+			if (e.getCode() == KeyCode.D) {
 				dPressed.set(true);
 			}
 		});
 
-		scene.setOnKeyReleased(e ->{
-			if(e.getCode() == KeyCode.Z) {
+		scene.setOnKeyReleased(e -> {
+			if (e.getCode() == KeyCode.Z) {
 				wPressed.set(false);
 			}
 
-			if(e.getCode() == KeyCode.Q) {
+			if (e.getCode() == KeyCode.Q) {
 				aPressed.set(false);
 			}
 
-			if(e.getCode() == KeyCode.S) {
+			if (e.getCode() == KeyCode.S) {
 				sPressed.set(false);
 			}
 
-			if(e.getCode() == KeyCode.D) {
+			if (e.getCode() == KeyCode.D) {
 				dPressed.set(false);
 			}
 		});
@@ -156,14 +180,14 @@ public class PageMaisonController {
 
 	private int movementVariable = 2;
 
-	public void makeMovable(ImageView sprite, BorderPane scene){
+	public void makeMovable(ImageView sprite, BorderPane scene) {
 		this.sprite = sprite;
 		this.scene = scene;
 
 		movementSetup();
 
 		keyPressed.addListener(((observableValue, aBoolean, t1) -> {
-			if(!aBoolean){
+			if (!aBoolean) {
 				timer.start();
 			} else {
 				timer.stop();
@@ -174,46 +198,50 @@ public class PageMaisonController {
 	AnimationTimer timer = new AnimationTimer() {
 		@Override
 		public void handle(long timestamp) {
-			
-			//Interaction avec le lit
-			if (sprite.getLayoutX() <= 1312 && sprite.getLayoutX() >= 1124 && sprite.getLayoutY() <= 674 && sprite.getLayoutY() >= 484) {
+
+			// Interaction avec le lit
+			if (sprite.getLayoutX() <= 1312 && sprite.getLayoutX() >= 1124 && sprite.getLayoutY() <= 674
+					&& sprite.getLayoutY() >= 484) {
 				BoutonInteractionLit.setVisible(true);
-			}else {
+			} else {
 				BoutonInteractionLit.setVisible(false);
 			}
 
-			if(wPressed.get()) {
+			if (wPressed.get()) {
 				if (-2 < sprite.getLayoutY()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					// System.out.println(" X : " + sprite.getLayoutX() + " Y : " +
+					// sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 				}
 			}
 
-			if(sPressed.get()){
-				if ( 926 > sprite.getLayoutY()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+			if (sPressed.get()) {
+				if (926 > sprite.getLayoutY()) {
+					// System.out.println(" X : " + sprite.getLayoutX() + " Y : " +
+					// sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 					if (sprite.getLayoutX() <= 576 && sprite.getLayoutX() >= 526 && sprite.getLayoutY() == 772) {
-						close(); 
+						close();
 						lancerXML("PageJouer.fxml");
 					}
 				}
 			}
 
-			if(aPressed.get()){
+			if (aPressed.get()) {
 				if (-12 < sprite.getLayoutX()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					// System.out.println(" X : " + sprite.getLayoutX() + " Y : " +
+					// sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
 
-			if(dPressed.get()){
+			if (dPressed.get()) {
 				if (1832 > sprite.getLayoutX()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
-					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
+					// System.out.println(" X : " + sprite.getLayoutX() + " Y : " +
+					// sprite.getLayoutY());
+					sprite.setLayoutX(sprite.getLayoutX() + movementVariable);
 				}
 			}
 		}
 	};
 }
-

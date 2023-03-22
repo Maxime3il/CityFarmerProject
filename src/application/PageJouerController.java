@@ -23,6 +23,12 @@ import javafx.stage.StageStyle;
 import model.Player;
 
 public class PageJouerController {
+	
+	private void jouerSon(String path) {
+		MediaPlayerSingleton.getInstance().jouerSon(path);
+	}
+	
+	
 	@FXML
 	private Button closeButton;
 	
@@ -70,6 +76,7 @@ public class PageJouerController {
 	
 	@FXML
 	public void initialize() {
+		jouerSon("src/Audio/boutonJouer.mp3");
 		BoutonInteraction.setVisible(false);
 		BoutonInteractionPotager.setVisible(false);
 		BoutonInteractionCochon.setVisible(false);
@@ -78,6 +85,7 @@ public class PageJouerController {
 		makeMovable(sprite, scene);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
 		sprite.setImage(image);
+		
 	}
 	
 	private void lancerXML(String url) {
