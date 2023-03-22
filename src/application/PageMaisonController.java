@@ -165,6 +165,54 @@ public class PageMaisonController {
 		@Override
 		public void handle(long timestamp) {
 			
+			//collision avec le bas
+			if(sprite.getLayoutY() >= 780) {
+				sprite.setLayoutY(780);
+			}
+			
+			//collision avec le haut
+			if(sprite.getLayoutY() <= 170) {
+				sprite.setLayoutY(170);
+			}
+			
+			//collision avec le gauche
+			if(sprite.getLayoutX() <= 78) {
+				sprite.setLayoutX(78);
+			}
+			
+			//collision avec le gauche
+			if(sprite.getLayoutX() >= 1724) {
+				sprite.setLayoutX(1724);
+			}
+			
+			// Collision carre en haut a droite
+			if (sprite.getLayoutX() <= 1724 && sprite.getLayoutX() >= 1176 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 170) {
+				if(dPressed.get()){
+					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
+				}
+				if(wPressed.get()){
+					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
+				}
+			}
+//			
+//			// Collision ligne haut - bas
+//			if (sprite.getLayoutX() <= 1176 && sprite.getLayoutX() >= 548 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 312) {
+//				if(dPressed.get()){
+//					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
+//				}
+//				if(wPressed.get()){
+//					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
+//				}
+//				if(aPressed.get()){
+//					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
+//				}
+//				if(sPressed.get()){
+//					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
+//				}
+//			}
+			
+			
+			
 			//Interaction avec le lit
 			if (sprite.getLayoutX() <= 1312 && sprite.getLayoutX() >= 1124 && sprite.getLayoutY() <= 674 && sprite.getLayoutY() >= 484) {
 				BoutonInteractionLit.setVisible(true);
@@ -173,15 +221,15 @@ public class PageMaisonController {
 			}
 
 			if(wPressed.get()) {
-				if (-2 < sprite.getLayoutY()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+				if (!(sprite.getLayoutX() <= 1176 && sprite.getLayoutX() >= 548 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 312)) {
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 				}
 			}
 
 			if(sPressed.get()){
-				if ( 926 > sprite.getLayoutY()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+				if (1==1) {
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 					if (sprite.getLayoutX() <= 576 && sprite.getLayoutX() >= 526 && sprite.getLayoutY() == 772) {
 						close(); 
@@ -191,15 +239,15 @@ public class PageMaisonController {
 			}
 
 			if(aPressed.get()){
-				if (-12 < sprite.getLayoutX()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+				if (1==1) {
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
 
 			if(dPressed.get()){
-				if (1832 > sprite.getLayoutX()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+				if (1==1) {
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
 				}
 			}

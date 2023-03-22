@@ -215,37 +215,38 @@ public class PageJouerController {
 				BoutonInteractionVache.setVisible(false);
 			}
 			if(wPressed.get()) {
-				if ((((sprite.getLayoutX() < 464 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1138 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
-					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
-					if (sprite.getLayoutX() <= 904 && sprite.getLayoutX() >= 868 && sprite.getLayoutY() == 146) {
-						close(); 
-						lancerXML("PageMaison.fxml");
-					}
-				}
-			}
+                if ((((sprite.getLayoutX() < 470 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1130 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
+                    System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+                    sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
+                    if (sprite.getLayoutX() <= 904 && sprite.getLayoutX() >= 868 && sprite.getLayoutY() == 146) {
+                        close(); 
+                        lancerXML("PageMaison.fxml");
+                    }
+                }
+            }
 
-			if(sPressed.get()){
-				if ( 926 > sprite.getLayoutY()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayosutY());
-					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
-				}
-			}
+            if(sPressed.get()) {
+                if ( 926 > sprite.getLayoutY()) {
+                    System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+                    sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
+                }
+            }
 
-			if(aPressed.get()){
-				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && -12 < sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && -12 < sprite.getLayoutX()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
-					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
-				}
-			}
+            if(aPressed.get()){
+                if (((sprite.getLayoutX() < 470 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && -12 < sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && -12 < sprite.getLayoutX()) {
+                    System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+                    sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
+                }
+            }
 
-			if(dPressed.get()){
-				if (((sprite.getLayoutX() < 464 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
-					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
-				}
-			}
-		}
-	};
+            if(dPressed.get()){
+                if (((sprite.getLayoutX() < 464 || 900 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX()) {
+                    System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+                    sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
+                }
+            }
+        }
+    };
 
     @FXML
     void OpenSpriteInformation() {
@@ -296,24 +297,35 @@ public class PageJouerController {
     @FXML
     public void interactionCochonButton(ActionEvent evt) {
     	PagePersonnageController.player.getInventory().addItem("porc");
-    	//System.out.println(PagePersonnageController.player.getInventory());
     }
 
     @FXML
     public void interactionPotagerButton(ActionEvent evt) {
     	PagePersonnageController.player.getInventory().addItem("carotte");
-    	//System.out.println(PagePersonnageController.player.getInventory());
     }
     
     @FXML
     public void interactionLaitButton(ActionEvent evt) {
     	PagePersonnageController.player.getInventory().addItem("lait");
-    	//System.out.println(PagePersonnageController.player.getInventory());
     }
     
     @FXML
     public void interactionCoffreButton(ActionEvent evt) {
-    	//TODO ouvrir une page avec le coffre et l'inventaire
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageCoffre.fxml"));
+            Parent root = loader.load();
+            
+            Scene scene = new Scene(root, 930, 580);
+            
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML
