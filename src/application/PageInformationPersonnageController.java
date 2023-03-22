@@ -26,7 +26,7 @@ public class PageInformationPersonnageController {
 	@FXML
     void close() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+        stage.hide();
     }
 	
 	@FXML
@@ -83,7 +83,7 @@ public class PageInformationPersonnageController {
     }
     
     private void updateEnergyProgessBar() {
-    	progressValueEnergy -= 0.1;
+    	progressValueEnergy -= 0.05;
     	PagePersonnageController.player.setEnergy(progressValueEnergy);
         energyProgressBar.setProgress(progressValueEnergy);
         if (progressValueEnergy <= 0.0) {

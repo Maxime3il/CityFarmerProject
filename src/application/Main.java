@@ -3,6 +3,7 @@ package application;
 import java.io.File;
 
 import javafx.application.Application;
+import javafx.concurrent.Task;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.Scene;
@@ -39,11 +40,13 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.centerOnScreen();
             primaryStage.setResizable(false);
-            primaryStage.show();
+            primaryStage.show();            
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
+    
+    
 
 
     public static void main(String[] args) {

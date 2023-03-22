@@ -25,10 +25,10 @@ import model.Player;
 public class PageJouerController {
 	@FXML
 	private Button closeButton;
-	
+
 	@FXML
 	private Button buttonSprite;
-	
+
 	@FXML
 	void close() {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -40,34 +40,34 @@ public class PageJouerController {
 
 	@FXML
 	private BorderPane scene;
-	
-	@FXML
-    private ImageView cochon;
-
-    @FXML
-    private ImageView cochon2;
-    
-    @FXML
-    private ImageView vache;
-
-    @FXML
-    private ImageView vache2;
-    
-    @FXML
-    private Button BoutonInteractionCochon;
 
 	@FXML
-    private Button BoutonInteraction;
-	
-	 @FXML
-	 private Button BoutonInteractionPotager;
-	 
-	 @FXML
-	 private Button BoutonInteractionCoffre;
-	 
-	 @FXML
-	 private Button BoutonInteractionVache;
-	
+	private ImageView cochon;
+
+	@FXML
+	private ImageView cochon2;
+
+	@FXML
+	private ImageView vache;
+
+	@FXML
+	private ImageView vache2;
+
+	@FXML
+	private Button BoutonInteractionCochon;
+
+	@FXML
+	private Button BoutonInteraction;
+
+	@FXML
+	private Button BoutonInteractionPotager;
+
+	@FXML
+	private Button BoutonInteractionCoffre;
+
+	@FXML
+	private Button BoutonInteractionVache;
+
 	@FXML
 	public void initialize() {
 		BoutonInteraction.setVisible(false);
@@ -78,30 +78,40 @@ public class PageJouerController {
 		makeMovable(sprite, scene);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
 		sprite.setImage(image);
+		// On appelle l'affichage Sprite Information
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
+			Parent root = loader.load();
+			
+			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
+			Parent root2 = loader2.load();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	private void lancerXML(String url) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
+			Parent root1 = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
 
-            stage.setOnCloseRequest(event -> {
-                event.consume();
-            });
+			stage.setOnCloseRequest(event -> {
+				event.consume();
+			});
 
-            stage.initStyle(StageStyle.UNDECORATED);
+			stage.initStyle(StageStyle.UNDECORATED);
 
-            Scene scene = new Scene(root1, 1920, 1080);
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace(System.err);
-            System.out.println("Impossible de charger la fenêtre");
-        }
-    }
-	
+			Scene scene = new Scene(root1, 1920, 1080);
+			stage.setScene(scene);
+			stage.setResizable(false);
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace(System.err);
+			System.out.println("Impossible de charger la fenêtre");
+		}
+	}
+
 	private void movementSetup(){
 		scene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.Z) {
@@ -119,7 +129,7 @@ public class PageJouerController {
 			if(e.getCode() == KeyCode.D) {
 				dPressed.set(true);
 			}
-			
+
 			if(e.getCode() == KeyCode.A) {
 				OpenSpriteInformation();		
 			}
@@ -174,14 +184,14 @@ public class PageJouerController {
 	AnimationTimer timer = new AnimationTimer() {
 		@Override
 		public void handle(long timestamp) {
-			
+
 			//Interaction avec le marchand
 			if (sprite.getLayoutX() <= 1328 && sprite.getLayoutX() >= 1222 && sprite.getLayoutY() <= 580 && sprite.getLayoutY() >= 370) {
 				BoutonInteraction.setVisible(true);
 			}else {
 				BoutonInteraction.setVisible(false);
 			}
-			
+
 			//Interaction avec le potager
 			if ((sprite.getLayoutX() <= 960 && sprite.getLayoutX() >= 784 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 400) 
 					|| (sprite.getLayoutX() <= 978 && sprite.getLayoutX() >= 772 && sprite.getLayoutY() <= 862 && sprite.getLayoutY() >= 632)
@@ -192,14 +202,14 @@ public class PageJouerController {
 			}else {
 				BoutonInteractionPotager.setVisible(false);
 			}
-			
+
 			//Interaction avec les cochons
 			if (sprite.getLayoutX() <= 364 && sprite.getLayoutX() >= 196 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 380) {
 				BoutonInteractionCochon.setVisible(true);
 			}else {
 				BoutonInteractionCochon.setVisible(false);
 			}
-			
+
 			//Interaction avec le coffre
 			if (sprite.getLayoutX() <= 1446 && sprite.getLayoutX() >= 1208 && sprite.getLayoutY() <= 242 && sprite.getLayoutY() >= 48) {
 				BoutonInteractionCoffre.setVisible(true);
@@ -246,77 +256,77 @@ public class PageJouerController {
 		}
 	};
 
-    @FXML
-    void OpenSpriteInformation() {
-        try {
-            // Charger le fichier FXML qui définit la fenêtre
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
-            Parent root = loader.load();
-            
-            // Créer une nouvelle scène avec la fenêtre chargée
-            Scene scene = new Scene(root, 930, 580);
-            
-            // Créer une nouvelle fenêtre avec la scène
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.setResizable(false);
-            // Afficher la fenêtre
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    @FXML
-    void OpenSpriteInventory() {
-        try {
-            // Charger le fichier FXML qui définit la fenêtre
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
-            Parent root = loader.load();
-            
-            // Créer une nouvelle scène avec la fenêtre chargée
-            Scene scene = new Scene(root, 930, 580);
-            
-            // Créer une nouvelle fenêtre avec la scène
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.setResizable(false);
-            // Afficher la fenêtre
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-	}
-    
-    @FXML
-    public void interactionCochonButton(ActionEvent evt) {
-    	PagePersonnageController.player.getInventory().addItem("porc");
-    	System.out.println(PagePersonnageController.player.getInventory());
-    }
+	@FXML
+	void OpenSpriteInformation() {
+		try {
+			// Charger le fichier FXML qui définit la fenêtre
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
+			Parent root = loader.load();
 
-    @FXML
-    public void interactionPotagerButton(ActionEvent evt) {
-    	PagePersonnageController.player.getInventory().addItem("carotte");
-    	System.out.println(PagePersonnageController.player.getInventory());
-    }
-    
-    @FXML
-    public void interactionLaitButton(ActionEvent evt) {
-    	PagePersonnageController.player.getInventory().addItem("lait");
-    	System.out.println(PagePersonnageController.player.getInventory());
-    }
-    
-    @FXML
-    public void interactionCoffreButton(ActionEvent evt) {
-    	//TODO ouvrir une page avec le coffre et l'inventaire
-    }
-    
-    @FXML
-    public void interactionMarchandButton(ActionEvent evt) {
-    	//TODO PAGE AVEC LE MARCHAND ET L'INVENTAIRE
-    }
+			// Créer une nouvelle scène avec la fenêtre chargée
+			Scene scene = new Scene(root, 930, 580);
+
+			// Créer une nouvelle fenêtre avec la scène
+			Stage stage = new Stage();
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			stage.setResizable(false);
+			// Afficher la fenêtre
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void OpenSpriteInventory() {
+		try {
+			// Charger le fichier FXML qui définit la fenêtre
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
+			Parent root = loader.load();
+
+			// Créer une nouvelle scène avec la fenêtre chargée
+			Scene scene = new Scene(root, 930, 580);
+
+			// Créer une nouvelle fenêtre avec la scène
+			Stage stage = new Stage();
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			stage.setResizable(false);
+			// Afficher la fenêtre
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	public void interactionCochonButton(ActionEvent evt) {
+		PagePersonnageController.player.getInventory().addItem("porc");
+		System.out.println(PagePersonnageController.player.getInventory());
+	}
+
+	@FXML
+	public void interactionPotagerButton(ActionEvent evt) {
+		PagePersonnageController.player.getInventory().addItem("carotte");
+		System.out.println(PagePersonnageController.player.getInventory());
+	}
+
+	@FXML
+	public void interactionLaitButton(ActionEvent evt) {
+		PagePersonnageController.player.getInventory().addItem("lait");
+		System.out.println(PagePersonnageController.player.getInventory());
+	}
+
+	@FXML
+	public void interactionCoffreButton(ActionEvent evt) {
+		//TODO ouvrir une page avec le coffre et l'inventaire
+	}
+
+	@FXML
+	public void interactionMarchandButton(ActionEvent evt) {
+		//TODO PAGE AVEC LE MARCHAND ET L'INVENTAIRE
+	}
 }

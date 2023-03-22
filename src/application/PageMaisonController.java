@@ -6,6 +6,7 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -45,11 +46,25 @@ public class PageMaisonController {
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
 		sprite.setImage(image);
 
+		
+		// On appelle l'affichage Sprite Information
+		try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
+            Parent root = loader.load();
+            
+            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
+			Parent root2 = loader.load();
+		} catch (IOException e) {
+            e.printStackTrace();
+        }
 	}
+	
+	
 	
 	@FXML
 	void dormir(ActionEvent event) {
 	    // RECUPERER TOUTE L'ENERGIE
+		PagePersonnageController.player.getEnergy();
 	    PagePersonnageController.player.setEnergy(1.0);
 	}
 
@@ -76,7 +91,30 @@ public class PageMaisonController {
             e.printStackTrace();
         }
     }
+	@FXML
+	void OpenSpriteInventory() {
+		try {
+			// Charger le fichier FXML qui définit la fenêtre
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
+			Parent root = loader.load();
 
+			// Créer une nouvelle scène avec la fenêtre chargée
+			Scene scene = new Scene(root, 930, 580);
+
+			// Créer une nouvelle fenêtre avec la scène
+			Stage stage = new Stage();
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			stage.setResizable(false);
+			// Afficher la fenêtre
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	private void lancerXML(String url) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
@@ -98,7 +136,6 @@ public class PageMaisonController {
 			System.out.println("Impossible de charger la fenêtre");
 		}
 	}
-
 	private void movementSetup(){
 		scene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.Z) {
@@ -115,6 +152,12 @@ public class PageMaisonController {
 
 			if(e.getCode() == KeyCode.D) {
 				dPressed.set(true);
+			}
+			if(e.getCode() == KeyCode.A) {
+				OpenSpriteInformation();		
+			}
+			if(e.getCode() == KeyCode.I) {
+				OpenSpriteInventory();
 			}
 		});
 

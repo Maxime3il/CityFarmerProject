@@ -44,7 +44,7 @@ public class PageInventaireController {
     @FXML
     void close() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+        stage.hide();
     }
 
 }
