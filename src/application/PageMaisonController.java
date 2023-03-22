@@ -7,6 +7,7 @@ import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -91,7 +92,6 @@ public class PageMaisonController {
             e.printStackTrace();
         }
     }
-
 	@FXML
 	public void initialize() {
 		if (jouerSonActif) {
@@ -108,8 +108,44 @@ public class PageMaisonController {
 	void dormir(ActionEvent event) {
 		// RECUPERER TOUTE L'ENERGIE
 		PagePersonnageController.player.setEnergy(1.0);
+		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
+		sprite.setImage(image); 
 	}
+	
+	
+	
+	@FXML
+	void dormir() {
+	    // RECUPERER TOUTE L'ENERGIE
+		PageInformationPersonnageController.timeline.stop();
+		PagePersonnageController.player.setEnergy(1);
+		System.out.println(PagePersonnageController.player.getEnergy());
+	}
+	
+	@FXML
+	void OpenSpriteInventory() {
+		try {
+			// Charger le fichier FXML qui définit la fenêtre
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
+			Parent root = loader.load();
 
+			// Créer une nouvelle scène avec la fenêtre chargée
+			Scene scene = new Scene(root, 930, 580);
+
+			// Créer une nouvelle fenêtre avec la scène
+			Stage stage = new Stage();
+			stage.initStyle(StageStyle.UNDECORATED);
+			stage.setScene(scene);
+			stage.centerOnScreen();
+			stage.setResizable(false);
+			// Afficher la fenêtre
+			stage.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	private void lancerXML(String url) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
@@ -131,7 +167,6 @@ public class PageMaisonController {
 			System.out.println("Impossible de charger la fenêtre");
 		}
 	}
-
 	private void movementSetup(){
 		scene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.Z) {
@@ -145,6 +180,15 @@ public class PageMaisonController {
 			}
 			if(e.getCode() == KeyCode.D) {
 				dPressed.set(true);
+			}
+			if(e.getCode() == KeyCode.A) {
+				OpenSpriteInformation();		
+			}
+			if(e.getCode() == KeyCode.I) {
+				OpenSpriteInventory();
+			}
+			if(e.getCode() == KeyCode.P) {
+				dormir();
 			}
 		});
 
@@ -239,7 +283,6 @@ public class PageMaisonController {
 //					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 //				}
 //			}
-
 			//Interaction avec le lit
 			if (sprite.getLayoutX() <= 1312 && sprite.getLayoutX() >= 1124 && sprite.getLayoutY() <= 674 && sprite.getLayoutY() >= 484) {
 				BoutonInteractionLit.setVisible(true);
@@ -250,12 +293,13 @@ public class PageMaisonController {
 			if(wPressed.get()) {
 				if (!(sprite.getLayoutX() <= 1176 && sprite.getLayoutX() >= 548 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 312)) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 				}
 			}
 			if(sPressed.get()){
-				if (1==1) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+				if ( 926 > sprite.getLayoutY()) {
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 					if (sprite.getLayoutX() <= 576 && sprite.getLayoutX() >= 526 && sprite.getLayoutY() == 772) {
 						close(); 
@@ -265,14 +309,14 @@ public class PageMaisonController {
 			}
 
 			if(aPressed.get()){
-				if (1==1) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+				if (-12 < sprite.getLayoutX()) {
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
 			if(dPressed.get()){
-				if (1==1) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+				if (1832 > sprite.getLayoutX()) {
+					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
 				}
 			}
