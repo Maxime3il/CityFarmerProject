@@ -1,10 +1,7 @@
 package application;
 
 import javafx.scene.input.MouseEvent;
-
-
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -143,8 +140,11 @@ public class PagePersonnageController {
 	@FXML
     private TextField inputFerme;
 	
+	//Création du joueur dans le modèle
 	public static Player player;
 	
+	//Création de l'inventaire du marchand
+	public static Inventory inventaireMarchand;
 	private String Skin() {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
 	    MyImageView.setImage(image);
@@ -161,9 +161,17 @@ public class PagePersonnageController {
 	        System.out.println("Veuillez remplir tous les champs.");
 	        return;
 	    }
+
+		//Initialisation du joueur
 	    player = new Player(prenom, nom, currentGender, skin,nomFerme ,  1, 1, new Inventory());
-	    System.out.println(PagePersonnageController.player.getName());
+	    
+	    //Initialisation de l'inventaire du marchand lors du lancement de la partie
+	    inventaireMarchand = new Inventory(50, 50, 50);
+	    
+	    //Lancement de la page du jeu
 	    lancerXML("PageJouer.fxml");
+	    
+	    //Close automatiquement cette page
 	    Stage stage = (Stage) closeButton.getScene().getWindow();
 		stage.close();
 	}

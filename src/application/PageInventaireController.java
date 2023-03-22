@@ -27,6 +27,12 @@ public class PageInventaireController {
 
     @FXML
     private ImageView steak;
+    
+    @FXML
+    private ImageView argent;
+
+    @FXML
+    private Label argentInventaire;
 
     @FXML
     public void initialize() {
@@ -38,13 +44,15 @@ public class PageInventaireController {
         
         int nbLaits = PagePersonnageController.player.getInventory().contains("lait").getCount();
         nbLait.setText(String.valueOf(nbLaits));
+        
+        double nbArgent = PagePersonnageController.player.getInventory().getArgentJoueur();
+        argentInventaire.setText(String.valueOf(nbArgent));
     }
-
 
     @FXML
     void close() {
         Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.hide();
+        stage.close();
     }
 
 }

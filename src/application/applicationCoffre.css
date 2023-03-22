@@ -12,15 +12,9 @@ body {
     -fx-background-size:cover;
 }
 
-#titreInventaire, #separator, #argentInventaire {
+
+#TextFin{
 	-fx-font-family: "Stardew Valley";
-	-fx-font-size: 48px;
+	-fx-font-size: 100px;
 	-fx-text-fill: #5a1104;
 }
-
-#nbSteak, #nbCarotte, #nbLait {
-	-fx-font-family: "Stardew Valley";
-	-fx-font-size: 24px;
-	-fx-text-fill: #d15956;
-}
-
