@@ -107,9 +107,9 @@ public class PageMaisonController {
 	@FXML
 	void dormir(ActionEvent event) {
 		// RECUPERER TOUTE L'ENERGIE
-		PagePersonnageController.player.setEnergy(1.0);
-		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
-		sprite.setImage(image); 
+		PageInformationPersonnageController.timeline.stop();
+		PagePersonnageController.player.setEnergy(1);
+		System.out.println(PagePersonnageController.player.getEnergy());
 	}
 	
 	
