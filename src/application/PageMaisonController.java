@@ -38,13 +38,13 @@ public class PageMaisonController {
 	@FXML
     private Button BoutonInteractionLit;
 
+	
 	@FXML
 	public void initialize() {
 		makeMovable(sprite, scene);
 		BoutonInteractionLit.setVisible(false);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
 		sprite.setImage(image);
-
 	}
 	
 	@FXML
