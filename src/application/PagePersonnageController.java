@@ -161,7 +161,7 @@ public class PagePersonnageController {
 	    String skin = Skin();
 	    if(nom.isEmpty() || prenom.isEmpty() || nomFerme.isEmpty()){
 	    	Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Quantité insuffisante");
+            alert.setTitle("Un ou plusieurs champs sont vides");
             alert.setHeaderText(null);
             alert.setContentText("Veuillez remplir tous les champs");
             alert.showAndWait();
