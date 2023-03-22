@@ -23,6 +23,36 @@ import javafx.stage.StageStyle;
 import model.Player;
 
 public class PageJouerController {
+	
+	private void jouerSon(String path) {
+		MediaPlayerSingleton.getInstance().jouerSon(path);
+	}
+
+	@FXML
+	private Button btnActiverDesactiverSon;
+
+	private boolean jouerSonActif = true;
+
+	/*
+	 * Fonction activerDesactiverSon param: return: Active ou Desactive la musique
+	 * en changeant l'image selon le statut du bouton
+	 */
+	@FXML
+	private void activerDesactiverSon(ActionEvent event) {
+		jouerSonActif = !jouerSonActif;
+		if (!jouerSonActif) {
+			// Si le son est desactiver, on ajouter la classe CSS "muted" au bouton
+			// btnActiverDesactiverSon
+			btnActiverDesactiverSon.getStyleClass().add("muted");
+		} else {
+			// Si le son est activer, on retire la classe CSS "muted" du bouton
+			// btnActiverDesactiverSon
+			btnActiverDesactiverSon.getStyleClass().remove("muted");
+		}
+		MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
+	}
+	
+	
 	@FXML
 	private Button closeButton;
 	
@@ -70,6 +100,9 @@ public class PageJouerController {
 	
 	@FXML
 	public void initialize() {
+		if (jouerSonActif) {
+			jouerSon("src/Audio/boutonMusique.mp3");
+		}
 		BoutonInteraction.setVisible(false);
 		BoutonInteractionPotager.setVisible(false);
 		BoutonInteractionCochon.setVisible(false);

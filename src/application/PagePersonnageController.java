@@ -145,7 +145,6 @@ public class PagePersonnageController {
 	
 	//Création de l'inventaire du marchand
 	public static Inventory inventaireMarchand;
-	
 	private String Skin() {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
 	    MyImageView.setImage(image);
@@ -162,7 +161,8 @@ public class PagePersonnageController {
 	        System.out.println("Veuillez remplir tous les champs.");
 	        return;
 	    }
-	    //Initialisation du joueur
+
+		//Initialisation du joueur
 	    player = new Player(prenom, nom, currentGender, skin,nomFerme ,  1, 1, new Inventory());
 	    
 	    //Initialisation de l'inventaire du marchand lors du lancement de la partie

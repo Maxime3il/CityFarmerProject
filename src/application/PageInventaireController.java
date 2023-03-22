@@ -49,7 +49,6 @@ public class PageInventaireController {
         argentInventaire.setText(String.valueOf(nbArgent));
     }
 
-
     @FXML
     void close() {
         Stage stage = (Stage) closeButton.getScene().getWindow();

@@ -1,6 +1,7 @@
 package application;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import java.io.IOException;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
@@ -15,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -23,6 +25,35 @@ public class PageMaisonController {
 
 	@FXML
 	private Button closeButton;
+
+	private void jouerSon(String path) {
+		MediaPlayerSingleton.getInstance().jouerSon(path);
+	}
+
+	@FXML
+	private Button btnActiverDesactiverSon;
+
+	private boolean jouerSonActif = true;
+
+	/*
+	 * Fonction activerDesactiverSon param: return: Active ou Desactive la musique
+	 * en changeant l'image selon le statut du bouton
+	 */
+	@FXML
+	private void activerDesactiverSon(ActionEvent event) {
+		jouerSonActif = !jouerSonActif;
+		if (!jouerSonActif) {
+			// Si le son est desactiver, on ajouter la classe CSS "muted" au bouton
+			// btnActiverDesactiverSon
+			btnActiverDesactiverSon.getStyleClass().add("muted");
+		} else {
+			// Si le son est activer, on retire la classe CSS "muted" du bouton
+			// btnActiverDesactiverSon
+			btnActiverDesactiverSon.getStyleClass().remove("muted");
+		}
+		MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
+	}
+
 	@FXML
 	void close() {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -37,22 +68,6 @@ public class PageMaisonController {
 	
 	@FXML
     private Button BoutonInteractionLit;
-
-	
-	@FXML
-	public void initialize() {
-		makeMovable(sprite, scene);
-		BoutonInteractionLit.setVisible(false);
-		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
-		sprite.setImage(image);
-	}
-	
-	@FXML
-	void dormir(ActionEvent event) {
-	    // RECUPERER TOUTE L'ENERGIE
-	    PagePersonnageController.player.setEnergy(1.0);
-	}
-
 	
 	@FXML
     void OpenSpriteInformation() {
@@ -76,6 +91,24 @@ public class PageMaisonController {
             e.printStackTrace();
         }
     }
+
+	@FXML
+	public void initialize() {
+		if (jouerSonActif) {
+			jouerSon("src/Audio/boutonParametre.mp3");
+		}
+		makeMovable(sprite, scene);
+		BoutonInteractionLit.setVisible(false);
+		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
+		sprite.setImage(image);
+
+	}
+
+	@FXML
+	void dormir(ActionEvent event) {
+		// RECUPERER TOUTE L'ENERGIE
+		PagePersonnageController.player.setEnergy(1.0);
+	}
 
 	private void lancerXML(String url) {
 		try {
@@ -104,15 +137,12 @@ public class PageMaisonController {
 			if(e.getCode() == KeyCode.Z) {
 				wPressed.set(true);
 			}
-
 			if(e.getCode() == KeyCode.Q) {
 				aPressed.set(true);
 			}
-
 			if(e.getCode() == KeyCode.S) {
 				sPressed.set(true);
 			}
-
 			if(e.getCode() == KeyCode.D) {
 				dPressed.set(true);
 			}
@@ -163,8 +193,7 @@ public class PageMaisonController {
 
 	AnimationTimer timer = new AnimationTimer() {
 		@Override
-		public void handle(long timestamp) {
-			
+		public void handle(long timestamp) {			
 			//collision avec le bas
 			if(sprite.getLayoutY() >= 780) {
 				sprite.setLayoutY(780);
@@ -210,9 +239,7 @@ public class PageMaisonController {
 //					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 //				}
 //			}
-			
-			
-			
+
 			//Interaction avec le lit
 			if (sprite.getLayoutX() <= 1312 && sprite.getLayoutX() >= 1124 && sprite.getLayoutY() <= 674 && sprite.getLayoutY() >= 484) {
 				BoutonInteractionLit.setVisible(true);
@@ -226,7 +253,6 @@ public class PageMaisonController {
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 				}
 			}
-
 			if(sPressed.get()){
 				if (1==1) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
@@ -244,7 +270,6 @@ public class PageMaisonController {
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
-
 			if(dPressed.get()){
 				if (1==1) {
 					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
@@ -254,4 +279,3 @@ public class PageMaisonController {
 		}
 	};
 }
-
