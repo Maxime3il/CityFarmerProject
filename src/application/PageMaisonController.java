@@ -185,7 +185,7 @@ public class PageMaisonController {
 				sprite.setLayoutX(1724);
 			}
 			
-			// Collision carr� en haut a droite
+			// Collision carre en haut a droite
 			if (sprite.getLayoutX() <= 1724 && sprite.getLayoutX() >= 1176 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 170) {
 				if(dPressed.get()){
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);

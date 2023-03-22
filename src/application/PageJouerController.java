@@ -312,7 +312,21 @@ public class PageJouerController {
     
     @FXML
     public void interactionCoffreButton(ActionEvent evt) {
-    	//TODO ouvrir une page avec le coffre et l'inventaire
+    	try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageCoffre.fxml"));
+            Parent root = loader.load();
+            
+            Scene scene = new Scene(root, 930, 580);
+            
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.setResizable(false);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     
     @FXML
