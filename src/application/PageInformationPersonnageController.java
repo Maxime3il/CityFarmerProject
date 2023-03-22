@@ -1,13 +1,17 @@
 package application;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
@@ -56,7 +60,7 @@ public class PageInformationPersonnageController {
     @FXML
     private ProgressBar energyProgressBar;
 
-    private Timeline timeline;    
+    static Timeline timeline;    
     
     private double progressValueEnergy = PagePersonnageController.player.getEnergy();
         
@@ -83,12 +87,20 @@ public class PageInformationPersonnageController {
     }
     
     private void updateEnergyProgessBar() {
-    	progressValueEnergy -= 0.05;
+    	progressValueEnergy -= 0.01;
     	PagePersonnageController.player.setEnergy(progressValueEnergy);
         energyProgressBar.setProgress(progressValueEnergy);
         if (progressValueEnergy <= 0.0) {
-            timeline.stop();
+        	timeline.stop();
+            Platform.runLater(() -> {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setHeaderText("Personnage épuisé");
+                alert.setContentText("Le personnage est épuisé cliqué sur OK pour vous reposer");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                	PagePersonnageController.player.setEnergy(1);
+                }
+            });
         }
-        System.out.println(progressValueEnergy);
     }
 }

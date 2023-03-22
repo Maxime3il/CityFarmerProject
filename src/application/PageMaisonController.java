@@ -44,30 +44,18 @@ public class PageMaisonController {
 		makeMovable(sprite, scene);
 		BoutonInteractionLit.setVisible(false);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
-		sprite.setImage(image);
-
-		
-		// On appelle l'affichage Sprite Information
-		try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
-            Parent root = loader.load();
-            
-            FXMLLoader loader2 = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
-			Parent root2 = loader.load();
-		} catch (IOException e) {
-            e.printStackTrace();
-        }
+		sprite.setImage(image); 
 	}
 	
 	
 	
 	@FXML
-	void dormir(ActionEvent event) {
+	void dormir() {
 	    // RECUPERER TOUTE L'ENERGIE
-		PagePersonnageController.player.getEnergy();
-	    PagePersonnageController.player.setEnergy(1.0);
+		PageInformationPersonnageController.timeline.stop();
+		PagePersonnageController.player.setEnergy(1);
+		System.out.println(PagePersonnageController.player.getEnergy());
 	}
-
 	
 	@FXML
     void OpenSpriteInformation() {
@@ -158,6 +146,9 @@ public class PageMaisonController {
 			}
 			if(e.getCode() == KeyCode.I) {
 				OpenSpriteInventory();
+			}
+			if(e.getCode() == KeyCode.P) {
+				dormir();
 			}
 		});
 
