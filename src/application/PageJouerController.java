@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -352,17 +353,26 @@ public class PageJouerController {
     @FXML
     public void interactionCoffreButton(ActionEvent evt) {
     	try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageCoffre.fxml"));
-            Parent root = loader.load();
-            
-            Scene scene = new Scene(root, 930, 580);
-            
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.setResizable(false);
-            stage.show();
+    		if(PagePersonnageController.player.getInventory().getArgentJoueur() >= 200) {
+    			FXMLLoader loader = new FXMLLoader(getClass().getResource("PageCoffre.fxml"));
+                Parent root = loader.load();
+                
+                Scene scene = new Scene(root, 930, 580);
+                
+                Stage stage = new Stage();
+                stage.initStyle(StageStyle.UNDECORATED);
+                stage.setScene(scene);
+                stage.centerOnScreen();
+                stage.setResizable(false);
+                stage.show();
+    		}
+    		else {
+    			Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Coins insuffisants");
+                alert.setHeaderText(null);
+                alert.setContentText("Vous devez avoir 200 coins pour ouvir le coffre !");
+                alert.showAndWait();
+    		}
         } catch (IOException e) {
             e.printStackTrace();
         }
