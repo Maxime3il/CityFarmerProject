@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 
-<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationEchangeMarchand.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageEchangeController">
+<BorderPane fx:id="scene" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationEchangeMarchand.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageEchangeController">
    <center>
       <Pane prefHeight="1030.0" prefWidth="1685.0" stylesheets="@applicationEchangeMarchand.css" BorderPane.alignment="CENTER">
          <children>

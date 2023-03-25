@@ -21,6 +21,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -63,8 +64,7 @@ public class PageInformationPersonnageController {
     @FXML
     private ProgressBar energyProgressBar;
 
-
-    static Timeline timeline;    
+    static Timeline timeline;  
     
     private double progressValueEnergy = PagePersonnageController.player.getEnergy();
         
@@ -73,6 +73,7 @@ public class PageInformationPersonnageController {
         
     @FXML
     public void initialize() {
+    	currentKeyBinding();
     	Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
     	persoChoisi.setImage(image);
     	labelNomFerme.setText(PagePersonnageController.player.getNameFarm());
@@ -83,13 +84,21 @@ public class PageInformationPersonnageController {
         healthProgressBar.setProgress(PagePersonnageController.player.getHealth());
         startTimeEnergyBar();
     }
-    
-    private void startTimeEnergyBar() {
+
+    /**
+     * Débute le timer de l'energie et modifie celle ci toutes les 3 secondes
+     */
+	private void startTimeEnergyBar() {
         timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> updateEnergyProgessBar()));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
     
+	/**
+	 * Update l'energie et décrémente la variable locale
+	 * Lorsque la barre est vide cad à 0 alors
+	 * une alerte est déclaré et reset la barre d'energie à 1
+	 */
     private void updateEnergyProgessBar() {
     	progressValueEnergy -= 0.01;
     	PagePersonnageController.player.setEnergy(progressValueEnergy);
@@ -107,4 +116,17 @@ public class PageInformationPersonnageController {
             });
         }
     }
+    
+    /**
+     * Détermine les touches claviers entrées par l'utilisateur
+     * Si la touche correspond à une action alors elle sera exécutée.
+     */
+	private void currentKeyBinding(){
+		scene.setOnKeyPressed(e -> {
+			if(e.getCode() == KeyCode.A) {
+				//Ferme la fenetre
+				close();
+			}
+		});
+	}
 }

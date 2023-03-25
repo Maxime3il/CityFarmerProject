@@ -26,7 +26,7 @@ public class PageMaisonController {
 
 	@FXML
 	private Button closeButton;
-
+	
 	private void jouerSon(String path) {
 		MediaPlayerSingleton.getInstance().jouerSon(path);
 	}
@@ -57,10 +57,10 @@ public class PageMaisonController {
 
 	@FXML
 	void close() {
-		Stage stage = (Stage) closeButton.getScene().getWindow();
-		stage.close();
+			Stage stage = (Stage) closeButton.getScene().getWindow();
+			stage.close();
 	}
-
+	
 	@FXML
 	private ImageView sprite;
 
@@ -71,28 +71,6 @@ public class PageMaisonController {
     private Button BoutonInteractionLit;
 	
 	@FXML
-    void OpenSpriteInformation() {
-        try {
-            // Charger le fichier FXML qui définit la fenêtre
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
-            Parent root = loader.load();
-            
-            // Créer une nouvelle scène avec la fenêtre chargée
-            Scene scene = new Scene(root, 930, 580);
-            
-            // Créer une nouvelle fenêtre avec la scène
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.setResizable(false);
-            // Afficher la fenêtre
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-	@FXML
 	public void initialize() {
 		if (jouerSonActif) {
 			jouerSon("src/Audio/boutonParametre.mp3");
@@ -101,7 +79,6 @@ public class PageMaisonController {
 		BoutonInteractionLit.setVisible(false);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
 		sprite.setImage(image);
-
 	}
 
 	@FXML
@@ -112,55 +89,30 @@ public class PageMaisonController {
 		System.out.println(PagePersonnageController.player.getEnergy());
 	}
 	
-	
-	
 	@FXML
-	void dormir() {
-	    // RECUPERER TOUTE L'ENERGIE
-		PageInformationPersonnageController.timeline.stop();
-		PagePersonnageController.player.setEnergy(1);
-		System.out.println(PagePersonnageController.player.getEnergy());
-	}
+    void OpenSpriteInformation() {
+		lancerXML("PageInformationPersonnage.fxml", 930, 580);
+    }
 	
 	@FXML
 	void OpenSpriteInventory() {
-		try {
-			// Charger le fichier FXML qui définit la fenêtre
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
-			Parent root = loader.load();
-
-			// Créer une nouvelle scène avec la fenêtre chargée
-			Scene scene = new Scene(root, 930, 580);
-
-			// Créer une nouvelle fenêtre avec la scène
-			Stage stage = new Stage();
-			stage.initStyle(StageStyle.UNDECORATED);
-			stage.setScene(scene);
-			stage.centerOnScreen();
-			stage.setResizable(false);
-			// Afficher la fenêtre
-			stage.show();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		lancerXML("PageInventairePersonnage.fxml", 930, 580);
 	}
 	
 	
-	private void lancerXML(String url) {
+	private void lancerXML(String url, int largeur, int longueur) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
-
 			stage.setOnCloseRequest(event -> {
 				event.consume();
 			});
-
 			stage.initStyle(StageStyle.UNDECORATED);
-
-			Scene scene = new Scene(root1, 1920, 1080);
+			Scene scene = new Scene(root1, largeur, longueur);
 			stage.setScene(scene);
 			stage.setResizable(false);
+			stage.centerOnScreen();
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
@@ -187,8 +139,12 @@ public class PageMaisonController {
 			if(e.getCode() == KeyCode.I) {
 				OpenSpriteInventory();
 			}
-			if(e.getCode() == KeyCode.P) {
-				dormir();
+			if(e.getCode() == KeyCode.R) {
+				dormir(null);
+			}
+			if(e.getCode() == KeyCode.F) {
+				lancerXML("PageJouer.fxml", 1920, 1080);
+				close();
 			}
 		});
 
@@ -223,9 +179,7 @@ public class PageMaisonController {
 	public void makeMovable(ImageView sprite, BorderPane scene){
 		this.sprite = sprite;
 		this.scene = scene;
-
 		movementSetup();
-
 		keyPressed.addListener(((observableValue, aBoolean, t1) -> {
 			if(!aBoolean){
 				timer.start();
@@ -267,22 +221,7 @@ public class PageMaisonController {
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 				}
 			}
-//			
-//			// Collision ligne haut - bas
-//			if (sprite.getLayoutX() <= 1176 && sprite.getLayoutX() >= 548 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 312) {
-//				if(dPressed.get()){
-//					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
-//				}
-//				if(wPressed.get()){
-//					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
-//				}
-//				if(aPressed.get()){
-//					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
-//				}
-//				if(sPressed.get()){
-//					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
-//				}
-//			}
+			
 			//Interaction avec le lit
 			if (sprite.getLayoutX() <= 1312 && sprite.getLayoutX() >= 1124 && sprite.getLayoutY() <= 674 && sprite.getLayoutY() >= 484) {
 				BoutonInteractionLit.setVisible(true);
@@ -303,7 +242,7 @@ public class PageMaisonController {
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 					if (sprite.getLayoutX() <= 576 && sprite.getLayoutX() >= 526 && sprite.getLayoutY() == 772) {
 						close(); 
-						lancerXML("PageJouer.fxml");
+						lancerXML("PageJouer.fxml", 1920, 1080);
 					}
 				}
 			}

@@ -24,7 +24,7 @@ import javafx.stage.StageStyle;
 import model.Player;
 
 public class PageJouerController {
-	
+
 	private void jouerSon(String path) {
 		MediaPlayerSingleton.getInstance().jouerSon(path);
 	}
@@ -52,14 +52,14 @@ public class PageJouerController {
 		}
 		MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
 	}
-	
-	
+
+
 	@FXML
 	private Button closeButton;
-	
+
 	@FXML
 	private Button buttonSprite;
-	
+
 	@FXML
 	void close() {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -71,35 +71,34 @@ public class PageJouerController {
 
 	@FXML
 	private BorderPane scene;
-	
-	@FXML
-    private ImageView cochon;
-
-    @FXML
-    private ImageView cochon2;
-    
-    @FXML
-    private ImageView vache;
-
-    @FXML
-    private ImageView vache2;
-    
-    @FXML
-    private Button BoutonInteractionCochon;
-
 
 	@FXML
-    private Button BoutonInteraction;
-	
-	 @FXML
-	 private Button BoutonInteractionPotager;
-	 
-	 @FXML
-	 private Button BoutonInteractionCoffre;
-	 
-	 @FXML
-	 private Button BoutonInteractionVache;
-	
+	private ImageView cochon;
+
+	@FXML
+	private ImageView cochon2;
+
+	@FXML
+	private ImageView vache;
+
+	@FXML
+	private ImageView vache2;
+
+	@FXML
+	private Button BoutonInteractionCochon;
+
+	@FXML
+	private Button BoutonInteraction;
+
+	@FXML
+	private Button BoutonInteractionPotager;
+
+	@FXML
+	private Button BoutonInteractionCoffre;
+
+	@FXML
+	private Button BoutonInteractionVache;
+
 	@FXML
 	public void initialize() {
 		if (jouerSonActif) {
@@ -118,7 +117,7 @@ public class PageJouerController {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
 			Parent root = loader.load();
-			
+
 			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
 			Parent root2 = loader2.load();
 		} catch (IOException e) {
@@ -126,10 +125,10 @@ public class PageJouerController {
 		}
 	}
 
-	private void lancerXML(String url) {
+	private void lancerXML(String url, int largeur, int longueur) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
-			Parent root1 = (Parent) fxmlLoader.load();
+			Parent root1 = (Parent) fxmlLoader.load();	
 			Stage stage = new Stage();
 
 			stage.setOnCloseRequest(event -> {
@@ -138,9 +137,10 @@ public class PageJouerController {
 
 			stage.initStyle(StageStyle.UNDECORATED);
 
-			Scene scene = new Scene(root1, 1920, 1080);
+			Scene scene = new Scene(root1, largeur, longueur);
 			stage.setScene(scene);
 			stage.setResizable(false);
+			stage.centerOnScreen();
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
@@ -170,6 +170,32 @@ public class PageJouerController {
 			}
 			if(e.getCode() == KeyCode.I) {
 				OpenSpriteInventory();
+			}
+			if(e.getCode() == KeyCode.K) {
+				//Interaction avec les cochons
+				interactionCochonButton(null);
+			}
+			if(e.getCode() == KeyCode.R) {
+				//Interaction avec les potagers
+				interactionPotagerButton(null);
+			}
+			if(e.getCode() == KeyCode.L) {
+				//Interaction avec les vaches
+				interactionLaitButton(null);
+			}
+			if(e.getCode() == KeyCode.M) {
+				//Entrer dans la maison
+				close(); 
+				lancerXML("PageMaison.fxml", 1920, 1080);
+			}
+			if(e.getCode() == KeyCode.C) {
+				//Ouvrir le coffre
+				System.out.println("gg");
+				interactionCoffreButton(null);
+			}
+			if(e.getCode() == KeyCode.T) {
+				//intéraction avec le marchand
+				interactionMarchandButton(null);
 			}
 		});
 
@@ -215,8 +241,6 @@ public class PageJouerController {
 			}
 		}));
 	}
-	
-	static boolean gg = false;
 
 	AnimationTimer timer = new AnimationTimer() {
 		@Override
@@ -256,130 +280,80 @@ public class PageJouerController {
 				BoutonInteractionVache.setVisible(false);
 			}
 			if(wPressed.get()) {
-                if ((((sprite.getLayoutX() < 470 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1130 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
-                    System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
-                    sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
-                    if (sprite.getLayoutX() <= 904 && sprite.getLayoutX() >= 868 && sprite.getLayoutY() == 146) {
-                        close(); 
-                        lancerXML("PageMaison.fxml");
-                    }
-                }
-            }
+				if ((((sprite.getLayoutX() < 470 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1130 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
+					if (sprite.getLayoutX() <= 904 && sprite.getLayoutX() >= 868 && sprite.getLayoutY() == 146) {
+						close(); 
+						lancerXML("PageMaison.fxml", 1920, 1080);
+					}
+				}
+			}
 
-            if(sPressed.get()) {
-                if ( 926 > sprite.getLayoutY()) {
-                    System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
-                    sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
-                }
-            }
+			if(sPressed.get()) {
+				if ( 926 > sprite.getLayoutY()) {
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
+				}
+			}
 
-            if(aPressed.get()){
-                if (((sprite.getLayoutX() < 470 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && -12 < sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && -12 < sprite.getLayoutX()) {
-                    System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
-                    sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
-                }
-            }
+			if(aPressed.get()){
+				if (((sprite.getLayoutX() < 470 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && -12 < sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && -12 < sprite.getLayoutX()) {
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
+				}
+			}
 
-            if(dPressed.get()){
-                if (((sprite.getLayoutX() < 464 || 900 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX()) {
-                    System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
-                    sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
-                }
-            }
-        }
-    };
+			if(dPressed.get()){
+				if (((sprite.getLayoutX() < 464 || 900 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX()) {
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
+				}
+			}
+		}
+	};
 
-    @FXML
-    void OpenSpriteInformation() {
-        try {
-            // Charger le fichier FXML qui définit la fenêtre
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
-            Parent root = loader.load();
-            
-            // Créer une nouvelle scène avec la fenêtre chargée
-            Scene scene = new Scene(root, 930, 580);
-            
-            // Créer une nouvelle fenêtre avec la scène
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.setResizable(false);
-            // Afficher la fenêtre
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    @FXML
-    void OpenSpriteInventory() {
-        try {
-            // Charger le fichier FXML qui définit la fenêtre
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
-            Parent root = loader.load();
-            
-            // Créer une nouvelle scène avec la fenêtre chargée
-            Scene scene = new Scene(root, 930, 580);
-            
-            // Créer une nouvelle fenêtre avec la scène
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.setResizable(false);
-            // Afficher la fenêtre
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+	@FXML
+	void OpenSpriteInformation() {
+		lancerXML("PageInformationPersonnage.fxml", 930, 580);
 	}
-    
-    @FXML
-    public void interactionCochonButton(ActionEvent evt) {
-    	PagePersonnageController.player.getInventory().addItem("porc");
-    }
 
-    @FXML
-    public void interactionPotagerButton(ActionEvent evt) {
-    	PagePersonnageController.player.getInventory().addItem("carotte");
-    }
-    
-    @FXML
-    public void interactionLaitButton(ActionEvent evt) {
-    	PagePersonnageController.player.getInventory().addItem("lait");
-    }
-    
-    @FXML
-    public void interactionCoffreButton(ActionEvent evt) {
-    	try {
-    		if(PagePersonnageController.player.getInventory().getArgentJoueur() >= 200) {
-    			FXMLLoader loader = new FXMLLoader(getClass().getResource("PageCoffre.fxml"));
-                Parent root = loader.load();
-                
-                Scene scene = new Scene(root, 930, 580);
-                
-                Stage stage = new Stage();
-                stage.initStyle(StageStyle.UNDECORATED);
-                stage.setScene(scene);
-                stage.centerOnScreen();
-                stage.setResizable(false);
-                stage.show();
-    		}
-    		else {
-    			Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Coins insuffisants");
-                alert.setHeaderText(null);
-                alert.setContentText("Vous devez avoir 200 coins pour ouvir le coffre !");
-                alert.showAndWait();
-    		}
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
-    @FXML
-    public void interactionMarchandButton(ActionEvent evt) {
-		lancerXML("PageEchangeMarchand.fxml");
-    }
+	@FXML
+	void OpenSpriteInventory() {
+		lancerXML("PageInventairePersonnage.fxml", 930, 580);
+	}
+
+	@FXML
+	public void interactionCochonButton(ActionEvent evt) {
+		PagePersonnageController.player.getInventory().addItem("porc");
+	}
+
+	@FXML
+	public void interactionPotagerButton(ActionEvent evt) {
+		PagePersonnageController.player.getInventory().addItem("carotte");
+	}
+
+	@FXML
+	public void interactionLaitButton(ActionEvent evt) {
+		PagePersonnageController.player.getInventory().addItem("lait");
+	}
+
+	@FXML
+	public void interactionCoffreButton(ActionEvent evt) {
+		if(PagePersonnageController.player.getInventory().getArgentJoueur() >= 200) {
+			lancerXML("PageCoffre.fxml", 930, 580);
+		}
+		else {
+			Alert alert = new Alert(Alert.AlertType.WARNING);
+			alert.setTitle("Coins insuffisants");
+			alert.setHeaderText(null);
+			alert.setContentText("Vous devez avoir 200 coins pour ouvir le coffre !");
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	public void interactionMarchandButton(ActionEvent evt) {
+		lancerXML("PageEchangeMarchand.fxml", 1920, 1080);
+	}
 }

@@ -10,6 +10,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Inventory;
 import model.Item;
@@ -17,6 +19,9 @@ import model.Player;
 
 public class PageEchangeController {
 
+	@FXML
+	private BorderPane scene;
+	
     @FXML
     private Button echangerButton;
     
@@ -92,6 +97,8 @@ public class PageEchangeController {
     @FXML
     public void initialize() {
     	
+    	currentKeyBinding();
+    	
         int nbPorcI = PagePersonnageController.player.getInventory().contains("porc").getCount();
         nbSteak.setText(String.valueOf(nbPorcI));
         
@@ -148,6 +155,19 @@ public class PageEchangeController {
         // Mise à jour du prix total initial
         updatePrixTotal();
     }
+
+    /**
+     * Détermine les touches claviers entrées par l'utilisateur
+     * Si la touche correspond à une action alors elle sera exécutée.
+     */
+	private void currentKeyBinding() {
+		scene.setOnKeyPressed(e -> {
+			if(e.getCode() == KeyCode.T) {
+				//Ferme la fenetre
+				close();
+			}
+		});	
+	}
     
     /**
      * Méthode pour mettre à jour le prix total en fonction du nombre entré dans le TextField

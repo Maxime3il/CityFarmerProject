@@ -137,7 +137,7 @@ public class PageAccueilController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		makeMovable(scene);
+		currenKeyBinding();
 		String path = new File("src/Video/TitleScreen.mp4").getAbsolutePath();
 		Media media = new Media(new File(path).toURI().toString());
 		mediaPlayer = new MediaPlayer(media);
@@ -220,22 +220,18 @@ public class PageAccueilController implements Initializable {
 		stage.close();
 	}
 
-	private void movementSetup() {
+    /**
+     * Détermine les touches claviers entrées par l'utilisateur
+     * Si la touche correspond à une action alors elle sera exécutée.
+     */
+	private void currenKeyBinding() {
 		scene.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.J) {
 				lancerXML("PagePersonnage.fxml");
-			}
-			if (e.getCode() == KeyCode.P) {
-				lancerXML("PageParametre.fxml");
 			}
 			if (e.getCode() == KeyCode.ESCAPE) {
 				Platform.exit();
 			}
 		});
-	}
-
-	public void makeMovable(BorderPane scene) {
-		this.scene = scene;
-		movementSetup();
 	}
 }

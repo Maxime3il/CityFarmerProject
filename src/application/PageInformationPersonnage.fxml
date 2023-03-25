@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane prefHeight="580.0" prefWidth="930.0" stylesheets="@applicationPersonnageInformation.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageInformationPersonnageController">
+<BorderPane fx:id="scene" prefHeight="580.0" prefWidth="930.0" stylesheets="@applicationPersonnageInformation.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageInformationPersonnageController">
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
