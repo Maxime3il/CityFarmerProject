@@ -1,14 +1,12 @@
 package application;
 
 import javafx.scene.input.MouseEvent;
-
-
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -148,7 +146,7 @@ public class PagePersonnageController {
 	
 	//Création de l'inventaire du marchand
 	public static Inventory inventaireMarchand;
-	
+
 	private String Skin() {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
 	    MyImageView.setImage(image);
@@ -162,10 +160,15 @@ public class PagePersonnageController {
 	    String nomFerme = inputFerme.getText();
 	    String skin = Skin();
 	    if(nom.isEmpty() || prenom.isEmpty() || nomFerme.isEmpty()){
-	        System.out.println("Veuillez remplir tous les champs.");
-	        return;
+	    	Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Un ou plusieurs champs sont vides");
+            alert.setHeaderText(null);
+            alert.setContentText("Veuillez remplir tous les champs");
+            alert.showAndWait();
+            return;
 	    }
-	    //Initialisation du joueur
+
+		//Initialisation du joueur
 	    player = new Player(prenom, nom, currentGender, skin,nomFerme ,  1, 1, new Inventory());
 	    
 	    //Initialisation de l'inventaire du marchand lors du lancement de la partie

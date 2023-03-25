@@ -49,7 +49,7 @@ public class Inventory {
         }
         return null;
     }
-    
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Inventory: ");
@@ -67,7 +67,7 @@ public class Inventory {
             }
         }
     }
-
+    
 	public double getArgentJoueur() {
 		return argentJoueur;
 	}
@@ -75,6 +75,4 @@ public class Inventory {
 	public void setArgentJoueur(double argentJoueur) {
 		this.argentJoueur = argentJoueur;
 	}
-    
-    
 }

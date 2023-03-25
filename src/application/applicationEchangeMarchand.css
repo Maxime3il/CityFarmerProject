@@ -8,9 +8,7 @@ body {
 
 
 .root{
-    -fx-background-image:url('../Images/CadrePersonnage.png');
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
+	-fx-background-image:url('../Images/CadreMarchand.png');
     -fx-background-size:cover;
 }
 
@@ -23,9 +21,10 @@ body {
 -fx-font-family: "Stardew Valley";
 -fx-text-fill: #d15956;
 -fx-font-size: 48px;
+-fx-cursor: hand;
 }
 
-#titreInventaire, #separator, #argentInventaire, #titreInventaireMarchand, #separatorMarchand, #argentInventaireMarchand {
+#titreInventaire, #separator, #argentInventaire, #titreInventaireMarchand, #separatorMarchand, #argentInventaireMarchand , #itemLabel, #nombreLabel, #labelPrix, #prixLabel, #coutUnite {
 	-fx-font-family: "Stardew Valley";
 	-fx-font-size: 48px;
 	-fx-text-fill: #5a1104;
@@ -37,3 +36,33 @@ body {
 	-fx-text-fill: #d15956;
 }
 
+#comboBoxItem{
+    -fx-background-image: url('../Images/BtnValider.png');
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 241px 51px;
+    -fx-font-family: "Stardew Valley";
+    -fx-text-fill: #5a1104;
+    -fx-font-size: 32px;
+    -fx-cursor: hand;
+}
+
+#nombreItem, #prixTotal{
+	-fx-background-color: #f6b86c;
+    -fx-text-fill: #5a1104;
+    -fx-font-family: "Stardew Valley";
+    -fx-font-size: 32px;
+    -fx-cursor: hand;
+}
+
+#vendreBouton, #echangerButton{
+    -fx-background-image: url('../Images/BtnValider.png');
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 175px 71px;
+    -fx-padding: 20px 20px;
+    -fx-font-family: "Stardew Valley";
+    -fx-text-fill: #5a1104;
+    -fx-font-size: 32px;
+    -fx-cursor: hand;
+}
