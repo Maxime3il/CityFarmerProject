@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.Gender;
 import model.Inventory;
+import model.Item;
 import model.Player;
 
 public class PagePersonnageController {
@@ -168,11 +169,30 @@ public class PagePersonnageController {
             return;
 	    }
 
-		//Initialisation du joueur
-	    player = new Player(prenom, nom, currentGender, skin,nomFerme ,  1, 1, new Inventory());
+	    Item carotteItemPlayer = new Item("carotte", 3, 10);
+	    Item laitItemPlayer = new Item("lait", 7, 10);
+	    Item porcItemPlayer = new Item("porc", 2, 10);
 	    
-	    //Initialisation de l'inventaire du marchand lors du lancement de la partie
-	    inventaireMarchand = new Inventory(50, 50, 50);
+	    Inventory inventairePlayer = new Inventory();
+	    Inventory marchandInventaire = new Inventory();
+
+	    Item carotteItemMarchand = new Item("carotte", 3, 50);
+	    Item laitItemPlayerMarchand = new Item("lait", 7, 50);
+	    Item porcItemPlayerMarchand = new Item("porc", 2, 50);
+	    
+	    inventairePlayer.addItem(porcItemPlayer);
+	    inventairePlayer.addItem(laitItemPlayer);
+	    inventairePlayer.addItem(carotteItemPlayer);
+	    
+	    marchandInventaire.addItem(carotteItemMarchand);
+	    marchandInventaire.addItem(laitItemPlayerMarchand);
+	    marchandInventaire.addItem(porcItemPlayerMarchand);
+	    
+		//Initialisation du joueur
+	    player = new Player(prenom, nom, currentGender, skin,nomFerme ,  1, 1, inventairePlayer);
+	    
+	    //
+	    inventaireMarchand = marchandInventaire;
 	    
 	    //Lancement de la page du jeu
 	    lancerXML("PageJouer.fxml");

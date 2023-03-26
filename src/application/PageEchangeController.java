@@ -91,9 +91,8 @@ public class PageEchangeController {
     @FXML
     private Label titreInventaireMarchand;
 
-    public Inventory inventory = new Inventory();
+    public Inventory inventory = PagePersonnageController.inventaireMarchand;
 
-    
     @FXML
     public void initialize() {
     	
@@ -196,9 +195,7 @@ public class PageEchangeController {
      */
     @FXML
     void acheterAvecMarchand(ActionEvent event) {
-    	System.out.println("gg");
     	if(PagePersonnageController.player.getInventory().getArgentJoueur() >= Double.parseDouble(prixTotal.getText())) {
-    		System.out.println("gg");
     		if(PagePersonnageController.inventaireMarchand.contains(comboBoxItem.getValue()).getCount() >= Integer.parseInt(nombreItem.getText())) {
 	    		//Changement de l'argent du joueur après l'achat des items
 	    		PagePersonnageController.player.getInventory().setArgentJoueur(PagePersonnageController.player.getInventory().getArgentJoueur() - Double.parseDouble(prixTotal.getText()));
