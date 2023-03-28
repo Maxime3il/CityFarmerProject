@@ -102,7 +102,7 @@ public class PageJouerController {
 	@FXML
 	public void initialize() {
 		if (jouerSonActif) {
-			jouerSon("src/Audio/boutonMusique.mp3");
+			jouerSon("src/Audio/Jeu.mp3");
 		}
 
 		BoutonInteraction.setVisible(false);
@@ -197,6 +197,9 @@ public class PageJouerController {
 				//intéraction avec le marchand
 				interactionMarchandButton(null);
 			}
+			if(e.getCode() == KeyCode.H) {
+                jouerSon("src/Audio/AideJeu.mp3");
+            }
 		});
 
 		scene.setOnKeyReleased(e ->{

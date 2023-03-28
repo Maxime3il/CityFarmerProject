@@ -73,7 +73,7 @@ public class PageMaisonController {
 	@FXML
 	public void initialize() {
 		if (jouerSonActif) {
-			jouerSon("src/Audio/boutonParametre.mp3");
+			jouerSon("src/Audio/Maison.mp3");
 		}
 		makeMovable(sprite, scene);
 		BoutonInteractionLit.setVisible(false);

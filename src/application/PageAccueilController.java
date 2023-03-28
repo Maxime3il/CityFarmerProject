@@ -173,7 +173,7 @@ public class PageAccueilController implements Initializable {
 			@Override
 			public void handle(KeyEvent event) {
 				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonJouer.mp3");
+					jouerSon("src/Audio/lancerJeu.mp3");
 				}
 			}
 		});
@@ -190,23 +190,23 @@ public class PageAccueilController implements Initializable {
 			@Override
 			public void handle(KeyEvent event) {
 				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonMusique.mp3");
+					jouerSon("src/Audio/boutonCouperMusique.mp3");
 				}
 			}
 		});
-		btnActiverDesactiverSon.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonParametre.mp3");
-				}
-			}
-		});
+//		btnActiverDesactiverSon.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//			@Override
+//			public void handle(KeyEvent event) {
+//				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
+//					jouerSon("src/Audio/boutonParametre.mp3");
+//				}
+//			}
+//		});
 		closeButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
 				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonFermerJeu.mp3");
+					jouerSon("src/Audio/boutonQuitter.mp3");
 				}
 			}
 		});
