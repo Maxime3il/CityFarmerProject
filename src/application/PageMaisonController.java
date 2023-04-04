@@ -1,11 +1,13 @@
 package application;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import java.io.IOException;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -23,12 +26,41 @@ public class PageMaisonController {
 
 	@FXML
 	private Button closeButton;
-	@FXML
-	void close() {
-		Stage stage = (Stage) closeButton.getScene().getWindow();
-		stage.close();
+	
+	private void jouerSon(String path) {
+		MediaPlayerSingleton.getInstance().jouerSon(path);
 	}
 
+	@FXML
+	private Button btnActiverDesactiverSon;
+
+	private boolean jouerSonActif = true;
+
+	/*
+	 * Fonction activerDesactiverSon param: return: Active ou Desactive la musique
+	 * en changeant l'image selon le statut du bouton
+	 */
+	@FXML
+	private void activerDesactiverSon(ActionEvent event) {
+		jouerSonActif = !jouerSonActif;
+		if (!jouerSonActif) {
+			// Si le son est desactiver, on ajouter la classe CSS "muted" au bouton
+			// btnActiverDesactiverSon
+			btnActiverDesactiverSon.getStyleClass().add("muted");
+		} else {
+			// Si le son est activer, on retire la classe CSS "muted" du bouton
+			// btnActiverDesactiverSon
+			btnActiverDesactiverSon.getStyleClass().remove("muted");
+		}
+		MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
+	}
+
+	@FXML
+	void close() {
+			Stage stage = (Stage) closeButton.getScene().getWindow();
+			stage.close();
+	}
+	
 	@FXML
 	private ImageView sprite;
 
@@ -37,84 +69,82 @@ public class PageMaisonController {
 	
 	@FXML
     private Button BoutonInteractionLit;
-
-	@FXML
-	public void initialize() {
-		makeMovable(sprite, scene);
-		BoutonInteractionLit.setVisible(false);
-		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));        
-		sprite.setImage(image);
-
-	}
 	
 	@FXML
-	void dormir(ActionEvent event) {
-	    // RECUPERER TOUTE L'ENERGIE
-	    PagePersonnageController.player.setEnergy(1.0);
+	public void initialize() {
+		if (jouerSonActif) {
+			jouerSon("src/Audio/Maison.mp3");
+		}
+		makeMovable(sprite, scene);
+		BoutonInteractionLit.setVisible(false);
+		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
+		sprite.setImage(image);
 	}
 
+	@FXML
+	void dormir(ActionEvent event) {
+		// RECUPERER TOUTE L'ENERGIE
+		PageInformationPersonnageController.timeline.stop();
+		PagePersonnageController.player.setEnergy(1);
+		System.out.println(PagePersonnageController.player.getEnergy());
+	}
 	
 	@FXML
     void OpenSpriteInformation() {
-        try {
-            // Charger le fichier FXML qui définit la fenêtre
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
-            Parent root = loader.load();
-            
-            // Créer une nouvelle scène avec la fenêtre chargée
-            Scene scene = new Scene(root, 930, 580);
-            
-            // Créer une nouvelle fenêtre avec la scène
-            Stage stage = new Stage();
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setScene(scene);
-            stage.centerOnScreen();
-            stage.setResizable(false);
-            // Afficher la fenêtre
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		lancerXML("PageInformationPersonnage.fxml", 930, 580);
     }
-
-	private void lancerXML(String url) {
+	
+	@FXML
+	void OpenSpriteInventory() {
+		lancerXML("PageInventairePersonnage.fxml", 930, 580);
+	}
+	
+	
+	private void lancerXML(String url, int largeur, int longueur) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
 			Parent root1 = (Parent) fxmlLoader.load();
 			Stage stage = new Stage();
-
 			stage.setOnCloseRequest(event -> {
 				event.consume();
 			});
-
 			stage.initStyle(StageStyle.UNDECORATED);
-
-			Scene scene = new Scene(root1, 1920, 1080);
+			Scene scene = new Scene(root1, largeur, longueur);
 			stage.setScene(scene);
 			stage.setResizable(false);
+			stage.centerOnScreen();
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace(System.err);
 			System.out.println("Impossible de charger la fenêtre");
 		}
 	}
-
 	private void movementSetup(){
 		scene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.Z) {
 				wPressed.set(true);
 			}
-
 			if(e.getCode() == KeyCode.Q) {
 				aPressed.set(true);
 			}
-
 			if(e.getCode() == KeyCode.S) {
 				sPressed.set(true);
 			}
-
 			if(e.getCode() == KeyCode.D) {
 				dPressed.set(true);
+			}
+			if(e.getCode() == KeyCode.A) {
+				OpenSpriteInformation();		
+			}
+			if(e.getCode() == KeyCode.I) {
+				OpenSpriteInventory();
+			}
+			if(e.getCode() == KeyCode.R) {
+				dormir(null);
+			}
+			if(e.getCode() == KeyCode.F) {
+				lancerXML("PageJouer.fxml", 1920, 1080);
+				close();
 			}
 		});
 
@@ -149,9 +179,7 @@ public class PageMaisonController {
 	public void makeMovable(ImageView sprite, BorderPane scene){
 		this.sprite = sprite;
 		this.scene = scene;
-
 		movementSetup();
-
 		keyPressed.addListener(((observableValue, aBoolean, t1) -> {
 			if(!aBoolean){
 				timer.start();
@@ -163,7 +191,36 @@ public class PageMaisonController {
 
 	AnimationTimer timer = new AnimationTimer() {
 		@Override
-		public void handle(long timestamp) {
+		public void handle(long timestamp) {			
+			//collision avec le bas
+			if(sprite.getLayoutY() >= 780) {
+				sprite.setLayoutY(780);
+			}
+			
+			//collision avec le haut
+			if(sprite.getLayoutY() <= 170) {
+				sprite.setLayoutY(170);
+			}
+			
+			//collision avec le gauche
+			if(sprite.getLayoutX() <= 78) {
+				sprite.setLayoutX(78);
+			}
+			
+			//collision avec le gauche
+			if(sprite.getLayoutX() >= 1724) {
+				sprite.setLayoutX(1724);
+			}
+			
+			// Collision carre en haut a droite
+			if (sprite.getLayoutX() <= 1724 && sprite.getLayoutX() >= 1176 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 170) {
+				if(dPressed.get()){
+					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
+				}
+				if(wPressed.get()){
+					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
+				}
+			}
 			
 			//Interaction avec le lit
 			if (sprite.getLayoutX() <= 1312 && sprite.getLayoutX() >= 1124 && sprite.getLayoutY() <= 674 && sprite.getLayoutY() >= 484) {
@@ -173,19 +230,19 @@ public class PageMaisonController {
 			}
 
 			if(wPressed.get()) {
-				if (-2 < sprite.getLayoutY()) {
-					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+				if (!(sprite.getLayoutX() <= 1176 && sprite.getLayoutX() >= 548 && sprite.getLayoutY() <= 506 && sprite.getLayoutY() >= 312)) {
+					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 				}
 			}
-
 			if(sPressed.get()){
 				if ( 926 > sprite.getLayoutY()) {
 					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
 					if (sprite.getLayoutX() <= 576 && sprite.getLayoutX() >= 526 && sprite.getLayoutY() == 772) {
 						close(); 
-						lancerXML("PageJouer.fxml");
+						lancerXML("PageJouer.fxml", 1920, 1080);
 					}
 				}
 			}
@@ -196,7 +253,6 @@ public class PageMaisonController {
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
 				}
 			}
-
 			if(dPressed.get()){
 				if (1832 > sprite.getLayoutX()) {
 					//System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
@@ -206,4 +262,3 @@ public class PageMaisonController {
 		}
 	};
 }
-

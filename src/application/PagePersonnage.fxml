@@ -10,28 +10,30 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationPersonnage.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PagePersonnageController">
+<BorderPane fx:id="scene" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@applicationPersonnage.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PagePersonnageController">
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@applicationPersonnage.css" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="closeButton" layoutX="1840.0" layoutY="10.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="80.0" text="X" />
             <ImageView fitHeight="816.0" fitWidth="735.0" layoutX="638.0" layoutY="205.0">
                <image>
                   <Image url="@../Images/CadrePersonnage.png" />
                </image>
             </ImageView>
+            <ComboBox fx:id="myComboBox" layoutX="906.0" layoutY="587.0" prefHeight="51.0" prefWidth="265.0" />
+            <TextField fx:id="inputPrenom" layoutX="906.0" layoutY="649.0" prefHeight="51.0" prefWidth="265.0" />
+            <TextField fx:id="inputNom" layoutX="906.0" layoutY="709.0" prefHeight="51.0" prefWidth="265.0" />
+            <TextField fx:id="inputFerme" layoutX="906.0" layoutY="768.0" prefHeight="51.0" prefWidth="265.0" />
+            <Button fx:id="validatePerso" layoutX="910.0" layoutY="844.0" mnemonicParsing="false" onAction="#valider" prefHeight="71.0" prefWidth="175.0" text="Valider" />
+            <Button fx:id="closeButton" layoutX="1840.0" layoutY="10.0" mnemonicParsing="false" onAction="#close" prefHeight="50.0" prefWidth="80.0" text="X" />
+            <Label fx:id="textePersonnalisation" layoutX="768.0" layoutY="646.0" prefHeight="26.0" prefWidth="135.0" text="Prenom" />
+            <Label fx:id="textePersonnalisation" layoutX="769.0" layoutY="706.0" prefHeight="26.0" prefWidth="135.0" text="Nom" />
+            <Label fx:id="textePersonnalisation" layoutX="747.0" layoutY="754.0" prefHeight="79.0" prefWidth="215.0" text="Nom ferme" />
+            <Label fx:id="textePersonnalisation" layoutX="768.0" layoutY="588.0" prefHeight="26.0" prefWidth="135.0" text="Genre" />
             <ImageView fx:id="MyImageView" fitHeight="300.0" fitWidth="250.0" layoutX="872.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/sprite1.png" />
                </image>
             </ImageView>
-            <TextField fx:id="inputPrenom" layoutX="906.0" layoutY="649.0" prefHeight="51.0" prefWidth="265.0" />
-            <TextField fx:id="inputNom" layoutX="906.0" layoutY="709.0" prefHeight="51.0" prefWidth="265.0" />
-            <ComboBox fx:id="myComboBox" layoutX="906.0" layoutY="587.0" prefHeight="51.0" prefWidth="265.0" />
-            <Label fx:id="textePersonnalisation" layoutX="768.0" layoutY="646.0" prefHeight="26.0" prefWidth="135.0" text="Prenom" />
-            <Label fx:id="textePersonnalisation" layoutX="769.0" layoutY="706.0" prefHeight="26.0" prefWidth="135.0" text="Nom" />
-            <Label fx:id="textePersonnalisation" layoutX="768.0" layoutY="588.0" prefHeight="26.0" prefWidth="135.0" text="Genre" />
-            <Button fx:id="validatePerso" layoutX="910.0" layoutY="844.0" mnemonicParsing="false" onAction="#valider" prefHeight="71.0" prefWidth="175.0" text="Valider" />
             <ImageView fx:id="nextButton" fitHeight="53.0" fitWidth="38.0" layoutX="1109.0" layoutY="449.0" onMouseClicked="#handleNextButton">
                <image>
                   <Image url="@../Images/Fleche.png" />
@@ -47,8 +49,6 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="textePersonnalisation" layoutX="747.0" layoutY="754.0" prefHeight="79.0" prefWidth="215.0" text="Nom ferme" />
-            <TextField fx:id="inputFerme" layoutX="906.0" layoutY="768.0" prefHeight="51.0" prefWidth="265.0" />
          </children>
       </Pane>
    </center>
