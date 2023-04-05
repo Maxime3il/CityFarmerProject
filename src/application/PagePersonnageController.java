@@ -27,6 +27,8 @@ public class PagePersonnageController {
 
 	// parametres
 	
+	private boolean firstFocus = true;
+	private int currentGenderSelection = 0;
 	private String currentUrl;
 	private boolean jouerSonActif = true;
 	public Gender currentGender = Gender.Homme;
@@ -68,10 +70,20 @@ public class PagePersonnageController {
 	
 	// methodes
 	
+	/**
+	 * Joue un son qu'on lui donne en paramètres
+	 * @param path
+	 * @author Iulian GAINAR
+	 */
 	private void jouerSon(String path) {
 		MediaPlayerSingleton.getInstance().jouerSon(path);
 	}
 	
+	/**
+	 * Permet de lancer la vue XML
+	 * @param url
+	 * @author Iulian GAINAR
+	 */
 	 private void lancerXML(String url) {
 	        try {
 	            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
@@ -104,18 +116,23 @@ public class PagePersonnageController {
 		stage.close();
 	}
 
-	
+	/**
+	 * Fonction coeur de la page qui lance la logique
+	 * @author Iulian GAINAR
+	 */
 	@FXML
 	public void initialize() {
-		
-		// Si le son est actif, on reproduit le son de la page
+		// Si le son est actif, on reproduit le son d'audio description
 		if (jouerSonActif) {
 			jouerSon("src/Audio/MessagePagePersonnage.mp3");
 		}
 		
 		// on ecoute les touches du clavier et on réagit
 		currenKeyBinding();
+		
 		// gere le focus sur les différents champs afin de lancer le son 
+		
+		// focus sur le prenom
 		inputPrenom.focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue) {
 				if (jouerSonActif) {
@@ -123,6 +140,7 @@ public class PagePersonnageController {
 				}
 			}
 		});
+		// focus sur le nom
 		inputNom.focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue) {
 				if (jouerSonActif) {
@@ -130,6 +148,7 @@ public class PagePersonnageController {
 				}
 			}
 		});
+		// focus sur le nom de la ferme
 		inputFerme.focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue) {
 				if (jouerSonActif) {
@@ -137,6 +156,7 @@ public class PagePersonnageController {
 				}
 			}
 		});
+		// focus sur le bouton quitter
 		closeButton.focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue) {
 				if (jouerSonActif) {
@@ -144,6 +164,7 @@ public class PagePersonnageController {
 				}
 			}
 		});
+		// focus sur le bouton valider
 		validatePerso.focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if(newValue) {
 				if (jouerSonActif) {
@@ -151,13 +172,27 @@ public class PagePersonnageController {
 				}
 			}
 		});
-
+		// focus sur le genre du personnage
+		myComboBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				// si le son est actif et que ce n'est pas le premier focus (si je le laisse par défaut, les deux sons se lancent car le focus 
+				// est fait directement sur ce champ quand la page charge)
+				// le firstFocus me permet de savoir s'il s'agit du premier focus ou non
+				if (jouerSonActif && this.firstFocus == false) {
+					jouerSon("src/Audio/Genre.mp3");
+				}
+				// la premiere fois qu'il rentre ici il désactive le firstFocus, le son se lancera à chaque fois. J'évite qu'il se lance lorsque la page est chargée
+				this.firstFocus = false;
+			}
+		});
+		
+		// On crée la combobox pour la gestion des genres
 	    myComboBox.getItems().addAll("Homme", "Femme", "Autre");
 	    myComboBox.setValue("Homme");
 
 	    personnages = personnagesHommes;
 	    afficherImage();
-
+	    // on gère ce qu'il se passe lorsque l'utilisateur change le genre du personnage
 	    myComboBox.setOnAction((ActionEvent event) -> {
 	        String selectedValue = myComboBox.getValue();
 	        switch (selectedValue) {
@@ -195,20 +230,91 @@ public class PagePersonnageController {
 	private void currenKeyBinding() {
 		scene.setOnKeyPressed(e -> {
 			if (e.isControlDown() && e.getCode() == KeyCode.P) {
+				// saisir prenom
 				inputPrenom.requestFocus();
 			}
-			if (e.getCode() == KeyCode.N) {
+			if (e.isControlDown() && e.getCode() == KeyCode.N) {
+				// saisir nom
 				inputNom.requestFocus();
 			}
-			if (e.getCode() == KeyCode.F) {
+			if (e.isControlDown() && e.getCode() == KeyCode.F) {
+				// saisir nom ferme
 				inputFerme.requestFocus();
 			}
-			if (e.getCode() == KeyCode.X) {
-				Platform.exit();
+			if (e.isControlDown() && e.getCode() == KeyCode.G) {
+				// choisir genre
+				// "iterator" sur les genres, afin de boucler lorsqu'il appuie sur G
+				this.currentGenderSelection++;
+				if (this.currentGenderSelection >= myComboBox.getItems().size()) {
+					this.currentGenderSelection = 0;
+		        }
+				// on choisi le genre en fonction de l'iterator
+				myComboBox.getSelectionModel().select(this.currentGenderSelection);
+				// on l'annonce
+				String selectedValue = myComboBox.getValue();
+		        switch (selectedValue) {
+		            case "Homme":
+		                personnages = personnagesHommes;
+		                currentGender = Gender.Homme;
+		        		if (jouerSonActif) {
+		        			jouerSon("src/Audio/Homme.mp3");
+		        		}
+		                break;
+		            case "Femme":
+		                personnages = personnagesFemmes;
+		                currentGender = Gender.Femme;
+		        		if (jouerSonActif) {
+		        			jouerSon("src/Audio/Femme.mp3");
+		        		}
+		                break;
+		            case "Autre":
+		            	default :
+		                personnages = personnagesAutre;
+		                currentGender = Gender.Autre;
+		        		if (jouerSonActif) {
+		        			jouerSon("src/Audio/Autre.mp3");
+		        		}
+		                break;
+		        }
+		        afficherImage();
+			}
+			if (e.isControlDown() && e.getCode() == KeyCode.Q) {
+				// quitter
+				if (jouerSonActif) {
+					jouerSon("src/Audio/Quitter.mp3");
+				}
+				// on ferme la fenetre
+				this.close();
+			}
+			if (e.isControlDown() && e.getCode() == KeyCode.J) {
+				//valider
+				String nom = inputNom.getText();
+			    String prenom = inputPrenom.getText();
+			    String nomFerme = inputFerme.getText();
+			    String skin = Skin();
+			    // on gere dans le cas ou des champs sont vides
+			    if(nom.isEmpty() || prenom.isEmpty() || nomFerme.isEmpty()){
+			    	if (jouerSonActif) {
+		    			jouerSon("src/Audio/ChampsVides.mp3");
+		    		}
+			}else {
+				// sinon, si tout est renseigné, on lance la partie
+				lancerPartie(nom, prenom, nomFerme, skin);
+				}
+			}
+			if (e.isControlDown() && e.getCode() == KeyCode.R) {
+				// reecouter le message
+				if (jouerSonActif) {
+					jouerSon("src/Audio/MessagePagePersonnage.mp3");
+				}	
 			}
 		});
 	}
 
+	/**
+	 * Methode pour l'affichage des modeles (lorsqu'il appuie sur fleche droite)
+	 * @param event
+	 */
 	@FXML
 	public void handleNextButton(MouseEvent event) {
 	    indice++;
@@ -217,7 +323,10 @@ public class PagePersonnageController {
 	    }
 	    afficherImage();
 	}
-
+	/**
+	 * Methode pour l'affichage des modeles (lorsqu'il appuie sur sur fleche gauche)
+	 * @param event
+	 */
 	@FXML
 	public void handlePreviousButton(MouseEvent event) {
 	    indice--;
@@ -227,43 +336,57 @@ public class PagePersonnageController {
 	    afficherImage();
 	}
 
-
+	/**
+	 * Permet d'afficher l'image du modèle de personnage
+	 */
 	private void afficherImage() {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
 	    currentUrl = personnages[indice];
 	    MyImageView.setImage(image);
 	}
 
-	
-	
-
+	/**
+	 * Definit le skin du personnage
+	 * @return le skin du personnage
+	 */
 	private String Skin() {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
 	    MyImageView.setImage(image);
 	    return personnages[indice];
 	}
 	
+	
+	/**
+	 * Gère la logique du bouton Valider
+	 * @param event
+	 */
 	@FXML
 	public void valider(ActionEvent event) {
 	    String nom = inputNom.getText();
 	    String prenom = inputPrenom.getText();
 	    String nomFerme = inputFerme.getText();
 	    String skin = Skin();
+	    // si des champs sont vides on affiche un message d'erreur
 	    if(nom.isEmpty() || prenom.isEmpty() || nomFerme.isEmpty()){
 	    	if (jouerSonActif) {
-    			jouerSon("src/Audio/ChampsVides.mp3");
+    			jouerSon("src/Audio/ChampsVidesPopUp.mp3");
     		}
-	    	Alert alert = new Alert(Alert.AlertType.WARNING);
+    		Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Un ou plusieurs champs sont vides");
             alert.setHeaderText(null);
             alert.setContentText("Veuillez remplir tous les champs");
-            alert.showAndWait();
-                
-    		
+            alert.showAndWait(); 
+            
             return;
+	    }else {
+	    	lancerPartie(nom, prenom, nomFerme, skin);
 	    }
 
-	    Item carotteItemPlayer = new Item("carotte", 3, 10);
+	    
+	}
+	
+	public void lancerPartie(String nom, String prenom, String nomFerme, String skin) {
+		Item carotteItemPlayer = new Item("carotte", 3, 10);
 	    Item laitItemPlayer = new Item("lait", 7, 10);
 	    Item porcItemPlayer = new Item("porc", 2, 10);
 	    
