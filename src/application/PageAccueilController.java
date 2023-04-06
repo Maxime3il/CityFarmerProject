@@ -185,36 +185,6 @@ public class PageAccueilController implements Initializable {
 				}
 			}
 		}); 
-		
-		
-		
-		/*
-		btnJouer.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/lancerJeu.mp3");
-				}
-			}
-		});
-
-		couperSonMusique.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonCouperMusique.mp3");
-				}
-			}
-		});
-
-		closeButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonQuitter.mp3");
-				}
-			}
-		});*/
 	}
 	
 	/*
@@ -260,7 +230,17 @@ public class PageAccueilController implements Initializable {
 				mediaPlayer.setMute(false);
 			}
 			if (e.getCode() == KeyCode.A) {
-				// a completer
+				jouerSonActif = !jouerSonActif;
+				if (!jouerSonActif) {
+					// Si le son est desactivé, on ajoute la classe CSS "muted" au bouton
+					// btnActiverDesactiverSon
+					btnActiverDesactiverSon.getStyleClass().add("muted");
+				} else {
+					// Si le son est activé, on retire la classe CSS "muted" du bouton
+					// btnActiverDesactiverSon
+					btnActiverDesactiverSon.getStyleClass().remove("muted");
+				}
+				MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
 			}
 		});
 	}

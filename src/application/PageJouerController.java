@@ -104,7 +104,6 @@ public class PageJouerController {
 		if (jouerSonActif) {
 			jouerSon("src/Audio/Jeu.mp3");
 		}
-
 		BoutonInteraction.setVisible(false);
 		BoutonInteractionPotager.setVisible(false);
 		BoutonInteractionCochon.setVisible(false);
@@ -173,14 +172,24 @@ public class PageJouerController {
 			}
 			if(e.getCode() == KeyCode.K) {
 				//Interaction avec les cochons
+				if (jouerSonActif) {
+					jouerSon("src/Audio/tuerCochon.mp3");
+				}
 				interactionCochonButton(null);
+				
 			}
 			if(e.getCode() == KeyCode.R) {
 				//Interaction avec les potagers
+				if (jouerSonActif) {
+					jouerSon("src/Audio/recolteCarotte.mp3");
+				}
 				interactionPotagerButton(null);
 			}
 			if(e.getCode() == KeyCode.L) {
 				//Interaction avec les vaches
+				if (jouerSonActif) {
+					jouerSon("src/Audio/bouteilleLait.mp3");
+				}
 				interactionLaitButton(null);
 			}
 			if(e.getCode() == KeyCode.M) {
@@ -198,7 +207,9 @@ public class PageJouerController {
 				interactionMarchandButton(null);
 			}
 			if(e.getCode() == KeyCode.H) {
-                jouerSon("src/Audio/AideJeu.mp3");
+				if (jouerSonActif) {
+					jouerSon("src/Audio/AideJeu.mp3");
+				}
             }
 		});
 
