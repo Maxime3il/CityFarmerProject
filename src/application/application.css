@@ -9,6 +9,7 @@ body {
 .slider {
   -fx-pref-width: 150px;
   -fx-padding: 2px;
+  -fx-cursor: hand;
 }
 
 .slider .track {
@@ -23,8 +24,7 @@ body {
   -fx-border-radius: 50%;
 }
 
-
-#BtnJouer, #BtnParam, #BoutonPersonnage{
+#btnJouer {
 -fx-background-image: url('../Images/Jouer.png');
 -fx-background-size: 282px 65x;
 -fx-background-position: center;
@@ -33,6 +33,7 @@ body {
 -fx-font-family: "Stardew Valley";
 -fx-text-fill: #d15956;
 -fx-font-size: 72px;
+-fx-cursor: hand;
 }
 
 #closeButton{
@@ -44,6 +45,7 @@ body {
 -fx-font-family: "Stardew Valley";
 -fx-text-fill: #d15956;
 -fx-font-size: 48px;
+-fx-cursor: hand;
 }
 
 #couperSonMusique{
@@ -52,6 +54,7 @@ body {
 -fx-background-position: center;
 -fx-background-repeat: no-repeat;
 -fx-padding: 10px 20px;
+-fx-cursor: hand;
 }
 
 #couperSonMusique.muted{
@@ -60,7 +63,25 @@ body {
 -fx-background-position: center;
 -fx-background-repeat: no-repeat;
 -fx-padding: 10px 20px;
+-fx-cursor: hand;
 }
+
+#btnActiverDesactiverSon{
+-fx-background-image: url('../Images/oeil.png');
+-fx-background-size: 80px 65px;
+-fx-background-position: center;
+-fx-background-repeat: no-repeat;
+-fx-padding: 10px 20px;
+}
+
+#btnActiverDesactiverSon.muted{
+-fx-background-image: url('../Images/oeil_barre.png');
+-fx-background-size: 80px 65px;
+-fx-background-position: center;
+-fx-background-repeat: no-repeat;
+-fx-padding: 10px 20px;
+}
+
 
 
 

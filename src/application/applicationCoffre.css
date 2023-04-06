@@ -8,7 +8,7 @@ body {
 
 
 .root{
-    -fx-background-image:url('../Images/backgroundPersonnage.png');
+    -fx-background-image:url('../Images/CadrePersonnage.png');
     -fx-background-size:cover;
 }
 
@@ -21,4 +21,12 @@ body {
 -fx-font-family: "Stardew Valley";
 -fx-text-fill: #d15956;
 -fx-font-size: 48px;
+-fx-cursor: hand;
+}
+
+
+#textFin{
+    -fx-font-family: "Stardew Valley";
+    -fx-font-size: 100px;
+    -fx-text-fill: #5a1104;
 }
