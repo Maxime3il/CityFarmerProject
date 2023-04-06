@@ -4,11 +4,12 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 public class MediaPlayerSingleton {
+	
+	// parametres
 
 	private static MediaPlayerSingleton instance = null;
 	
@@ -16,17 +17,29 @@ public class MediaPlayerSingleton {
 	
 	Map<String, MediaPlayer> holder;
 
+	// methodes
+	
 	private MediaPlayerSingleton() {
 		holder = new HashMap<>();
 	}
 
+	/**
+	 * Retourne l'intance du media player
+	 * @return
+	 */
 	public static MediaPlayerSingleton getInstance() {
 		if (instance == null) {
 			instance = new MediaPlayerSingleton();
 		}
 		return instance;
 	}
-
+	
+	/**
+	 * Author Anthony RUIZ
+	 * Joue un son passé en paramètres
+	 * @param path
+	 * @return
+	 */
 	public MediaPlayer jouerSon(String path) {
 		MediaPlayer mediaPlayer = null;
 		if (holder.containsKey(path)) {
@@ -59,6 +72,10 @@ public class MediaPlayerSingleton {
 		return mediaPlayer;
 	}
 	
+	/**
+	 * Rend le media player mute ou demute
+	 * @param mute
+	 */
 	public void setMute(boolean mute) {
 		for (Entry<String, MediaPlayer> entry : holder.entrySet()) {
 			entry.getValue().setMute(mute);
@@ -66,11 +83,11 @@ public class MediaPlayerSingleton {
 		this.mute = mute;
 	}
 
+	/**
+	 * Retourne si le media player est mute ou non
+	 * @return boolean: le media player est mute ou non
+	 */
 	public boolean isMute() {
 		return mute;
 	}
-	
-	
-	
-
 }

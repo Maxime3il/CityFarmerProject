@@ -24,37 +24,72 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
+/**
+ * Cette classe est le contrôleur de la page d'accueil de l'application.
+ */
+
 public class PageAccueilController implements Initializable {
 
-	// parametres
+	/**
+	 * Bouton permettant de fermer la fenêtre.
+	 */
 	@FXML
 	private Button closeButton;
+	/**
+	 * Bouton permettant de rediriger l'utilisateur vers la page jouer.
+	 */
 	@FXML
 	private Button btnJouer;
+	/**
+	 * Curseur permettant de régler le volume de la musique.
+	 */
 	@FXML
 	private Slider volumeSlider;
+	/**
+	 * Bouton permettant de couper le son de la musique.
+	 */
 	@FXML
 	private Button couperSonMusique;
+	/**
+	 * Bouton permettant d'activer ou de désactiver le son de la musique.
+	 */
 	@FXML
 	private Button btnActiverDesactiverSon;
+	/**
+	 * BorderPane de la page.
+	 */
 	@FXML
 	private BorderPane scene;
+	/**
+	 * MediaView contenant la vidéo de fond.
+	 */
 	@FXML
 	private MediaView mediaView;
 	
+	/**
+	 * Le lecteur de média utilisé pour lire la musique.
+	 */
 	private MediaPlayer mediaPlayer;
 	
+	/**
+	 * Statut de la musique, "muted" si désactivé, vide sinon.
+	 */
 	private String mute = "muted";		
 	
+	/**
+	 * Indique si le focus est déjà sur un bouton.
+	 */
 	private boolean firstFocus = false;
 	
+	/**
+	 * Logger pour les messages de l'application.
+	 */
 	private static final Logger logger = Logger.getLogger(PageAccueilController.class.getName());
 	
-	/*
-     * Cette fonction permet de lancer une nouvelle fen�tre � partir d'un fichier FXML.
-     * @param url L'URL du fichier FXML � charger.
-     */
-	
+	/**
+	 * Cette fonction permet de lancer une nouvelle fenêtre à partir d'un fichier FXML.
+	 * @param url l'URL du fichier FXML à charger.
+	 */
 	public void lancerXML(String url) {
 
         try {
@@ -72,11 +107,15 @@ public class PageAccueilController implements Initializable {
         }
     }
 
+	/**
+	 * Cette fonction permet de gérer la fermeture de la fenêtre.
+	 * @param event l'événement associé à la fermeture de la fenêtre.
+	 */
 	private void handleCloseRequest(WindowEvent event) {
 	    event.consume();
 	}
 
-	/*
+	/**
      * Cette fonction permet de rediriger l'utilisateur vers la page jouer.
      * @param event L'�v�nement d�clencheur.
      */
@@ -88,7 +127,7 @@ public class PageAccueilController implements Initializable {
 
 	private boolean jouerSonActif = true;
 
-	/*
+	/**
 	 * Fonction activerDesactiverSon param: 
 	 * return: Active ou Desactive la musique en changeant l'image selon le statut du bouton
 	 */
@@ -186,7 +225,7 @@ public class PageAccueilController implements Initializable {
 	    }
 	}
 	
-	/*
+	/**
 	* Cette fonction joue un son � partir du chemin de fichier sp�cifi�.
 	* @param path Le chemin de fichier du son � jouer.
 	*/

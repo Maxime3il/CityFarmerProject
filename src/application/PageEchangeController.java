@@ -15,6 +15,7 @@ import model.Inventory;
 
 public class PageEchangeController {
 
+	// Région paramètre
 	@FXML
 	private BorderPane scene;
 	
@@ -89,6 +90,7 @@ public class PageEchangeController {
 
     private Inventory inventory = PagePersonnageController.inventaireMarchand;
     
+    //Définition de variable string pour éviter la répétition
     private String carotteStr = "carotte";
     private String porcStr = "porc";
     private String laitStr = "lait";
@@ -176,6 +178,9 @@ public class PageEchangeController {
         }
     }
 
+    /**
+     * Permet de close la window courante
+     */
     @FXML
     void close() {
         Stage stage = (Stage) closeButton.getScene().getWindow();

@@ -22,10 +22,20 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * Cette classe est un contrôleur pour la page Jouer.
+ * Elle permet de gérer la page principale du jeu.
+ */
+
 public class PageJouerController {
 
 	private static final Logger logger = Logger.getLogger(PageJouerController.class.getName());
 	
+	/**
+     * Joue le son passé en paramètre.
+     *
+     * @param path le chemin du fichier sonore à jouer.
+     */
 	private void jouerSon(String path) {
 		MediaPlayerSingleton.getInstance().jouerSon(path);
 	}
@@ -55,50 +65,97 @@ public class PageJouerController {
 	}
 
 
+	/**
+	 * Le bouton pour fermer la fenêtre du coffre.
+	 */
 	@FXML
 	private Button closeButton;
 
+	/**
+	 * Le bouton du sprite
+	 */
 	@FXML
 	private Button buttonSprite;
 
+	/**
+	 * La fonction pour fermer la fenetre
+	 */
 	@FXML
 	void close() {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
 		stage.close();
 	}
 
+	/**
+	 * L'Image du sprite
+	 */
 	@FXML
 	private ImageView sprite;
 
 	@FXML
 	private BorderPane scene;
 
+	/**
+	 * L'Image du cochon
+	 */
 	@FXML
 	private ImageView cochon;
 
+	/**
+	 * L'Image du cochon 2
+	 */
 	@FXML
 	private ImageView cochon2;
 
+	/**
+	 * L'Image de la vache
+	 */
 	@FXML
 	private ImageView vache;
 
+	/**
+	 * L'Image de la vache 2
+	 */
 	@FXML
 	private ImageView vache2;
 
+	/**
+	 * Le bouton interaction avec le cochon
+	 */
 	@FXML
 	private Button boutonInteractionCochon;
 
+	/**
+	 * Le bouton interaction
+	 */
 	@FXML
 	private Button boutonInteraction;
-
+	
+	/**
+	 * Le bouton interaction avec le potager
+	 */
 	@FXML
 	private Button boutonInteractionPotager;
 
+	/**
+	 * Le bouton interaction avec le coffre
+	 */
 	@FXML
 	private Button boutonInteractionCoffre;
 
+	/**
+	 * Le bouton interaction avec la vache
+	 */
 	@FXML
 	private Button boutonInteractionVache;
+
+	/**
+	 * Cette méthode est appelée lorsque la scène est initialisée.
+	 * Elle configure les différents éléments de la scène, tels que la visibilité des boutons
+	 * d'interaction et la configuration de l'image du personnage. Elle charge également les
+	 * fichiers FXML pour les pages d'information et d'inventaire du personnage.
+	 * Si l'option de lecture de son est activée, elle lance également la lecture de la musique de fond.
+	 */
 
 	@FXML
 	public void initialize() {
@@ -127,6 +184,12 @@ public class PageJouerController {
 		}
 	}
 
+	/**
+	* Cette fonction permet de charger une fenêtre XML avec les dimensions spécifiées et de l'afficher.
+	* @param url l'URL du fichier XML à charger
+	* @param largeur la largeur de la fenêtre
+	* @param longueur la longueur de la fenêtre
+	*/
 	private void lancerXML(String url, int largeur, int longueur) {
 		try {
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
@@ -147,6 +210,14 @@ public class PageJouerController {
 		}
 	}
 
+	/**
+	* Configure le mouvement du personnage en associant les touches du clavier à des actions.
+	* Les touches ZQSD permettent de déplacer le personnage dans les quatre directions.
+	* Les touches A et I permettent d'ouvrir respectivement la page d'information et l'inventaire du personnage.
+	* Les touches K, R, L, C et T permettent d'interagir avec les différents éléments du jeu (cochon, potager, lait, coffre et marchand).
+	* La touche M permet de fermer la fenêtre et d'ouvrir la page de la maison.
+	* La touche H permet de jouer un son d'aide.
+	*/
 	private void movementSetup() {
 	    scene.setOnKeyPressed(e -> {
 	        KeyCode code = e.getCode();
@@ -194,6 +265,11 @@ public class PageJouerController {
 
 	private int movementVariable = 2;
 
+	/**
+	* Permet de rendre le sprite déplaçable en utilisant les touches ZQSD.
+	* @param sprite l'ImageView du sprite
+	* @param scene la BorderPane sur laquelle le sprite est affiché
+	*/
 	public void makeMovable(ImageView sprite, BorderPane scene){
 		this.sprite = sprite;
 		this.scene = scene;
@@ -209,6 +285,14 @@ public class PageJouerController {
 		}));
 	}
 
+	
+	/**
+	* Cette fonction gère le mouvement du sprite dans la scène. Elle utilise les propriétés booléennes wPressed, aPressed, sPressed et dPressed pour détecter les touches du clavier enfoncées, et change la position du sprite en conséquence.
+	* Le sprite interagit avec des éléments de la scène selon sa position, tels que des PNJ, des coffres et des animaux.
+	* Si le sprite atteint une certaine position, un bouton d'interaction s'affiche pour indiquer que l'utilisateur peut interagir avec un élément.
+	* @param sprite ImageView représentant le sprite du joueur.
+	* @param scene BorderPane représentant la scène dans laquelle le sprite évolue.
+	*/
 	AnimationTimer timer = new AnimationTimer() {
 		@Override
 		public void handle(long timestamp) {
@@ -254,16 +338,26 @@ public class PageJouerController {
 		}
 	};
 
+	/**
+	 * Ouvrir la page information du personnage
+	 */
 	@FXML
 	void openSpriteInformation() {
 		lancerXML("PageInformationPersonnage.fxml", 930, 580);
 	}
 
+	/**
+	 * Ouvrir l'inventaire
+	 */
 	@FXML
 	void openSpriteInventory() {
 		lancerXML("PageInventairePersonnage.fxml", 930, 580);
 	}
 
+	/**
+	 * Ajoute un son pour tuer les cochons
+	 * Ajoute des cochons a l'inventaire
+	 */
 	@FXML
 	public void interactionCochonButton(ActionEvent evt) {
 		if (jouerSonActif) {
@@ -272,6 +366,10 @@ public class PageJouerController {
 		PagePersonnageController.player.getInventory().addItem("porc");
 	}
 
+	/**
+	 * Ajoute un son pour recolter des carottes
+	 * Ajoute des carottes a l'inventaire
+	 */
 	@FXML
 	public void interactionPotagerButton(ActionEvent evt) {
 		if (jouerSonActif) {
@@ -280,6 +378,10 @@ public class PageJouerController {
 		PagePersonnageController.player.getInventory().addItem("carotte");
 	}
 
+	/**
+	 * Ajoute un son pour ramasser le lait
+	 * Ajoute du lait a l'inventaire
+	 */
 	@FXML
 	public void interactionLaitButton(ActionEvent evt) {
 		if (jouerSonActif) {
@@ -288,6 +390,10 @@ public class PageJouerController {
 		PagePersonnageController.player.getInventory().addItem("lait");
 	}
 
+	/**
+	 * Si le joueur n'a pas assez d'argent < 200, il ne peut pas ouvrir le coffre
+	 * Si argent < 200 il peut ouvrir la fenetre du coffre
+	 */
 	@FXML
 	public void interactionCoffreButton(ActionEvent evt) {
 		if(PagePersonnageController.player.getInventory().getArgentJoueur() >= 200) {
@@ -302,6 +408,9 @@ public class PageJouerController {
 		}
 	}
 
+	/**
+	 * Interaction avec le marchand
+	 */
 	@FXML
 	public void interactionMarchandButton(ActionEvent evt) {
 		lancerXML("PageEchangeMarchand.fxml", 1920, 1080);

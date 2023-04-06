@@ -121,7 +121,11 @@ public class PagePersonnageController {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
 		stage.close();
 	}
-
+	
+	/**
+	 * Initialise la logique de la page
+	 * @author Iulian GAINAR
+	 */
 	@FXML
 	public void initialize() {
 	    if (jouerSonActif) {
@@ -159,6 +163,9 @@ public class PagePersonnageController {
 	    });
 	}
 
+	/**
+	 * Ajoute des ecouteurs sur tous les boutons
+	 */
 	private void addFocusListeners() {
 	    addFocusListener(inputPrenom, "src/Audio/Prenom.mp3");
 	    addFocusListener(inputNom, "src/Audio/Nom.mp3");
@@ -166,7 +173,8 @@ public class PagePersonnageController {
 	    addFocusListener(closeButton, "src/Audio/Quitter.mp3");
 	    addFocusListener(validatePerso, "src/Audio/Valider.mp3");
 	}
-
+	
+	
 	private void addFocusListener(Control control, String audioPath) {
 	    control.focusedProperty().addListener((observable, oldValue, newValue) -> {
 	        if (Boolean.TRUE.equals(newValue) && jouerSonActif) {
@@ -175,6 +183,9 @@ public class PagePersonnageController {
 	    });
 	}
 	
+	/**
+	 * Ajoute des ecouteurs sur les touches avec lesquelles l'utilisateur peut interagir
+	 */
 	private void currentKeyBinding() {
 	    scene.setOnKeyPressed(e -> {
 	        if (e.isControlDown()) {
@@ -192,6 +203,9 @@ public class PagePersonnageController {
 	    });
 	}
 
+	/**
+	 * Gère la sélection de genre du personnage
+	 */
 	private void handleGenderSelection() {
 	    currentGenderSelection = (currentGenderSelection + 1) % myComboBox.getItems().size();
 	    myComboBox.getSelectionModel().select(currentGenderSelection);
@@ -216,11 +230,18 @@ public class PagePersonnageController {
 	    afficherImage();
 	}
 
+	/**
+	 * Gère la fermeture de la page
+	 */
 	private void handleQuit() {
 	    handleAudio("src/Audio/Quitter.mp3");
 	    this.close();
 	}
 
+	/**
+	 * Gere l'audio de la page
+	 * @param audioPath
+	 */
 	private void handleAudio(String audioPath) {
 	    if (jouerSonActif) {
 	        jouerSon(audioPath);
@@ -299,6 +320,13 @@ public class PagePersonnageController {
 	    
 	}
 	
+	/**
+	 * Methode qui lance une nouvelle partie (gère la création de personnage et tout ce qui concerne une nouvelle partie)
+	 * @param nom
+	 * @param prenom
+	 * @param nomFerme
+	 * @param skin
+	 */
 	public void lancerPartie(String nom, String prenom, String nomFerme, String skin) {
 		Item carotteItemPlayer = new Item("carotte", 3, 10);
 	    Item laitItemPlayer = new Item("lait", 7, 10);
