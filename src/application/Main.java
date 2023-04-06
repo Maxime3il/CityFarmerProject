@@ -15,10 +15,11 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            String musicFile = "src/Audio/lancementJeu.mp3";
+        	/*
+        	String musicFile = "src/Audio/lancementJeu.mp3";
             Media sound = new Media(new File(musicFile).toURI().toString());
             MediaPlayer mediaPlayer = new MediaPlayer(sound);
-            mediaPlayer.play();
+            mediaPlayer.play(); */
             BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("PageAccueil.fxml"));
             Scene scene = new Scene(root,1920,1080);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

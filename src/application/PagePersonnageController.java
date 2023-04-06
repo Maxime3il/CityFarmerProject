@@ -122,7 +122,7 @@ public class PagePersonnageController {
 	 */
 	@FXML
 	public void initialize() {
-		// Si le son est actif, on reproduit le son d'audio description
+		// Si le son est actif, on lance le son d'audio description
 		if (jouerSonActif) {
 			jouerSon("src/Audio/MessagePagePersonnage.mp3");
 		}

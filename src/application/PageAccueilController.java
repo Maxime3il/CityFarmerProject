@@ -33,16 +33,30 @@ import javafx.scene.input.MouseEvent;
 
 public class PageAccueilController implements Initializable {
 
+	// parametres
+	@FXML
+	private Button closeButton;
+	@FXML
+	private Button btnJouer;
+	@FXML
+	private Slider volumeSlider;
+	@FXML
+	private Button couperSonMusique;
+	@FXML
+	private Button btnActiverDesactiverSon;
 	@FXML
 	private BorderPane scene;
-
 	@FXML
 	private MediaView mediaView;
+	private boolean firstFocus = true;
 	private MediaPlayer mediaPlayer;
 	private Media media;
-
+	
+	private boolean jouerSonActif = true;
 	private PageJouerController jouerController = new PageJouerController();
 
+	// methodes
+	
 	/*
      * Cette fonction permet de lancer une nouvelle fen�tre � partir d'un fichier FXML.
      * @param url L'URL du fichier FXML � charger.
@@ -70,44 +84,7 @@ public class PageAccueilController implements Initializable {
             System.out.println("Impossible de charger la fenêtre");
         }
     }
-/*
-	@FXML
-	private Button BtnParam;
-
-	/*
-     * Cette fonction permet de rediriger l'utilisateur vers la page de param�tres.
-     * @param event L'�v�nement d�clencheur.
-     *
 	
-	@FXML
-	private void redirectParam(ActionEvent event) {
-		lancerXML("PageParametre.fxml");
-	}
-*/
-	@FXML
-	private Button BtnJouer;
-
-	/*
-     * Cette fonction permet de rediriger l'utilisateur vers la page jouer.
-     * @param event L'�v�nement d�clencheur.
-     */
-	
-	@FXML
-	private void redirectJouer(ActionEvent evt) {
-		lancerXML("PagePersonnage.fxml");
-	}
-
-	@FXML
-	private Slider volumeSlider;
-
-	@FXML
-	private Button couperSonMusique;
-
-	@FXML
-	private Button btnActiverDesactiverSon;
-
-	private boolean jouerSonActif = true;
-
 	/*
 	 * Fonction activerDesactiverSon param: 
 	 * return: Active ou Desactive la musique en changeant l'image selon le statut du bouton
@@ -127,17 +104,15 @@ public class PageAccueilController implements Initializable {
 		MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
 	}
 
-	/*
-	* Cette fonction joue un son � partir du chemin de fichier sp�cifi�.
-	* @param path Le chemin de fichier du son � jouer.
-	*/
-	private void jouerSon(String path) {
-		MediaPlayerSingleton.getInstance().jouerSon(path);
-	}
-
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// on ecoute les touches du clavier et on réagit
 		currenKeyBinding();
+		// Si le son est actif, on lance le son d'audio description
+		if(jouerSonActif) {
+			jouerSon("src/Audio/lancementJeu.mp3");
+		}
+		// on gère la vidéo de fond
 		String path = new File("src/Video/TitleScreen.mp4").getAbsolutePath();
 		Media media = new Media(new File(path).toURI().toString());
 		mediaPlayer = new MediaPlayer(media);
@@ -154,6 +129,7 @@ public class PageAccueilController implements Initializable {
 		mediaPlayer.setOnEndOfMedia(() -> {
 			mediaPlayer.seek(Duration.ZERO);
 		});
+		// on gere le bouton pour couper la video
 		couperSonMusique.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -168,8 +144,52 @@ public class PageAccueilController implements Initializable {
 				}
 			}
 		});
+		
+		// on lance la video
 		mediaPlayer.setAutoPlay(true);
-		BtnJouer.setOnKeyPressed(new EventHandler<KeyEvent>() {
+		
+		// on gere le focus des boutons
+		couperSonMusique.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				// si le son est actif et que ce n'est pas le premier focus (si je le laisse par défaut, les deux sons se lancent car le focus 
+				// est fait directement sur ce champ quand la page charge)
+				// le firstFocus me permet de savoir s'il s'agit du premier focus ou non
+				if (jouerSonActif && this.firstFocus == false) {
+					jouerSon("src/Audio/boutonCouperMusique.mp3");
+				}
+				// la premiere fois qu'il rentre ici il désactive le firstFocus, le son se lancera à chaque fois. J'évite qu'il se lance lorsque la page est chargée
+				this.firstFocus = false;
+			}
+		});
+		
+		closeButton.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				if (jouerSonActif) {
+					jouerSon("src/Audio/boutonQuitter.mp3");
+				}
+			}
+		}); 
+		
+		btnJouer.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				if (jouerSonActif) {
+					jouerSon("src/Audio/lancerJeu.mp3");
+				}
+			}
+		}); 
+		
+		btnActiverDesactiverSon.focusedProperty().addListener((observable, oldValue, newValue) -> {
+			if(newValue) {
+				if (jouerSonActif) {
+					jouerSon("src/Audio/boutonAccessibilite.mp3");
+				}
+			}
+		}); 
+		
+		
+		
+		/*
+		btnJouer.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
 				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
@@ -177,15 +197,7 @@ public class PageAccueilController implements Initializable {
 				}
 			}
 		});
-		/*
-		BtnParam.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonParametre.mp3");
-				}
-			}
-		});*/
+
 		couperSonMusique.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -194,14 +206,7 @@ public class PageAccueilController implements Initializable {
 				}
 			}
 		});
-//		btnActiverDesactiverSon.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//			@Override
-//			public void handle(KeyEvent event) {
-//				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-//					jouerSon("src/Audio/boutonParametre.mp3");
-//				}
-//			}
-//		});
+
 		closeButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -209,11 +214,27 @@ public class PageAccueilController implements Initializable {
 					jouerSon("src/Audio/boutonQuitter.mp3");
 				}
 			}
-		});
+		});*/
+	}
+	
+	/*
+     * Cette fonction permet de rediriger l'utilisateur vers la page jouer.
+     * @param event L'�v�nement d�clencheur.
+     */
+	
+	@FXML
+	private void redirectJouer(ActionEvent evt) {
+		lancerXML("PagePersonnage.fxml");
+	}
+	
+	/*
+	* Cette fonction joue un son � partir du chemin de fichier sp�cifi�.
+	* @param path Le chemin de fichier du son � jouer.
+	*/
+	private void jouerSon(String path) {
+		MediaPlayerSingleton.getInstance().jouerSon(path);
 	}
 
-	@FXML
-	private Button closeButton;
 	@FXML
 	void close() {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -221,7 +242,7 @@ public class PageAccueilController implements Initializable {
 	}
 
     /**
-     * Détermine les touches clavier entrées par l'utilisateur
+     * Détermine les touches claviers entrées par l'utilisateur
      * Si la touche correspond à une action alors elle sera exécutée.
      */
 	private void currenKeyBinding() {
@@ -231,6 +252,15 @@ public class PageAccueilController implements Initializable {
 			}
 			if (e.getCode() == KeyCode.ESCAPE) {
 				Platform.exit();
+			}
+			if (e.getCode() == KeyCode.P) {
+				mediaPlayer.setMute(true);
+			}
+			if (e.getCode() == KeyCode.O) {
+				mediaPlayer.setMute(false);
+			}
+			if (e.getCode() == KeyCode.A) {
+				// a completer
 			}
 		});
 	}
