@@ -12,7 +12,7 @@ class ItemTest {
 	Item item;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 	    item = new Item("Potion", 10, 5);
 	}
 

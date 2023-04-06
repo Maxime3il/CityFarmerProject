@@ -1,19 +1,13 @@
 package application;
 import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.application.Platform;
-import javafx.concurrent.Task;
-import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -21,12 +15,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import model.Gender;
-import model.Player;
+
 
 public class PageInformationPersonnageController {
 	@FXML
@@ -41,7 +32,7 @@ public class PageInformationPersonnageController {
 	private BorderPane scene;
 
     @FXML
-    private Label LabelEnergy;
+    private Label labelEnergy;
 
     @FXML
     private Label labelGenre;
@@ -64,7 +55,7 @@ public class PageInformationPersonnageController {
     @FXML
     private ProgressBar energyProgressBar;
 
-    static Timeline timeline;  
+    public static Timeline timeline;  
     
     private double progressValueEnergy = PagePersonnageController.player.getEnergy();
         
@@ -90,7 +81,7 @@ public class PageInformationPersonnageController {
      */
 	private void startTimeEnergyBar() {
         timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> updateEnergyProgessBar()));
-        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
     

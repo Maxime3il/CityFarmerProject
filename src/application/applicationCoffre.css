@@ -12,9 +12,21 @@ body {
     -fx-background-size:cover;
 }
 
+#closeButton{
+-fx-background-image: url('../Images/Quitter.png');
+-fx-background-size: 80px 65px;
+-fx-background-position: center;
+-fx-background-repeat: no-repeat;
+-fx-padding: 10px 20px;
+-fx-font-family: "Stardew Valley";
+-fx-text-fill: #d15956;
+-fx-font-size: 48px;
+-fx-cursor: hand;
+}
 
-#TextFin{
-	-fx-font-family: "Stardew Valley";
-	-fx-font-size: 100px;
-	-fx-text-fill: #5a1104;
+
+#textFin{
+    -fx-font-family: "Stardew Valley";
+    -fx-font-size: 100px;
+    -fx-text-fill: #5a1104;
 }

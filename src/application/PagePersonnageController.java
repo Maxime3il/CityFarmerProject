@@ -1,9 +1,13 @@
 package application;
 
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.application.Platform;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -13,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,11 +32,18 @@ public class PagePersonnageController {
 
 	// parametres
 	
-	private boolean firstFocus = true;
+	private static final Logger logger = Logger.getLogger(PagePersonnageController.class.getName());
+
+	
 	private int currentGenderSelection = 0;
-	private String currentUrl;
 	private boolean jouerSonActif = true;
-	public Gender currentGender = Gender.Homme;
+	public Gender currentGender = Gender.HOMME;
+	
+	private String homme = "Homme";
+	private String femme = "Femme";
+	private String autre = "Autre";
+
+	
 	private int indice = 0;
 	private String[] personnages;
 	private String[] personnagesHommes = { "../Images/sprite5.png", "../Images/sprite6.png" };
@@ -40,7 +52,7 @@ public class PagePersonnageController {
 	@FXML
 	private BorderPane scene;
 	@FXML
-	private ImageView MyImageView;
+	private ImageView myImageView;
 	@FXML
     private ImageView nextButton;
 	@FXML
@@ -90,19 +102,16 @@ public class PagePersonnageController {
 	            Parent root1 = (Parent) fxmlLoader.load();
 	            Stage stage = new Stage();
 
-	            stage.setOnCloseRequest(event -> {
-	                event.consume();
-	            });
+	            stage.setOnCloseRequest(Event::consume);
 
 	            stage.initStyle(StageStyle.UNDECORATED);
 
-	            Scene scene = new Scene(root1, 1920, 1080);
-	            stage.setScene(scene);
+	            Scene scene1 = new Scene(root1, 1920, 1080);
+	            stage.setScene(scene1);
 	            stage.setResizable(false);
 	            stage.show();
 	        } catch (Exception e) {
-	            e.printStackTrace(System.err);
-	            System.out.println("Impossible de charger la fenêtre");
+	            logger.log(Level.SEVERE, "Impossible de charger la fenêtre", e);
 	        }
 	    }
 
@@ -116,199 +125,108 @@ public class PagePersonnageController {
 		stage.close();
 	}
 
-	/**
-	 * Fonction coeur de la page qui lance la logique
-	 * @author Iulian GAINAR
-	 */
 	@FXML
 	public void initialize() {
-		// Si le son est actif, on reproduit le son d'audio description
-		if (jouerSonActif) {
-			jouerSon("src/Audio/MessagePagePersonnage.mp3");
-		}
-		
-		// on ecoute les touches du clavier et on réagit
-		currenKeyBinding();
-		
-		// gere le focus sur les différents champs afin de lancer le son 
-		
-		// focus sur le prenom
-		inputPrenom.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue) {
-				if (jouerSonActif) {
-					jouerSon("src/Audio/Prenom.mp3");
-				}
-			}
-		});
-		// focus sur le nom
-		inputNom.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue) {
-				if (jouerSonActif) {
-					jouerSon("src/Audio/Nom.mp3");
-				}
-			}
-		});
-		// focus sur le nom de la ferme
-		inputFerme.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue) {
-				if (jouerSonActif) {
-					jouerSon("src/Audio/NomFerme.mp3");
-				}
-			}
-		});
-		// focus sur le bouton quitter
-		closeButton.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue) {
-				if (jouerSonActif) {
-					jouerSon("src/Audio/Quitter.mp3");
-				}
-			}
-		});
-		// focus sur le bouton valider
-		validatePerso.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue) {
-				if (jouerSonActif) {
-					jouerSon("src/Audio/Valider.mp3");
-				}
-			}
-		});
-		// focus sur le genre du personnage
-		myComboBox.focusedProperty().addListener((observable, oldValue, newValue) -> {
-			if(newValue) {
-				// si le son est actif et que ce n'est pas le premier focus (si je le laisse par défaut, les deux sons se lancent car le focus 
-				// est fait directement sur ce champ quand la page charge)
-				// le firstFocus me permet de savoir s'il s'agit du premier focus ou non
-				if (jouerSonActif && this.firstFocus == false) {
-					jouerSon("src/Audio/Genre.mp3");
-				}
-				// la premiere fois qu'il rentre ici il désactive le firstFocus, le son se lancera à chaque fois. J'évite qu'il se lance lorsque la page est chargée
-				this.firstFocus = false;
-			}
-		});
-		
-		// On crée la combobox pour la gestion des genres
-	    myComboBox.getItems().addAll("Homme", "Femme", "Autre");
-	    myComboBox.setValue("Homme");
-
+	    if (jouerSonActif) {
+	        jouerSon("src/Audio/MessagePagePersonnage.mp3");
+	    }
+	    currentKeyBinding();
+	    addFocusListeners();
+	    
+	    myComboBox.getItems().addAll(homme, femme, autre);
+	    myComboBox.setValue(homme);
 	    personnages = personnagesHommes;
 	    afficherImage();
-	    // on gère ce qu'il se passe lorsque l'utilisateur change le genre du personnage
+	    
+	    Map<String, Runnable> genderHandlers = new HashMap<>();
+	    genderHandlers.put(homme, () -> {
+	        personnages = personnagesHommes;
+	        currentGender = Gender.HOMME;
+	        jouerSon("src/Audio/Homme.mp3");
+	    });
+	    genderHandlers.put(femme, () -> {
+	        personnages = personnagesFemmes;
+	        currentGender = Gender.FEMME;
+	        jouerSon("src/Audio/Femme.mp3");
+	    });
+	    genderHandlers.put(autre, () -> {
+	        personnages = personnagesAutre;
+	        currentGender = Gender.AUTRE;
+	        jouerSon("src/Audio/Autre.mp3");
+	    });
+	    
 	    myComboBox.setOnAction((ActionEvent event) -> {
 	        String selectedValue = myComboBox.getValue();
-	        switch (selectedValue) {
-	            case "Homme":
-	                personnages = personnagesHommes;
-	                currentGender = Gender.Homme;
-	        		if (jouerSonActif) {
-	        			jouerSon("src/Audio/Homme.mp3");
-	        		}
-	                break;
-	            case "Femme":
-	                personnages = personnagesFemmes;
-	                currentGender = Gender.Femme;
-	        		if (jouerSonActif) {
-	        			jouerSon("src/Audio/Femme.mp3");
-	        		}
-	                break;
-	            case "Autre":
-	            	default :
-	                personnages = personnagesAutre;
-	                currentGender = Gender.Autre;
-	        		if (jouerSonActif) {
-	        			jouerSon("src/Audio/Autre.mp3");
-	        		}
-	                break;
-	        }
+	        genderHandlers.getOrDefault(selectedValue, () -> {}).run();
 	        afficherImage();
 	    });
 	}
+
+	private void addFocusListeners() {
+	    addFocusListener(inputPrenom, "src/Audio/Prenom.mp3");
+	    addFocusListener(inputNom, "src/Audio/Nom.mp3");
+	    addFocusListener(inputFerme, "src/Audio/NomFerme.mp3");
+	    addFocusListener(closeButton, "src/Audio/Quitter.mp3");
+	    addFocusListener(validatePerso, "src/Audio/Valider.mp3");
+	}
+
+	private void addFocusListener(Control control, String audioPath) {
+	    control.focusedProperty().addListener((observable, oldValue, newValue) -> {
+	        if (Boolean.TRUE.equals(newValue) && jouerSonActif) {
+	            jouerSon(audioPath);
+	        }
+	    });
+	}
 	
-    /**
-     * Détermine les touches clavier entrées par l'utilisateur
-     * Si la touche correspond à une action alors elle sera exécutée.
-     */
-	private void currenKeyBinding() {
-		scene.setOnKeyPressed(e -> {
-			if (e.isControlDown() && e.getCode() == KeyCode.P) {
-				// saisir prenom
-				inputPrenom.requestFocus();
-			}
-			if (e.isControlDown() && e.getCode() == KeyCode.N) {
-				// saisir nom
-				inputNom.requestFocus();
-			}
-			if (e.isControlDown() && e.getCode() == KeyCode.F) {
-				// saisir nom ferme
-				inputFerme.requestFocus();
-			}
-			if (e.isControlDown() && e.getCode() == KeyCode.G) {
-				// choisir genre
-				// "iterator" sur les genres, afin de boucler lorsqu'il appuie sur G
-				this.currentGenderSelection++;
-				if (this.currentGenderSelection >= myComboBox.getItems().size()) {
-					this.currentGenderSelection = 0;
-		        }
-				// on choisi le genre en fonction de l'iterator
-				myComboBox.getSelectionModel().select(this.currentGenderSelection);
-				// on l'annonce
-				String selectedValue = myComboBox.getValue();
-		        switch (selectedValue) {
-		            case "Homme":
-		                personnages = personnagesHommes;
-		                currentGender = Gender.Homme;
-		        		if (jouerSonActif) {
-		        			jouerSon("src/Audio/Homme.mp3");
-		        		}
-		                break;
-		            case "Femme":
-		                personnages = personnagesFemmes;
-		                currentGender = Gender.Femme;
-		        		if (jouerSonActif) {
-		        			jouerSon("src/Audio/Femme.mp3");
-		        		}
-		                break;
-		            case "Autre":
-		            	default :
-		                personnages = personnagesAutre;
-		                currentGender = Gender.Autre;
-		        		if (jouerSonActif) {
-		        			jouerSon("src/Audio/Autre.mp3");
-		        		}
-		                break;
-		        }
-		        afficherImage();
-			}
-			if (e.isControlDown() && e.getCode() == KeyCode.Q) {
-				// quitter
-				if (jouerSonActif) {
-					jouerSon("src/Audio/Quitter.mp3");
-				}
-				// on ferme la fenetre
-				this.close();
-			}
-			if (e.isControlDown() && e.getCode() == KeyCode.J) {
-				//valider
-				String nom = inputNom.getText();
-			    String prenom = inputPrenom.getText();
-			    String nomFerme = inputFerme.getText();
-			    String skin = Skin();
-			    // on gere dans le cas ou des champs sont vides
-			    if(nom.isEmpty() || prenom.isEmpty() || nomFerme.isEmpty()){
-			    	if (jouerSonActif) {
-		    			jouerSon("src/Audio/ChampsVides.mp3");
-		    		}
-			}else {
-				// sinon, si tout est renseigné, on lance la partie
-				lancerPartie(nom, prenom, nomFerme, skin);
-				}
-			}
-			if (e.isControlDown() && e.getCode() == KeyCode.R) {
-				// reecouter le message
-				if (jouerSonActif) {
-					jouerSon("src/Audio/MessagePagePersonnage.mp3");
-				}	
-			}
-		});
+	private void currentKeyBinding() {
+	    scene.setOnKeyPressed(e -> {
+	        if (e.isControlDown()) {
+	            switch (e.getCode()) {
+	                case P -> inputPrenom.requestFocus();
+	                case N -> inputNom.requestFocus();
+	                case F -> inputFerme.requestFocus();
+	                case G -> handleGenderSelection();
+	                case Q -> handleQuit();
+	                case J -> handleAudio("src/Audio/MessagePagePersonnage.mp3");
+	                default -> {}
+	            }
+	        }
+	    });
+	}
+
+	private void handleGenderSelection() {
+	    currentGenderSelection = (currentGenderSelection + 1) % myComboBox.getItems().size();
+	    myComboBox.getSelectionModel().select(currentGenderSelection);
+	    String selectedValue = myComboBox.getValue();
+	    switch (selectedValue) {
+	        case "Homme" -> {
+	            personnages = personnagesHommes;
+	            currentGender = Gender.HOMME;
+	            handleAudio("src/Audio/Homme.mp3");
+	        }
+	        case "Femme" -> {
+	            personnages = personnagesFemmes;
+	            currentGender = Gender.FEMME;
+	            handleAudio("src/Audio/Femme.mp3");
+	        }
+	        default -> {
+	            personnages = personnagesAutre;
+	            currentGender = Gender.AUTRE;
+	            handleAudio("src/Audio/Autre.mp3");
+	        }
+	    }
+	    afficherImage();
+	}
+
+	private void handleQuit() {
+	    handleAudio("src/Audio/Quitter.mp3");
+	    this.close();
+	}
+
+	private void handleAudio(String audioPath) {
+	    if (jouerSonActif) {
+	        jouerSon(audioPath);
+	    }
 	}
 
 	/**
@@ -341,17 +259,16 @@ public class PagePersonnageController {
 	 */
 	private void afficherImage() {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
-	    currentUrl = personnages[indice];
-	    MyImageView.setImage(image);
+	    myImageView.setImage(image);
 	}
 
 	/**
 	 * Definit le skin du personnage
 	 * @return le skin du personnage
 	 */
-	private String Skin() {
+	private String skin() {
 	    Image image = new Image(getClass().getResourceAsStream(personnages[indice]));
-	    MyImageView.setImage(image);
+	    myImageView.setImage(image);
 	    return personnages[indice];
 	}
 	
@@ -365,7 +282,7 @@ public class PagePersonnageController {
 	    String nom = inputNom.getText();
 	    String prenom = inputPrenom.getText();
 	    String nomFerme = inputFerme.getText();
-	    String skin = Skin();
+	    String skin = skin();
 	    // si des champs sont vides on affiche un message d'erreur
 	    if(nom.isEmpty() || prenom.isEmpty() || nomFerme.isEmpty()){
 	    	if (jouerSonActif) {
@@ -377,7 +294,6 @@ public class PagePersonnageController {
             alert.setContentText("Veuillez remplir tous les champs");
             alert.showAndWait(); 
             
-            return;
 	    }else {
 	    	lancerPartie(nom, prenom, nomFerme, skin);
 	    }

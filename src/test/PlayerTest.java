@@ -13,12 +13,12 @@ public class PlayerTest {
     @Test
     public void testGettersAndSetters() {
         // Create a Player object
-        Player player = new Player("John", "Doe", Gender.Homme, "light", "My Farm", 100.0, 100.0, new Inventory());
+        Player player = new Player("John", "Doe", Gender.HOMME, "light", "My Farm", 100.0, 100.0, new Inventory());
 
         // Test getters
         assertEquals("John", player.getName());
         assertEquals("Doe", player.getLastName());
-        assertEquals(Gender.Homme, player.getGender());
+        assertEquals(Gender.HOMME, player.getGender());
         assertEquals("light", player.getSkin());
         assertEquals("My Farm", player.getNameFarm());
         assertEquals(100.0, player.getEnergy(), 0.0);
@@ -28,7 +28,7 @@ public class PlayerTest {
         // Test setters
         player.setName("Jane");
         player.setLastName("Doe");
-        player.setGender(Gender.Femme);
+        player.setGender(Gender.FEMME);
         player.setSkin("dark");
         player.setNameFarm("Our Farm");
         player.setEnergy(50.0);
@@ -38,7 +38,7 @@ public class PlayerTest {
 
         assertEquals("Jane", player.getName());
         assertEquals("Doe", player.getLastName());
-        assertEquals(Gender.Femme, player.getGender());
+        assertEquals(Gender.FEMME, player.getGender());
         assertEquals("dark", player.getSkin());
         assertEquals("Our Farm", player.getNameFarm());
         assertEquals(50.0, player.getEnergy(), 0.0);

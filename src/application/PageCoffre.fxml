@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-<BorderPane prefHeight="580.0" prefWidth="930.0" stylesheets="@applicationPersonnageInformation.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageCoffre">
+<BorderPane prefHeight="580.0" prefWidth="930.0" stylesheets="@applicationCoffre.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PageCoffre">
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" stylesheets="@applicationCoffre.css" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="closeButton" layoutX="842.0" layoutY="9.0" mnemonicParsing="false" onAction="#close" prefHeight="48.0" prefWidth="77.0" text="X" />
-            <Label fx:id="TextFin" alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="130.0" prefHeight="319.0" prefWidth="611.0" stylesheets="@applicationInventaire.css" text="Felicitations vous avez gagne !" textAlignment="CENTER" wrapText="true" />
+            <Label fx:id="textFin" alignment="CENTER" contentDisplay="CENTER" layoutX="163.0" layoutY="130.0" prefHeight="319.0" prefWidth="611.0" stylesheets="@applicationCoffre.css" text="Felicitations vous avez gagne !" textAlignment="CENTER" wrapText="true" />
          </children>
       </Pane>
    </center>

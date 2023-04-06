@@ -34,7 +34,7 @@
             <Label fx:id="textePersonnalisation" layoutX="769.0" layoutY="706.0" prefHeight="26.0" prefWidth="135.0" text="Nom" />
             <Label fx:id="textePersonnalisation" layoutX="747.0" layoutY="754.0" prefHeight="79.0" prefWidth="215.0" text="Nom ferme" />
             <Label fx:id="textePersonnalisation" layoutX="768.0" layoutY="588.0" prefHeight="26.0" prefWidth="135.0" text="Genre" />
-            <ImageView fx:id="MyImageView" fitHeight="300.0" fitWidth="250.0" layoutX="872.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="myImageView" fitHeight="300.0" fitWidth="250.0" layoutX="872.0" layoutY="323.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../Images/sprite1.png" />
                </image>

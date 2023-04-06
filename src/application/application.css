@@ -25,7 +25,7 @@ body {
 }
 
 
-#BtnJouer, #BtnParam, #BoutonPersonnage{
+#btnJouer, #BoutonPersonnage{
 -fx-background-image: url('../Images/Jouer.png');
 -fx-background-size: 282px 65x;
 -fx-background-position: center;
