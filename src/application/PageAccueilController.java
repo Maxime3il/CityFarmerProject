@@ -177,15 +177,7 @@ public class PageAccueilController implements Initializable {
 				}
 			}
 		});
-		/*
-		BtnParam.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonParametre.mp3");
-				}
-			}
-		});*/
+
 		couperSonMusique.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -194,14 +186,7 @@ public class PageAccueilController implements Initializable {
 				}
 			}
 		});
-//		btnActiverDesactiverSon.setOnKeyPressed(new EventHandler<KeyEvent>() {
-//			@Override
-//			public void handle(KeyEvent event) {
-//				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-//					jouerSon("src/Audio/boutonParametre.mp3");
-//				}
-//			}
-//		});
+
 		closeButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -231,6 +216,12 @@ public class PageAccueilController implements Initializable {
 			}
 			if (e.getCode() == KeyCode.ESCAPE) {
 				Platform.exit();
+			}
+			if (e.getCode() == KeyCode.P) {
+				mediaPlayer.setMute(true);
+			}
+			if (e.getCode() == KeyCode.O) {
+				mediaPlayer.setMute(false);
 			}
 		});
 	}
