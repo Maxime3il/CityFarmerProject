@@ -1,3 +1,8 @@
+/**
+* La classe Main est la classe principale de l'application CityFarmer. 
+* Elle étend la classe Application de JavaFX.
+*/
+
 package application;
 
 import java.io.File;
@@ -12,6 +17,11 @@ import javafx.scene.media.MediaPlayer;
 import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
+	/**
+	 * Cette méthode est appelée au lancement de l'application et permet de configurer la fenêtre principale.
+	 * Elle charge également la page d'accueil de l'application.
+	 * @param primaryStage La fenêtre principale de l'application
+	 */
     @Override
     public void start(Stage primaryStage) {
         try {
@@ -22,6 +32,8 @@ public class Main extends Application {
             BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("PageAccueil.fxml"));
             Scene scene = new Scene(root,1920,1080);
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+
+            // Configurer la sc�ne
             primaryStage.setTitle("CityFarmer");
             primaryStage.setOnCloseRequest(event -> {
                 event.consume();
@@ -37,15 +49,28 @@ public class Main extends Application {
     }
 
 
+    /**
+     * La méthode main permet de lancer l'application.
+     * @param args Les arguments passés en ligne de commande
+     */
     public static void main(String[] args) {
         launch(args);
     }
+    
+    /**
+     * La méthode init est appelée avant que l'application ne démarre.
+     * @throws Exception Exception levée en cas d'erreur lors de l'initialisation
+     */
     @Override
     public void init() throws Exception {
         // TODO Auto-generated method stub
         super.init();
     }
 
+    /**
+     * La méthode stop est appelée lorsque l'application est fermée.
+     * @throws Exception Exception levée en cas d'erreur lors de la fermeture
+     */
     @Override
     public void stop() throws Exception {
         // TODO Auto-generated method stub

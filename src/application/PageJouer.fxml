@@ -37,7 +37,7 @@
             <Button fx:id="BoutonInteractionPotager" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" onAction="#interactionPotagerButton" prefHeight="120.0" prefWidth="652.0" text="Recolter" />
             <Button fx:id="BoutonInteractionCochon" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" onAction="#interactionCochonButton" prefHeight="120.0" prefWidth="652.0" text="Faire un steak" />
             <Button fx:id="BoutonInteractionCoffre" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" onAction="#interactionCoffreButton" prefHeight="120.0" prefWidth="652.0" text="Ouvrir le coffre" />
-            <Button fx:id="BoutonInteractionVache" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" prefHeight="120.0" prefWidth="652.0" text="Recuperer du lait" />
+            <Button fx:id="BoutonInteractionVache" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" onAction="#interactionLaitButton" prefHeight="120.0" prefWidth="652.0" text="Recuperer du lait" />
          </children></Pane>
    </left>
    

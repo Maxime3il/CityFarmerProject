@@ -2,18 +2,12 @@ package application;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.animation.PauseTransition;
+import javafx.scene.input.KeyEvent;
 import javafx.application.Platform;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,8 +22,6 @@ import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import javafx.scene.input.MouseEvent;
-
 public class PageAccueilController implements Initializable {
 
 	@FXML
@@ -42,12 +34,13 @@ public class PageAccueilController implements Initializable {
 
 	private PageJouerController jouerController = new PageJouerController();
 
-	/*
-     * Cette fonction permet de lancer une nouvelle fenêtre à partir d'un fichier FXML.
-     * @param url L'URL du fichier FXML à charger.
+	/**
+     * Cette fonction permet de lancer une nouvelle fenetre a partir d'un fichier FXML.
+     * @param url L'URL du fichier FXML a charger.
      */
 	
 	public void lancerXML(String url) {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
             Parent root1 = (Parent) fxmlLoader.load();
@@ -68,26 +61,13 @@ public class PageAccueilController implements Initializable {
             System.out.println("Impossible de charger la fenÃªtre");
         }
     }
-/*
-	@FXML
-	private Button BtnParam;
 
-	/*
-     * Cette fonction permet de rediriger l'utilisateur vers la page de paramètres.
-     * @param event L'événement déclencheur.
-     *
-	
-	@FXML
-	private void redirectParam(ActionEvent event) {
-		lancerXML("PageParametre.fxml");
-	}
-*/
 	@FXML
 	private Button BtnJouer;
 
-	/*
+	/**
      * Cette fonction permet de rediriger l'utilisateur vers la page jouer.
-     * @param event L'événement déclencheur.
+     * @param event L'evenement declencheur.
      */
 	
 	@FXML
@@ -106,7 +86,7 @@ public class PageAccueilController implements Initializable {
 
 	private boolean jouerSonActif = true;
 
-	/*
+	/**
 	 * Fonction activerDesactiverSon param: 
 	 * return: Active ou Desactive la musique en changeant l'image selon le statut du bouton
 	 */
@@ -125,9 +105,9 @@ public class PageAccueilController implements Initializable {
 		MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
 	}
 
-	/*
-	* Cette fonction joue un son à partir du chemin de fichier spécifié.
-	* @param path Le chemin de fichier du son à jouer.
+	/**
+	* Cette fonction joue un son a partir du chemin de fichier specifier
+	* @param path Le chemin de fichier du son ï¿½ jouer.
 	*/
 	private void jouerSon(String path) {
 		MediaPlayerSingleton.getInstance().jouerSon(path);
@@ -135,7 +115,7 @@ public class PageAccueilController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		makeMovable(scene);
+		currenKeyBinding();
 		String path = new File("src/Video/TitleScreen.mp4").getAbsolutePath();
 		Media media = new Media(new File(path).toURI().toString());
 		mediaPlayer = new MediaPlayer(media);
@@ -171,40 +151,25 @@ public class PageAccueilController implements Initializable {
 			@Override
 			public void handle(KeyEvent event) {
 				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonJouer.mp3");
+					jouerSon("src/Audio/lancerJeu.mp3");
 				}
 			}
 		});
-		/*
-		BtnParam.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonParametre.mp3");
-				}
-			}
-		});*/
+		
 		couperSonMusique.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
 				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonMusique.mp3");
+					jouerSon("src/Audio/boutonCouperMusique.mp3");
 				}
 			}
 		});
-		btnActiverDesactiverSon.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonParametre.mp3");
-				}
-			}
-		});
+
 		closeButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
 				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonFermerJeu.mp3");
+					jouerSon("src/Audio/boutonQuitter.mp3");
 				}
 			}
 		});
@@ -212,29 +177,35 @@ public class PageAccueilController implements Initializable {
 
 	@FXML
 	private Button closeButton;
-
+	
+	/**
+	 * Cette mÃ©thode est appelÃ©e lorsque l'utilisateur clique sur le bouton Fermer.
+	 * Elle ferme la fenÃªtre en cours.
+	 */
 	@FXML
 	void close() {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
 		stage.close();
 	}
 
-	private void movementSetup() {
+    /**
+     * DÃ©termine les touches claviers entrÃ©es par l'utilisateur
+     * Si la touche correspond Ã  une action alors elle sera exÃ©cutÃ©e.
+     */
+	private void currenKeyBinding() {
 		scene.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.J) {
 				lancerXML("PagePersonnage.fxml");
 			}
-			if (e.getCode() == KeyCode.P) {
-				lancerXML("PageParametre.fxml");
-			}
 			if (e.getCode() == KeyCode.ESCAPE) {
 				Platform.exit();
 			}
+			if (e.getCode() == KeyCode.P) {
+				mediaPlayer.setMute(true);
+			}
+			if (e.getCode() == KeyCode.O) {
+				mediaPlayer.setMute(false);
+			}
 		});
-	}
-
-	public void makeMovable(BorderPane scene) {
-		this.scene = scene;
-		movementSetup();
 	}
 }
