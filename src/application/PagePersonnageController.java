@@ -184,7 +184,8 @@ public class PagePersonnageController {
 	                case F -> inputFerme.requestFocus();
 	                case G -> handleGenderSelection();
 	                case Q -> handleQuit();
-	                case J -> handleAudio("src/Audio/MessagePagePersonnage.mp3");
+	                case R -> handleAudio("src/Audio/MessagePagePersonnage.mp3");
+	                case J -> valider(null);
 	                default -> {}
 	            }
 	        }

@@ -3,7 +3,6 @@ package application;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
@@ -112,6 +111,7 @@ public class PageJouerController {
 		boutonInteractionCochon.setVisible(false);
 		boutonInteractionCoffre.setVisible(false);
 		boutonInteractionVache.setVisible(false);
+
 		makeMovable(sprite, scene);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
 		sprite.setImage(image);
@@ -266,16 +266,25 @@ public class PageJouerController {
 
 	@FXML
 	public void interactionCochonButton(ActionEvent evt) {
+		if (jouerSonActif) {
+			jouerSon("src/Audio/tuerCochon.mp3");
+		}
 		PagePersonnageController.player.getInventory().addItem("porc");
 	}
 
 	@FXML
 	public void interactionPotagerButton(ActionEvent evt) {
+		if (jouerSonActif) {
+			jouerSon("src/Audio/recolteCarotte.mp3");
+		}
 		PagePersonnageController.player.getInventory().addItem("carotte");
 	}
 
 	@FXML
 	public void interactionLaitButton(ActionEvent evt) {
+		if (jouerSonActif) {
+			jouerSon("src/Audio/bouteilleLait.mp3");
+		}
 		PagePersonnageController.player.getInventory().addItem("lait");
 	}
 

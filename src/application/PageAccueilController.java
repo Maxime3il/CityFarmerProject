@@ -128,7 +128,7 @@ public class PageAccueilController implements Initializable {
 	    mediaView.setMediaPlayer(mediaPlayer);
 	    mediaView.setFitWidth(1920);
 	    mediaView.setFitHeight(1080);
-	    mediaPlayer.setVolume(0.1);
+	    mediaPlayer.setVolume(0.03);
 	    volumeSlider.setMin(0);
 	    volumeSlider.setMax(1);
 	    volumeSlider.setValue(0.1);
@@ -149,6 +149,8 @@ public class PageAccueilController implements Initializable {
 	            couperSonMusique.getStyleClass().add(mute);
 	        }
 	    });
+	    
+	    mediaPlayer.setAutoPlay(true);
 	}
 
 	private void initializeButtonFocus() {
@@ -217,7 +219,17 @@ public class PageAccueilController implements Initializable {
 				mediaPlayer.setMute(false);
 			}
 			if (e.getCode() == KeyCode.A) {
-				// a completer
+				jouerSonActif = !jouerSonActif;
+				if (!jouerSonActif) {
+					// Si le son est desactivé, on ajoute la classe CSS "muted" au bouton
+					// btnActiverDesactiverSon
+					btnActiverDesactiverSon.getStyleClass().add(mute);
+				} else {
+					// Si le son est activé, on retire la classe CSS "muted" du bouton
+					// btnActiverDesactiverSon
+					btnActiverDesactiverSon.getStyleClass().remove(mute);
+				}
+				MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
 			}
 		});
 	}
