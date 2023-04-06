@@ -24,8 +24,7 @@ body {
   -fx-border-radius: 50%;
 }
 
-
-#btnJouer, #BoutonPersonnage{
+#btnJouer {
 -fx-background-image: url('../Images/Jouer.png');
 -fx-background-size: 282px 65x;
 -fx-background-position: center;

@@ -101,11 +101,8 @@ public class PagePersonnageController {
 	            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
 	            Parent root1 = (Parent) fxmlLoader.load();
 	            Stage stage = new Stage();
-
 	            stage.setOnCloseRequest(Event::consume);
-
 	            stage.initStyle(StageStyle.UNDECORATED);
-
 	            Scene scene1 = new Scene(root1, 1920, 1080);
 	            stage.setScene(scene1);
 	            stage.setResizable(false);
