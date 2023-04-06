@@ -70,20 +70,7 @@ public class PageAccueilController implements Initializable {
             System.out.println("Impossible de charger la fenêtre");
         }
     }
-/*
-	@FXML
-	private Button BtnParam;
 
-	/*
-     * Cette fonction permet de rediriger l'utilisateur vers la page de param�tres.
-     * @param event L'�v�nement d�clencheur.
-     *
-	
-	@FXML
-	private void redirectParam(ActionEvent event) {
-		lancerXML("PageParametre.fxml");
-	}
-*/
 	@FXML
 	private Button BtnJouer;
 
@@ -116,11 +103,11 @@ public class PageAccueilController implements Initializable {
 	private void activerDesactiverSon(ActionEvent event) {
 		jouerSonActif = !jouerSonActif;
 		if (!jouerSonActif) {
-			// Si le son est desactiver, on ajouter la classe CSS "muted" au bouton
+			// Si le son est desactivé, on ajoute la classe CSS "muted" au bouton
 			// btnActiverDesactiverSon
 			btnActiverDesactiverSon.getStyleClass().add("muted");
 		} else {
-			// Si le son est activer, on retire la classe CSS "muted" du bouton
+			// Si le son est activé, on retire la classe CSS "muted" du bouton
 			// btnActiverDesactiverSon
 			btnActiverDesactiverSon.getStyleClass().remove("muted");
 		}
@@ -196,7 +183,6 @@ public class PageAccueilController implements Initializable {
 			}
 		});
 	}
-
 	@FXML
 	private Button closeButton;
 	@FXML

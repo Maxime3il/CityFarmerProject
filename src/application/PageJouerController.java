@@ -42,11 +42,11 @@ public class PageJouerController {
 	private void activerDesactiverSon(ActionEvent event) {
 		jouerSonActif = !jouerSonActif;
 		if (!jouerSonActif) {
-			// Si le son est desactiver, on ajouter la classe CSS "muted" au bouton
+			// Si le son est desactivé, on ajouter la classe CSS "muted" au bouton
 			// btnActiverDesactiverSon
 			btnActiverDesactiverSon.getStyleClass().add("muted");
 		} else {
-			// Si le son est activer, on retire la classe CSS "muted" du bouton
+			// Si le son est activé, on retire la classe CSS "muted" du bouton
 			// btnActiverDesactiverSon
 			btnActiverDesactiverSon.getStyleClass().remove("muted");
 		}

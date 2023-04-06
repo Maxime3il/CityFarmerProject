@@ -37,6 +37,24 @@ public class MediaPlayerSingleton {
 			holder.put(path, mediaPlayer);
 		}
 		mediaPlayer.setMute(mute);
+		
+		// Verifie s'il y a d'autres sons en train de jouer
+	    boolean isPlaying = false;
+	    for (MediaPlayer player : holder.values()) {
+	        if (player.getStatus() == MediaPlayer.Status.PLAYING) {
+	            isPlaying = true;
+	            break;
+	        }
+	    }
+
+	    // Si oui, il l'arrete et après il joue le son
+	    if (isPlaying) {
+	        for (MediaPlayer player : holder.values()) {
+	            if (player.getStatus() == MediaPlayer.Status.PLAYING) {
+	                player.stop();
+	            }
+	        }
+	    }
 		mediaPlayer.play();
 		return mediaPlayer;
 	}
