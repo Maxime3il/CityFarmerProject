@@ -1,7 +1,5 @@
 package application;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -14,8 +12,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.Inventory;
-import model.Item;
-import model.Player;
 
 public class PageEchangeController {
 
@@ -91,43 +87,43 @@ public class PageEchangeController {
     @FXML
     private Label titreInventaireMarchand;
 
-    public Inventory inventory = PagePersonnageController.inventaireMarchand;
+    private Inventory inventory = PagePersonnageController.inventaireMarchand;
+    
+    private String carotteStr = "carotte";
+    private String porcStr = "porc";
+    private String laitStr = "lait";
 
     @FXML
     public void initialize() {
     	
     	currentKeyBinding();
     	
-        int nbPorcI = PagePersonnageController.player.getInventory().contains("porc").getCount();
+        int nbPorcI = PagePersonnageController.player.getInventory().contains(porcStr).getCount();
         nbSteak.setText(String.valueOf(nbPorcI));
         
-        int nbCarottesI = PagePersonnageController.player.getInventory().contains("carotte").getCount();
+        int nbCarottesI = PagePersonnageController.player.getInventory().contains(carotteStr).getCount();
         nbCarotte.setText(String.valueOf(nbCarottesI));
         
-        int nbLaitsI = PagePersonnageController.player.getInventory().contains("lait").getCount();
+        int nbLaitsI = PagePersonnageController.player.getInventory().contains(laitStr).getCount();
         nbLait.setText(String.valueOf(nbLaitsI));
     	
         // Gérer le porc
-        int nbPorc = PagePersonnageController.inventaireMarchand.contains("porc").getCount();
+        int nbPorc = PagePersonnageController.inventaireMarchand.contains(porcStr).getCount();
         nbSteakMarchand.setText(String.valueOf(nbPorc));
         // Gérer les carottes
-        int nbCarottes = PagePersonnageController.inventaireMarchand.contains("carotte").getCount();
+        int nbCarottes = PagePersonnageController.inventaireMarchand.contains(carotteStr).getCount();
         nbCarotteMarchand.setText(String.valueOf(nbCarottes));
         // Gerer le lait
-        int nbLaits = PagePersonnageController.inventaireMarchand.contains("lait").getCount();
+        int nbLaits = PagePersonnageController.inventaireMarchand.contains(laitStr).getCount();
         nbLaitMarchand.setText(String.valueOf(nbLaits));
     	
     	nombreItem.setText("1");
-    	comboBoxItem.getItems().addAll("porc", "carotte", "lait");
-    	comboBoxItem.setValue("porc");
+    	comboBoxItem.getItems().addAll(porcStr, carotteStr, laitStr);
+    	comboBoxItem.setValue(porcStr);
     	prixLabel.setText(PagePersonnageController.player.getInventory().contains(comboBoxItem.getValue()).getPrice() + "");
-    	nombreItem.textProperty().addListener(new ChangeListener<String>() {
-    	    @Override
-    	    public void changed(ObservableValue<? extends String> observable, String oldValue, 
-    	        String newValue) {
-    	        if (!newValue.matches("\\d*")) {
-    	        	nombreItem.setText(newValue.replaceAll("[^\\d]", ""));
-    	        }
+    	nombreItem.textProperty().addListener((observable, oldValue, newValue) -> {
+    	    if (!newValue.matches("\\d*")) {
+    	        nombreItem.setText(newValue.replaceAll("[^\\d]", ""));
     	    }
     	});
         
@@ -227,7 +223,7 @@ public class PageEchangeController {
     		}
     	} else {
     		Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Quantité insuffisante");
+            alert.setTitle("Vous n'avez pas assez de ressources");
             alert.setHeaderText(null);
             alert.setContentText("Vous n'avez pas l'argent nécessaire");
             alert.showAndWait();

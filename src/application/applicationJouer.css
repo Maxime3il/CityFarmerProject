@@ -36,7 +36,7 @@ body {
 -fx-cursor: hand;
 }
 
-#BoutonInteraction, #BoutonInteractionPotager, #BoutonInteractionCochon, #BoutonInteractionCoffre, #BoutonInteractionVache{
+#boutonInteraction, #boutonInteractionPotager, #boutonInteractionCochon, #boutonInteractionCoffre, #boutonInteractionVache{
 	-fx-background-image: url('../Images/CadrePersonnage.png');
 	-fx-background-size: 652px 120px;
 	-fx-background-position: center;

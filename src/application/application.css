@@ -25,7 +25,7 @@ body {
 }
 
 
-#BtnJouer, #BtnParam, #BoutonPersonnage{
+#btnJouer, #BoutonPersonnage{
 -fx-background-image: url('../Images/Jouer.png');
 -fx-background-size: 282px 65x;
 -fx-background-position: center;
@@ -68,7 +68,7 @@ body {
 }
 
 #btnActiverDesactiverSon{
--fx-background-image: url('../Images/BoutonNote.png');
+-fx-background-image: url('../Images/oeil.png');
 -fx-background-size: 80px 65px;
 -fx-background-position: center;
 -fx-background-repeat: no-repeat;
@@ -76,7 +76,7 @@ body {
 }
 
 #btnActiverDesactiverSon.muted{
--fx-background-image: url('../Images/BoutonNoteBarre.png');
+-fx-background-image: url('../Images/oeil_barre.png');
 -fx-background-size: 80px 65px;
 -fx-background-position: center;
 -fx-background-repeat: no-repeat;

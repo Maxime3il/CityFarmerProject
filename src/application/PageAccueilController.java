@@ -2,22 +2,15 @@ package application;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
-import javafx.animation.PauseTransition;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.beans.binding.BooleanBinding;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.fxml.FXML;
@@ -28,8 +21,8 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-import javafx.scene.input.MouseEvent;
 
 public class PageAccueilController implements Initializable {
 
@@ -39,10 +32,12 @@ public class PageAccueilController implements Initializable {
 	@FXML
 	private MediaView mediaView;
 	private MediaPlayer mediaPlayer;
-	private Media media;
+	
+	private String mute = "muted";		
+	
+	private static final Logger logger = Logger.getLogger(PageAccueilController.class.getName());
 
-	private PageJouerController jouerController = new PageJouerController();
-
+	
 	/*
      * Cette fonction permet de lancer une nouvelle fen�tre � partir d'un fichier FXML.
      * @param url L'URL du fichier FXML � charger.
@@ -54,38 +49,23 @@ public class PageAccueilController implements Initializable {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(url));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
-
-            stage.setOnCloseRequest(event -> {
-                event.consume();
-            });
-
+            stage.setOnCloseRequest(this::handleCloseRequest);
             stage.initStyle(StageStyle.UNDECORATED);
-
-            Scene scene = new Scene(root1, 1920, 1080);
-            stage.setScene(scene);
+            Scene scene1 = new Scene(root1, 1920, 1080);
+            stage.setScene(scene1);
             stage.setResizable(false);
             stage.show();
         } catch (Exception e) {
-            e.printStackTrace(System.err);
-            System.out.println("Impossible de charger la fenêtre");
+            logger.log(Level.SEVERE, "Unable to load window", e);
         }
     }
-/*
-	@FXML
-	private Button BtnParam;
 
-	/*
-     * Cette fonction permet de rediriger l'utilisateur vers la page de param�tres.
-     * @param event L'�v�nement d�clencheur.
-     *
+	private void handleCloseRequest(WindowEvent event) {
+	    event.consume();
+	}
 	
 	@FXML
-	private void redirectParam(ActionEvent event) {
-		lancerXML("PageParametre.fxml");
-	}
-*/
-	@FXML
-	private Button BtnJouer;
+	private Button btnJouer;
 
 	/*
      * Cette fonction permet de rediriger l'utilisateur vers la page jouer.
@@ -116,13 +96,13 @@ public class PageAccueilController implements Initializable {
 	private void activerDesactiverSon(ActionEvent event) {
 		jouerSonActif = !jouerSonActif;
 		if (!jouerSonActif) {
-			// Si le son est desactiver, on ajouter la classe CSS "muted" au bouton
+			// Si le son est desactivé, on ajoute la classe CSS "muted" au bouton
 			// btnActiverDesactiverSon
-			btnActiverDesactiverSon.getStyleClass().add("muted");
+			btnActiverDesactiverSon.getStyleClass().add(mute);
 		} else {
-			// Si le son est activer, on retire la classe CSS "muted" du bouton
+			// Si le son est activé, on retire la classe CSS "muted" du bouton
 			// btnActiverDesactiverSon
-			btnActiverDesactiverSon.getStyleClass().remove("muted");
+			btnActiverDesactiverSon.getStyleClass().remove(mute);
 		}
 		MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
 	}
@@ -148,70 +128,43 @@ public class PageAccueilController implements Initializable {
 		volumeSlider.setMin(0);
 		volumeSlider.setMax(1);
 		volumeSlider.setValue(0.1);
-		volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-			mediaPlayer.setVolume(newValue.doubleValue());
-		});
-		mediaPlayer.setOnEndOfMedia(() -> {
-			mediaPlayer.seek(Duration.ZERO);
-		});
-		couperSonMusique.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				if (mediaPlayer.isMute()) {
-					mediaPlayer.setMute(false);
-					mediaPlayer.play();
-					couperSonMusique.getStyleClass().remove("muted");
-				} else {
-					mediaPlayer.setMute(true);
-					mediaPlayer.stop();
-					couperSonMusique.getStyleClass().add("muted");
-				}
+		volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> 
+			mediaPlayer.setVolume(newValue.doubleValue())
+		);
+		mediaPlayer.setOnEndOfMedia(() -> 
+			mediaPlayer.seek(Duration.ZERO)
+		);
+		couperSonMusique.setOnAction(event -> {
+			if (mediaPlayer.isMute()) {
+				mediaPlayer.setMute(false);
+				mediaPlayer.play();
+				couperSonMusique.getStyleClass().remove(mute);
+			} else {
+				mediaPlayer.setMute(true);
+				mediaPlayer.stop();
+				couperSonMusique.getStyleClass().add(mute);
 			}
 		});
 		mediaPlayer.setAutoPlay(true);
-		BtnJouer.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonJouer.mp3");
-				}
+		btnJouer.setOnKeyPressed(event -> {
+			if (jouerSonActif && event.getCode() == KeyCode.TAB) {
+				jouerSon("src/Audio/lancerJeu.mp3");
 			}
 		});
-		/*
-		BtnParam.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonParametre.mp3");
-				}
-			}
-		});*/
-		couperSonMusique.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonMusique.mp3");
-				}
+
+		couperSonMusique.setOnKeyPressed(event -> {
+			if (jouerSonActif && event.getCode() == KeyCode.TAB) {
+				jouerSon("src/Audio/boutonCouperMusique.mp3");
 			}
 		});
-		btnActiverDesactiverSon.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonParametre.mp3");
-				}
-			}
-		});
-		closeButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-					jouerSon("src/Audio/boutonFermerJeu.mp3");
-				}
+
+		closeButton.setOnKeyPressed(event -> {
+			if (jouerSonActif && event.getCode() == KeyCode.TAB) {
+				jouerSon("src/Audio/boutonQuitter.mp3");
 			}
 		});
 	}
-
+	
 	@FXML
 	private Button closeButton;
 	@FXML
@@ -231,6 +184,12 @@ public class PageAccueilController implements Initializable {
 			}
 			if (e.getCode() == KeyCode.ESCAPE) {
 				Platform.exit();
+			}
+			if (e.getCode() == KeyCode.P) {
+				mediaPlayer.setMute(true);
+			}
+			if (e.getCode() == KeyCode.O) {
+				mediaPlayer.setMute(false);
 			}
 		});
 	}

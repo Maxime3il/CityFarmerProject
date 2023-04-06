@@ -1,16 +1,17 @@
 package application;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,10 +22,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.Player;
 
 public class PageJouerController {
 
+	private static final Logger logger = Logger.getLogger(PageJouerController.class.getName());
+	
 	private void jouerSon(String path) {
 		MediaPlayerSingleton.getInstance().jouerSon(path);
 	}
@@ -39,14 +41,14 @@ public class PageJouerController {
 	 * en changeant l'image selon le statut du bouton
 	 */
 	@FXML
-	private void activerDesactiverSon(ActionEvent event) {
+	private void activerDesactiverSon() {
 		jouerSonActif = !jouerSonActif;
 		if (!jouerSonActif) {
-			// Si le son est desactiver, on ajouter la classe CSS "muted" au bouton
+			// Si le son est desactivé, on ajouter la classe CSS "muted" au bouton
 			// btnActiverDesactiverSon
 			btnActiverDesactiverSon.getStyleClass().add("muted");
 		} else {
-			// Si le son est activer, on retire la classe CSS "muted" du bouton
+			// Si le son est activé, on retire la classe CSS "muted" du bouton
 			// btnActiverDesactiverSon
 			btnActiverDesactiverSon.getStyleClass().remove("muted");
 		}
@@ -85,41 +87,41 @@ public class PageJouerController {
 	private ImageView vache2;
 
 	@FXML
-	private Button BoutonInteractionCochon;
+	private Button boutonInteractionCochon;
 
 	@FXML
-	private Button BoutonInteraction;
+	private Button boutonInteraction;
 
 	@FXML
-	private Button BoutonInteractionPotager;
+	private Button boutonInteractionPotager;
 
 	@FXML
-	private Button BoutonInteractionCoffre;
+	private Button boutonInteractionCoffre;
 
 	@FXML
-	private Button BoutonInteractionVache;
+	private Button boutonInteractionVache;
 
 	@FXML
 	public void initialize() {
 		if (jouerSonActif) {
-			jouerSon("src/Audio/boutonMusique.mp3");
+			jouerSon("src/Audio/Jeu.mp3");
 		}
 
-		BoutonInteraction.setVisible(false);
-		BoutonInteractionPotager.setVisible(false);
-		BoutonInteractionCochon.setVisible(false);
-		BoutonInteractionCoffre.setVisible(false);
-		BoutonInteractionVache.setVisible(false);
+		boutonInteraction.setVisible(false);
+		boutonInteractionPotager.setVisible(false);
+		boutonInteractionCochon.setVisible(false);
+		boutonInteractionCoffre.setVisible(false);
+		boutonInteractionVache.setVisible(false);
 		makeMovable(sprite, scene);
 		Image image = new Image(getClass().getResourceAsStream(PagePersonnageController.player.getSkin()));
 		sprite.setImage(image);
 		// On appelle l'affichage Sprite Information
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("PageInformationPersonnage.fxml"));
-			Parent root = loader.load();
+			loader.load();
 
 			FXMLLoader loader2 = new FXMLLoader(getClass().getResource("PageInventairePersonnage.fxml"));
-			Parent root2 = loader2.load();
+			loader2.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -131,91 +133,56 @@ public class PageJouerController {
 			Parent root1 = (Parent) fxmlLoader.load();	
 			Stage stage = new Stage();
 
-			stage.setOnCloseRequest(event -> {
-				event.consume();
-			});
+			stage.setOnCloseRequest(Event::consume);
 
 			stage.initStyle(StageStyle.UNDECORATED);
 
-			Scene scene = new Scene(root1, largeur, longueur);
-			stage.setScene(scene);
+			Scene scene1 = new Scene(root1, largeur, longueur);
+			stage.setScene(scene1);
 			stage.setResizable(false);
 			stage.centerOnScreen();
 			stage.show();
 		} catch (Exception e) {
-			e.printStackTrace(System.err);
-			System.out.println("Impossible de charger la fenêtre");
+		    logger.log(Level.SEVERE, "Impossible de charger la page", e);
 		}
 	}
 
-	private void movementSetup(){
-		scene.setOnKeyPressed(e -> {
-			if(e.getCode() == KeyCode.Z) {
-				wPressed.set(true);
-			}
+	private void movementSetup() {
+	    scene.setOnKeyPressed(e -> {
+	        KeyCode code = e.getCode();
 
-			if(e.getCode() == KeyCode.Q) {
-				aPressed.set(true);
-			}
+	        switch (code) {
+	            case Z -> wPressed.set(true);
+	            case Q -> aPressed.set(true);
+	            case S -> sPressed.set(true);
+	            case D -> dPressed.set(true);
+	            case A -> openSpriteInformation();
+	            case I -> openSpriteInventory();
+	            case K -> interactionCochonButton(null);
+	            case R -> interactionPotagerButton(null);
+	            case L -> interactionLaitButton(null);
+	            case M -> {
+	                close();
+	                lancerXML("PageMaison.fxml", 1920, 1080);
+	            }
+	            case C -> interactionCoffreButton(null);
+	            case T -> interactionMarchandButton(null);
+	            case H -> jouerSon("src/Audio/AideJeu.mp3");
+	            default -> {}
+	        }
+	    });
 
-			if(e.getCode() == KeyCode.S) {
-				sPressed.set(true);
-			}
+	    scene.setOnKeyReleased(e -> {
+	        KeyCode code = e.getCode();
 
-			if(e.getCode() == KeyCode.D) {
-				dPressed.set(true);
-			}
-			if(e.getCode() == KeyCode.A) {
-				OpenSpriteInformation();		
-			}
-			if(e.getCode() == KeyCode.I) {
-				OpenSpriteInventory();
-			}
-			if(e.getCode() == KeyCode.K) {
-				//Interaction avec les cochons
-				interactionCochonButton(null);
-			}
-			if(e.getCode() == KeyCode.R) {
-				//Interaction avec les potagers
-				interactionPotagerButton(null);
-			}
-			if(e.getCode() == KeyCode.L) {
-				//Interaction avec les vaches
-				interactionLaitButton(null);
-			}
-			if(e.getCode() == KeyCode.M) {
-				//Entrer dans la maison
-				close(); 
-				lancerXML("PageMaison.fxml", 1920, 1080);
-			}
-			if(e.getCode() == KeyCode.C) {
-				//Ouvrir le coffre
-				System.out.println("gg");
-				interactionCoffreButton(null);
-			}
-			if(e.getCode() == KeyCode.T) {
-				//intéraction avec le marchand
-				interactionMarchandButton(null);
-			}
-		});
-
-		scene.setOnKeyReleased(e ->{
-			if(e.getCode() == KeyCode.Z) {
-				wPressed.set(false);
-			}
-
-			if(e.getCode() == KeyCode.Q) {
-				aPressed.set(false);
-			}
-
-			if(e.getCode() == KeyCode.S) {
-				sPressed.set(false);
-			}
-
-			if(e.getCode() == KeyCode.D) {
-				dPressed.set(false);
-			}
-		});
+	        switch (code) {
+	            case Z -> wPressed.set(false);
+	            case Q -> aPressed.set(false);
+	            case S -> sPressed.set(false);
+	            case D -> dPressed.set(false);
+	            default -> {}
+	        }
+	    });
 	}
 
 	private static BooleanProperty wPressed = new SimpleBooleanProperty();
@@ -234,7 +201,7 @@ public class PageJouerController {
 		movementSetup();
 
 		keyPressed.addListener(((observableValue, aBoolean, t1) -> {
-			if(!aBoolean){
+			if(Boolean.FALSE.equals(aBoolean)){
 				timer.start();
 			} else {
 				timer.stop();
@@ -245,81 +212,55 @@ public class PageJouerController {
 	AnimationTimer timer = new AnimationTimer() {
 		@Override
 		public void handle(long timestamp) {
-			//Interaction avec le marchand
-			if (sprite.getLayoutX() <= 1328 && sprite.getLayoutX() >= 1222 && sprite.getLayoutY() <= 580 && sprite.getLayoutY() >= 370) {
-				BoutonInteraction.setVisible(true);
-			}else {
-				BoutonInteraction.setVisible(false);
-			}
-			//Interaction avec le potager
-			if ((sprite.getLayoutX() <= 960 && sprite.getLayoutX() >= 784 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 400) 
-					|| (sprite.getLayoutX() <= 978 && sprite.getLayoutX() >= 772 && sprite.getLayoutY() <= 862 && sprite.getLayoutY() >= 632)
-					|| (sprite.getLayoutX() <= 1234 && sprite.getLayoutX() >= 1040 && sprite.getLayoutY() <= 862 && sprite.getLayoutY() >= 674)
-					|| (sprite.getLayoutX() <= 1198 && sprite.getLayoutX() >= 1040 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 400)
-					) {
-				BoutonInteractionPotager.setVisible(true);
-			}else {
-				BoutonInteractionPotager.setVisible(false);
-			}
-			//Interaction avec les cochons
-			if (sprite.getLayoutX() <= 364 && sprite.getLayoutX() >= 196 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 380) {
-				BoutonInteractionCochon.setVisible(true);
-			}else {
-				BoutonInteractionCochon.setVisible(false);
-			}
-			//Interaction avec le coffre
-			if (sprite.getLayoutX() <= 1446 && sprite.getLayoutX() >= 1208 && sprite.getLayoutY() <= 242 && sprite.getLayoutY() >= 48) {
-				BoutonInteractionCoffre.setVisible(true);
-			}else {
-				BoutonInteractionCoffre.setVisible(false);
-			}
-			//Interaction avec les vaches
-			if (sprite.getLayoutX() <= 1668 && sprite.getLayoutX() >= 1512 && sprite.getLayoutY() <= 288 && sprite.getLayoutY() >= 0) {
-				BoutonInteractionVache.setVisible(true);
-			}else {
-				BoutonInteractionVache.setVisible(false);
-			}
-			if(wPressed.get()) {
-				if ((((sprite.getLayoutX() < 470 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1130 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144)) && ( -2 < sprite.getLayoutY())) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+			
+			boolean interactionMarchand = sprite.getLayoutX() <= 1328 && sprite.getLayoutX() >= 1222 && sprite.getLayoutY() <= 580 && sprite.getLayoutY() >= 370;
+	        boolean interactionPotager = (sprite.getLayoutX() <= 960 && sprite.getLayoutX() >= 784 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 400) 
+	                || (sprite.getLayoutX() <= 978 && sprite.getLayoutX() >= 772 && sprite.getLayoutY() <= 862 && sprite.getLayoutY() >= 632)
+	                || (sprite.getLayoutX() <= 1234 && sprite.getLayoutX() >= 1040 && sprite.getLayoutY() <= 862 && sprite.getLayoutY() >= 674)
+	                || (sprite.getLayoutX() <= 1198 && sprite.getLayoutX() >= 1040 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 400);
+	        boolean interactionCochon = sprite.getLayoutX() <= 364 && sprite.getLayoutX() >= 196 && sprite.getLayoutY() <= 576 && sprite.getLayoutY() >= 380;
+	        boolean interactionCoffre = sprite.getLayoutX() <= 1446 && sprite.getLayoutX() >= 1208 && sprite.getLayoutY() <= 242 && sprite.getLayoutY() >= 48;
+	        boolean interactionVache = sprite.getLayoutX() <= 1668 && sprite.getLayoutX() >= 1512 && sprite.getLayoutY() <= 288 && sprite.getLayoutY() >= 0;
+	        
+	        boutonInteraction.setVisible(interactionMarchand);
+	        boutonInteractionPotager.setVisible(interactionPotager);
+	        boutonInteractionCochon.setVisible(interactionCochon);
+	        boutonInteractionCoffre.setVisible(interactionCoffre);
+	        boutonInteractionVache.setVisible(interactionVache);
+	        
+			if(wPressed.get() &&  (((sprite.getLayoutX() < 470 && sprite.getLayoutY() <= 144 ) || (sprite.getLayoutX() > 1130 && sprite.getLayoutY() <= 144 ) || sprite.getLayoutY() > 144) && ( -2 < sprite.getLayoutY()))) {
 					sprite.setLayoutY(sprite.getLayoutY() - movementVariable);
 					if (sprite.getLayoutX() <= 904 && sprite.getLayoutX() >= 868 && sprite.getLayoutY() == 146) {
 						close(); 
 						lancerXML("PageMaison.fxml", 1920, 1080);
 					}
-				}
+				
 			}
 
-			if(sPressed.get()) {
-				if ( 926 > sprite.getLayoutY()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+			if(sPressed.get() &&  ( 926 > sprite.getLayoutY())) {
 					sprite.setLayoutY(sprite.getLayoutY() + movementVariable);
-				}
+				
 			}
 
-			if(aPressed.get()){
-				if (((sprite.getLayoutX() < 470 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && -12 < sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && -12 < sprite.getLayoutX()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+			if(aPressed.get() &&  (((sprite.getLayoutX() < 470 || 1138 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && -12 < sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && -12 < sprite.getLayoutX())) {
 					sprite.setLayoutX(sprite.getLayoutX() - movementVariable);
-				}
+				
 			}
 
-			if(dPressed.get()){
-				if (((sprite.getLayoutX() < 464 || 900 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX()) {
-					System.out.println(" X : " + sprite.getLayoutX() + " Y : " + sprite.getLayoutY());
+			if(dPressed.get() &&  (((sprite.getLayoutX() < 464 || 900 < sprite.getLayoutX()) && sprite.getLayoutY() < 144 && 1832 > sprite.getLayoutX() ) || sprite.getLayoutY() > 144 && 1832 > sprite.getLayoutX())) {
 					sprite.setLayoutX(sprite.getLayoutX() + movementVariable); 
-				}
+				
 			}
 		}
 	};
 
 	@FXML
-	void OpenSpriteInformation() {
+	void openSpriteInformation() {
 		lancerXML("PageInformationPersonnage.fxml", 930, 580);
 	}
 
 	@FXML
-	void OpenSpriteInventory() {
+	void openSpriteInventory() {
 		lancerXML("PageInventairePersonnage.fxml", 930, 580);
 	}
 

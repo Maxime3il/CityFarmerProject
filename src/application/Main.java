@@ -5,6 +5,7 @@ import java.io.File;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.media.Media;
@@ -25,9 +26,8 @@ public class Main extends Application {
 
             // Configurer la sc�ne
             primaryStage.setTitle("CityFarmer");
-            primaryStage.setOnCloseRequest(event -> {
-                event.consume();
-            });
+            primaryStage.setOnCloseRequest(this::handleCloseRequest);
+
             primaryStage.initStyle(StageStyle.UNDECORATED);
             primaryStage.setScene(scene);
             primaryStage.centerOnScreen();
@@ -38,20 +38,12 @@ public class Main extends Application {
         }
     }
 
+    private void handleCloseRequest(WindowEvent event) {
+        event.consume();
+    }
 
     public static void main(String[] args) {
         launch(args);
     }
     
-    @Override
-    public void init() throws Exception {
-        // TODO Auto-generated method stub
-        super.init();
-    }
-
-    @Override
-    public void stop() throws Exception {
-        // TODO Auto-generated method stub
-        super.stop();
-    }
 }

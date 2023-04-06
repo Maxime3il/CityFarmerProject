@@ -14,12 +14,14 @@ public class InventoryTest {
 	private Inventory inventory;
 	private Item item1;
 	private Item item2;
+	
+	private String itemElixir = "Elixir";
 
 	@Before
 	public void setUp() {
 		inventory = new Inventory();
 		item1 = new Item("Potion", 10, 5);
-		item2 = new Item("Elixir", 20, 10);
+		item2 = new Item(itemElixir, 20, 10);
 		inventory.addItem(item1);
 		inventory.addItem(item2);
 	}
@@ -48,7 +50,7 @@ public class InventoryTest {
 		Item item = inventory.contains("Potion");
 		assertNotNull(item);
 		assertEquals(item1, item);
-		item = inventory.contains("Elixir");
+		item = inventory.contains(itemElixir);
 		assertNotNull(item);
 		assertEquals(item2, item);
 		item = inventory.contains("Ether");
@@ -65,7 +67,7 @@ public class InventoryTest {
 	@Test
 	public void testAddItemByName() {
 		inventory.addItem("Pomme");
-		inventory.addItem("Elixir");
+		inventory.addItem(itemElixir);
 		inventory.addItem("Impossible");
 		List<Item> items = inventory.getItems();
 		//Si seulement 2 comme size alors le dernier ne s'est pas ajouté car introuvable

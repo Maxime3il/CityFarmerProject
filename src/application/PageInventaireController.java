@@ -7,8 +7,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import model.Inventory;
-import model.Item;
 
 public class PageInventaireController {
 

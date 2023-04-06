@@ -11,8 +11,7 @@ public class PageCoffre {
     private Button closeButton;
 
     @FXML
-    private Label TextFin;
-    
+    private Label textFin;
     
     @FXML
     void close() {

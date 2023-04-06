@@ -17,8 +17,8 @@
                   <Image url="@../Images/sprite1.png" />
                </image>
             </ImageView>
-            <Button fx:id="BoutonInteractionLit" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" onAction="#dormir" prefHeight="120.0" prefWidth="652.0" text="Dormir" />
-            <Button fx:id="buttonSprite" layoutX="40.0" layoutY="43.0" mnemonicParsing="false" onAction="#OpenSpriteInformation" prefHeight="64.0" prefWidth="72.0" text="!" />
+            <Button fx:id="boutonInteractionLit" layoutX="619.0" layoutY="920.0" mnemonicParsing="false" onAction="#dormir" prefHeight="120.0" prefWidth="652.0" text="Dormir" />
+            <Button fx:id="buttonSprite" layoutX="40.0" layoutY="43.0" mnemonicParsing="false" onAction="#openSpriteInformation" prefHeight="64.0" prefWidth="72.0" text="!" />
          </children></Pane>
    </center>
    
