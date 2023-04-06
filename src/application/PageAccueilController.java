@@ -26,17 +26,29 @@ import javafx.util.Duration;
 
 public class PageAccueilController implements Initializable {
 
+	// parametres
+	@FXML
+	private Button closeButton;
+	@FXML
+	private Button btnJouer;
+	@FXML
+	private Slider volumeSlider;
+	@FXML
+	private Button couperSonMusique;
+	@FXML
+	private Button btnActiverDesactiverSon;
 	@FXML
 	private BorderPane scene;
-
 	@FXML
 	private MediaView mediaView;
+	
 	private MediaPlayer mediaPlayer;
 	
 	private String mute = "muted";		
 	
+	private boolean firstFocus = false;
+	
 	private static final Logger logger = Logger.getLogger(PageAccueilController.class.getName());
-
 	
 	/*
      * Cette fonction permet de lancer une nouvelle fen�tre � partir d'un fichier FXML.
@@ -63,28 +75,16 @@ public class PageAccueilController implements Initializable {
 	private void handleCloseRequest(WindowEvent event) {
 	    event.consume();
 	}
-	
-	@FXML
-	private Button btnJouer;
 
 	/*
      * Cette fonction permet de rediriger l'utilisateur vers la page jouer.
      * @param event L'�v�nement d�clencheur.
      */
-	
 	@FXML
 	private void redirectJouer(ActionEvent evt) {
 		lancerXML("PagePersonnage.fxml");
 	}
 
-	@FXML
-	private Slider volumeSlider;
-
-	@FXML
-	private Button couperSonMusique;
-
-	@FXML
-	private Button btnActiverDesactiverSon;
 
 	private boolean jouerSonActif = true;
 
@@ -107,6 +107,83 @@ public class PageAccueilController implements Initializable {
 		MediaPlayerSingleton.getInstance().setMute(!jouerSonActif);
 	}
 
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+	    // on ecoute les touches du clavier et on réagit
+	    currenKeyBinding();
+	    // Si le son est actif, on lance le son d'audio description
+	    if(jouerSonActif) {
+	        jouerSon("src/Audio/lancementJeu.mp3");
+	    }
+	    // on gère la vidéo de fond
+	    initializeVideo();
+	    // on gere le focus des boutons
+	    initializeButtonFocus();
+	}
+
+	private void initializeVideo() {
+	    String path = new File("src/Video/TitleScreen.mp4").getAbsolutePath();
+	    Media media = new Media(new File(path).toURI().toString());
+	    mediaPlayer = new MediaPlayer(media);
+	    mediaView.setMediaPlayer(mediaPlayer);
+	    mediaView.setFitWidth(1920);
+	    mediaView.setFitHeight(1080);
+	    mediaPlayer.setVolume(0.1);
+	    volumeSlider.setMin(0);
+	    volumeSlider.setMax(1);
+	    volumeSlider.setValue(0.1);
+	    volumeSlider.valueProperty().addListener((observable, oldValue, newValue) ->
+	            mediaPlayer.setVolume(newValue.doubleValue())
+	    );
+	    mediaPlayer.setOnEndOfMedia(() ->
+	            mediaPlayer.seek(Duration.ZERO)
+	    );
+	    couperSonMusique.setOnAction(event -> {
+	        if (mediaPlayer.isMute()) {
+	            mediaPlayer.setMute(false);
+	            mediaPlayer.play();
+	            couperSonMusique.getStyleClass().remove(mute);
+	        } else {
+	            mediaPlayer.setMute(true);
+	            mediaPlayer.stop();
+	            couperSonMusique.getStyleClass().add(mute);
+	        }
+	    });
+	}
+
+	private void initializeButtonFocus() {
+	    couperSonMusique.focusedProperty().addListener((observable, oldValue, newValue) -> {
+	        if(Boolean.TRUE.equals(newValue)) {
+	            handleButtonFocus("src/Audio/boutonCouperMusique.mp3");
+	        }
+	    });
+
+	    closeButton.focusedProperty().addListener((observable, oldValue, newValue) -> {
+	        if(Boolean.TRUE.equals(newValue)) {
+	            handleButtonFocus("src/Audio/boutonQuitter.mp3");
+	        }
+	    });
+
+	    btnJouer.focusedProperty().addListener((observable, oldValue, newValue) -> {
+	        if(Boolean.TRUE.equals(newValue)) {
+	            handleButtonFocus("src/Audio/lancerJeu.mp3");
+	        }
+	    });
+
+	    btnActiverDesactiverSon.focusedProperty().addListener((observable, oldValue, newValue) -> {
+	        if(Boolean.TRUE.equals(newValue)) {
+	        	firstFocus = true;
+	            handleButtonFocus("src/Audio/boutonAccessibilite.mp3");
+	        }
+	    });
+	}
+
+	private void handleButtonFocus(String soundPath) {
+	    if(jouerSonActif && firstFocus) {
+	        jouerSon(soundPath);
+	    }
+	}
+	
 	/*
 	* Cette fonction joue un son � partir du chemin de fichier sp�cifi�.
 	* @param path Le chemin de fichier du son � jouer.
@@ -114,59 +191,7 @@ public class PageAccueilController implements Initializable {
 	private void jouerSon(String path) {
 		MediaPlayerSingleton.getInstance().jouerSon(path);
 	}
-
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		currenKeyBinding();
-		String path = new File("src/Video/TitleScreen.mp4").getAbsolutePath();
-		Media media = new Media(new File(path).toURI().toString());
-		mediaPlayer = new MediaPlayer(media);
-		mediaView.setMediaPlayer(mediaPlayer);
-		mediaView.setFitWidth(1920);
-		mediaView.setFitHeight(1080);
-		mediaPlayer.setVolume(0.1);
-		volumeSlider.setMin(0);
-		volumeSlider.setMax(1);
-		volumeSlider.setValue(0.1);
-		volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> 
-			mediaPlayer.setVolume(newValue.doubleValue())
-		);
-		mediaPlayer.setOnEndOfMedia(() -> 
-			mediaPlayer.seek(Duration.ZERO)
-		);
-		couperSonMusique.setOnAction(event -> {
-			if (mediaPlayer.isMute()) {
-				mediaPlayer.setMute(false);
-				mediaPlayer.play();
-				couperSonMusique.getStyleClass().remove(mute);
-			} else {
-				mediaPlayer.setMute(true);
-				mediaPlayer.stop();
-				couperSonMusique.getStyleClass().add(mute);
-			}
-		});
-		mediaPlayer.setAutoPlay(true);
-		btnJouer.setOnKeyPressed(event -> {
-			if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-				jouerSon("src/Audio/lancerJeu.mp3");
-			}
-		});
-
-		couperSonMusique.setOnKeyPressed(event -> {
-			if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-				jouerSon("src/Audio/boutonCouperMusique.mp3");
-			}
-		});
-
-		closeButton.setOnKeyPressed(event -> {
-			if (jouerSonActif && event.getCode() == KeyCode.TAB) {
-				jouerSon("src/Audio/boutonQuitter.mp3");
-			}
-		});
-	}
 	
-	@FXML
-	private Button closeButton;
 	@FXML
 	void close() {
 		Stage stage = (Stage) closeButton.getScene().getWindow();
@@ -190,6 +215,9 @@ public class PageAccueilController implements Initializable {
 			}
 			if (e.getCode() == KeyCode.O) {
 				mediaPlayer.setMute(false);
+			}
+			if (e.getCode() == KeyCode.A) {
+				// a completer
 			}
 		});
 	}
